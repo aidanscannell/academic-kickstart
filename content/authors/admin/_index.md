@@ -1,6 +1,6 @@
 ---
 # Display name
-name: Nelson Bighetti
+name: Aidan Scannell
 
 # Username (this should match the folder name)
 authors:
@@ -10,32 +10,36 @@ authors:
 superuser: true
 
 # Role/position
-role: Professor of Artificial Intelligence
+role: PhD Researcher in Robotics and Autonomous Systems
 
 # Organizations/Affiliations
 organizations:
-- name: Stanford University
-  url: ""
+- name: Bristol Robotics Laboratory
+  url: "https://www.bristolroboticslab.com/"
+- name: University of Bristol
+  url: "http://www.bristol.ac.uk/homepage/"
+- name: University of the West of England
+  url: "https://www.uwe.ac.uk/"
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include distributed robotics, mobile computing and programmable matter.
+bio: My research interests include probabilistic dynamics models, gaussian processes, variational inference, reinforcement learning and robust control.
 
 interests:
-- Artificial Intelligence
-- Computational Linguistics
-- Information Retrieval
+  - Probabilistic Dynamics Models
+  - Gaussian Processes
+  - Variational Inference
+  - Model-Based Reinforcement Learning
+  - Robust Control
 
 education:
   courses:
-  - course: PhD in Artificial Intelligence
-    institution: Stanford University
-    year: 2012
-  - course: MEng in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
-    year: 2009
-  - course: BSc in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
-    year: 2008
+  - course: PhD in Robotics and Autonomous Systems
+    institution: University of Bristol
+    year: 2021
+  - course: MEng Mechanical Engineering
+    institution: University of Bristol
+    year: 2016
+
 
 # Social/Academic Networking
 # For available icons, see: https://sourcethemes.com/academic/docs/page-builder/#icons
@@ -44,32 +48,37 @@ education:
 social:
 - icon: envelope
   icon_pack: fas
-  link: '#contact'  # For a direct email link, use "mailto:test@example.org".
-- icon: twitter
-  icon_pack: fab
-  link: https://twitter.com/GeorgeCushen
-- icon: google-scholar
-  icon_pack: ai
-  link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
+  link: '#contact'  # For a direct email link, use "scannell.aidan@gmail.com".
+# - icon: google-scholar
+#  icon_pack: ai
+#  link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
 - icon: github
   icon_pack: fab
-  link: https://github.com/gcushen
+  link: https://github.com/aidanscannell
+- icon: linkedin
+  icon_pack: fab
+  link: https://www.linkedin.com/in/aidan-scannell-82522789/
+
 # Link to a PDF of your resume/CV from the About widget.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
-# - icon: cv
-#   icon_pack: ai
-#   link: files/cv.pdf
+- icon: cv
+  icon_pack: ai
+  link: https://aidanscannell.github.io/
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
-email: ""
+email: "scannell.aidan@gmail.com"
 
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
-user_groups:
-- Researchers
-- Visitors
+# user_groups:
+# - Researchers
+# - Visitors
 ---
 
-Nelson Bighetti is a professor of artificial intelligence at the Stanford AI Lab. His research interests include distributed robotics, mobile computing and programmable matter. He leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
+My name is Aidan Scannell and I am a PhD researcher at the Bristol Robotics Laboratory under the supervision of Professor Arthur Richards and Dr Carl Henrik Ek. Whilst completing my degree I developed a keen interest in mathematics, programming and robotics and became fascinated by how they form a common connection between humans and the surrounding world. 
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.
+My research is focused on data-efficient learning for control of robotic systems (currently Micro Air Vehicles MAVs).
+I am particularly interested in probabilistic modelling, Gaussian processes, variational inference, model-based reinforcement 
+learning and methods for encoding expert domain knowledge into such models.
+
+
