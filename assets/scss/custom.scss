@@ -1,14 +1,6 @@
 /*
 Fonts
  */
-/*@font-face {*/
-  /*font-family: headerFont;*/
-  /*src: url("/fonts/UniversLTStd-LightObl.otf"); }*/
-
-/*@font-face {*/
-  /*font-family: headerFont2;*/
-  /*src: url("/fonts/UniversLTStd-Light.otf"); }*/
-
 @font-face {
   font-family: "Univers LT Std";
   src: url('/fonts/UniversLTStd-Light.otf');
@@ -37,17 +29,6 @@ body {
   font-weight: 400;
   font-style: normal;
 }
-
-/* /\*a {*\/ */
-/*   /\*text-decoration: none;*\/ */
-/* /\*@include transition (all, .4s, ease-in-out);*\/ */
-/*   /\*cursor: pointer;*\/ */
-
-/* /\*&:hover {*\/ */
-/*    /\*color: #ff1755;*\/ */
-/*  /\*@include transition (all, .4s, ease-in-out);*\/ */
-/*  /\*}*\/ */
-/* /\*}*\/ */
 
 
 /*
@@ -91,37 +72,3 @@ body {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
-
-/* a:link { */
-/*   color: #2962ff; */
-/*   /\* color: #dba919; *\/ */
-/*   /\* background-color: yellow; *\/ */
-/* } */
-
-/* /\* a:visited { *\/ */
-/*   /\* color: red; *\/ */
-/*   /\* color: #6f6f6f; /\\* IE8 proofing *\\/ *\/ */
-/*   /\* color: #2962ff; *\/ */
-/*   /\* background-color: cyan; *\/ */
-/* /\* } *\/ */
-
-/* /\* a:hover { *\/ */
-/* /\*   color: #2962ff; *\/ */
-/* /\*   /\\* background-color: lightgreen; *\\/ *\/ */
-/* /\* } *\/ */
-
-/* /\* a:active { *\/ */
-/* /\*   color: #2962ff; *\/ */
-/* /\*   /\\* background-color: hotpink; *\\/ *\/ */
-/* /\* } *\/ */
-
-/* /\* a:link { *\/ */
-/*   /\* color: #2962ff; *\/ */
-/* /\* } *\/ */
-/* /\*a:visited {*\/ */
-/*   /\*color: red;*\/ */
-/* /\*}*\/ */
-
-/* /\*.project-filters > li, a {*\/ */
-/*   /\*color: #4b4f56;*\/ */
-/* /\*}*\/ */
