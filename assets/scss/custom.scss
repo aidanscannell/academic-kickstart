@@ -1,0 +1,128 @@
+
+/*
+Fonts
+ */
+/*@font-face {*/
+  /*font-family: headerFont;*/
+  /*src: url("/fonts/UniversLTStd-LightObl.otf"); }*/
+
+/*@font-face {*/
+  /*font-family: headerFont2;*/
+  /*src: url("/fonts/UniversLTStd-Light.otf"); }*/
+
+@font-face {
+  font-family: "Univers LT Std";
+  src: url('/fonts/UniversLTStd-Light.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Univers LT Std";
+  src: url('/fonts/UniversLTStd-LightObl.otf"');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Univers LT Std Obl";
+  src: url('/fonts/UniversLTStd-LightObl.otf"');
+}
+
+
+
+body {
+  font-family: Univers LT Std, sans-serif;
+  font-size: 18px;
+  color: #010000;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/*a {*/
+  /*text-decoration: none;*/
+/*@include transition (all, .4s, ease-in-out);*/
+  /*cursor: pointer;*/
+
+/*&:hover {*/
+   /*color: #ff1755;*/
+ /*@include transition (all, .4s, ease-in-out);*/
+ /*}*/
+/*}*/
+
+
+/*
+ * Header
+ */
+.navbar-nav > li > a {
+  padding-right: 10px;
+  padding-left: 10px;
+  font-family: Univers LT Std, sans-serif;
+  font-size: 14px;
+  color: #6f6f6f; /* IE8 proofing */
+  /*color: rgb(111, 111, 111);*/
+  border-bottom: 2px solid transparent;
+}
+.navbar-nav > li > a:hover,
+.navbar-nav > li > a:focus {
+  background-color: transparent;
+  border-bottom-color: #a9a9a9;
+}
+.navbar { margin-bottom: 0 }
+
+/*
+ * Hero Image
+ */
+.wg-hero {
+  height: 100vh;
+}
+
+.hero-title {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.hero-lead {
+  margin: 0;
+  position: absolute;
+  top: 60%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+a:link {
+  color: #2962ff;
+  /* color: #dba919; */
+  /* background-color: yellow; */
+}
+
+/* a:visited { */
+  /* color: red; */
+  /* color: #6f6f6f; /\* IE8 proofing *\/ */
+  /* color: #2962ff; */
+  /* background-color: cyan; */
+/* } */
+
+/* a:hover { */
+/*   color: #2962ff; */
+/*   /\* background-color: lightgreen; *\/ */
+/* } */
+
+/* a:active { */
+/*   color: #2962ff; */
+/*   /\* background-color: hotpink; *\/ */
+/* } */
+
+/* a:link { */
+  /* color: #2962ff; */
+/* } */
+/*a:visited {*/
+  /*color: red;*/
+/*}*/
+
+/*.project-filters > li, a {*/
+  /*color: #4b4f56;*/
+/*}*/
