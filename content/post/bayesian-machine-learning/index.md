@@ -2,7 +2,7 @@
 title = "Bayesian Machine Learning"
 author = ["Aidan Scannell"]
 date = 2020-01-12T20:01:00+00:00
-tags = ["machine-learning", "bayesian-infernce", "probabilistic-modelling"]
+tags = ["machine-learning", "bayesian-inference", "probabilistic-modelling"]
 draft = false
 +++
 
