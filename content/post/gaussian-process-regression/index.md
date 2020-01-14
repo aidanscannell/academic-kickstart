@@ -80,7 +80,7 @@ $$f(\mathbf{x}) \sim \mathcal{GP}(m(\mathbf{x}), k(\mathbf{x}, \mathbf{x}')).$$
 
 <!-- Lets assume that we have observed some inputs $\mathbf{X}$ and targets $\mathbf{Y}$ and collected them into a data set $\mathcal{D} = \\{\mathbf{X}, \mathbf{Y}\\}$. In regression we seek to learn the mapping $f$ from our observed data. We do this by constructing a model of the mapping that contains parameters (or hyper-parameters in the non-parametric case) $\mathbf{\Theta}$ that we want to learn from our data. As we wish to take uncertainty into account we are interested in obtaining the posterior over these parameters (representing the mapping) given the observations $p(\mathbf{\Theta}|\mathcal{D})$. -->
 
-In Bayesian machine learning we seek to update our prior belif in our model parameters (our prior distribution $p(\mathbf{\Theta})$) when we observe data $\mathcal{D} = \\{ (\mathbf{x}\_n, \mathbf{y}\_n) \\}_{n=1}^N$. 
+In Bayesian machine learning we often seek to update our prior belif in our model parameters (our prior distribution $p(\mathbf{\Theta})$) when we observe data $\mathcal{D} = \\{ (\mathbf{x}\_n, \mathbf{y}\_n) \\}_{n=1}^N$. 
 Bayesian inference derives the posterior probability $p(\mathbf{\Theta}|\mathcal{D})$ from the prior probability $p(\mathbf{\Theta})$ and the likelihood function $p(\mathcal{D}|\mathbf{\Theta})$ (a statistical model for the observed data) using Bayes rule,
 
 $$p(\mathbf{\Theta}|\mathcal{D}) = \frac{p(\mathcal{D}|\mathbf{\Theta})p(\mathbf{\Theta})}{p(\mathcal{D})},$$
@@ -89,11 +89,11 @@ where $p(\mathcal{D})$ is known as the marginal likelihood (or evidence).
 In the Bayesian regression setting we are seeking to make predictions $p(\mathbf{y}\_\*|\mathbf{x}\_\*, \mathcal{D})$. 
 That is, not only do we want the value of $\mathbf{y}_{*}$ corresponding to a previously unseen input but we also want to know how certain we are in our predicition.
 We have captured some uncertainty in our distribution over our parameters $p(\Theta | \mathcal{D})$ so we would like to incorporate this into our prediciton.
-This is achieved by marginalising over the posterior distribution of the parameters as follows,
+This is achieved by formulating the joint distribution and marginalising out the model parameters $\mathbf{\Theta}$ as follows,
 $$
-  p(\mathbf{y}\_\*|\mathbf{x}\_\*, \mathcal{D})) = \int p(\mathbf{y}\_\*|\mathbf{x}\_\*, \Theta, \mathcal{D}) p(\Theta | \mathcal{D}) \text{d} \Theta,
+  p(\mathbf{y}\_\*|\mathbf{x}\_\*, \mathcal{D}) = \int p(\mathbf{y}\_\*, \mathbf{\Theta}|\mathbf{x}\_\*, \mathcal{D}) \text{d}\mathbf{\Theta} = \int p(\mathbf{y}\_\*|\mathbf{x}\_\*, \mathbf{\Theta}, \mathcal{D}) p(\mathbf{\Theta} | \mathcal{D}) \text{d} \mathbf{\Theta},
 $$
-to get our predictive distribution $p(\mathbf{y}\_\*|\mathbf{x}\_\*, \mathcal{D}))$.
+to get our predictive distribution $p(\mathbf{y}\_\*|\mathbf{x}\_\*, \mathcal{D})$.
 It is worth noting here that the posterior $p(\Theta | \mathcal{D})$ is not always analytically tractable due to the integral,
 
 $$p(\mathcal{D}) = \int p(\mathcal{D}|\mathbf{\Theta})p(\mathbf{\Theta}) d\mathbf{\Theta},$$
@@ -123,14 +123,14 @@ $$p(\mathbf{Y}, f | \mathbf{X}, \mathbf{\theta}) = p(\mathbf{Y} | f) p(f | \math
 
 Our model now contains the variable $f$ which we are not particularly intereseted in. We have chosen to model the relationship between $\mathbf{Y}$ and $\mathbf{f}$ and also between $\mathbf{f}$ and $\mathbf{X}$ even though we are really interested in the relationship between $\mathbf{Y}$ and $\mathbf{X}$. This is because it enables us to model the uncertainty in each of these steps, more specifically, the uncertainty in our beliefs of the functions and the uncertainty in how our model $\mathbf{f}$ generated the data $\mathbf{Y}$.
 
-Gaussian process are non-parametric models so the intuition for how we learn from data (update our model parameters) is slightly different.
+Gaussian processes are non-parametric models so the intuition for how we learn from data (update our model parameters) is slightly different.
 Our prior distribution is over the mapping $f$ and not any parametrs directly.
-The mapping $f$ is dependant on the kernels hyper-parameters $\mathbf{\theta}$ and it is these "hyper-parameters" that we would like to infer from data.
+The mapping $f$ is dependant of the kernels hyper-parameters $\mathbf{\theta}$ and it is these "hyper-parameters" that we would like to infer from data.
 So how do we do this?
 If we were strict Bayesians then we would place priors on our hyper-parameters,
 $$p(\mathbf{Y}, f, \mathbf{\theta} | \mathbf{X}) = p(\mathbf{Y} | f) p(f | \mathbf{X}, \mathbf{\theta}) p(\theta),$$
 and perform full Bayesian inference and model selection, however, this is often infeasible.
-MacKay introduced the evidence framework which approximates Bayesian averaging by optimizing the marginal likelihood.
+David MacKay introduced the evidence framework which approximates Bayesian averaging by optimizing the marginal likelihood.
 What this means is that we can utilise the marginal likelihood (denominator of Bayes rule) as an objective function for optimisation.
 Lets give this some intuition.
 Lets take our joint distribution,
