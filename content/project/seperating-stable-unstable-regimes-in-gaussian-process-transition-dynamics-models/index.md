@@ -77,16 +77,16 @@ For notational conciseness we will denote an individual input $(\mathbf{s}\_{t-1
 Our proposed model assumes that $K=2$ latent functions $\mathbf{f}=\\{f_1, f_2 \\}$ generates $N$ pairs of observations with Gaussian noise added from one of the two modes, resulting in the data set $\mathcal{D} = \\{(\mathbf{x}\_n, \mathbf{y}\_n)\\}\_{n=1}^N$. 
 The assignment of the $n^{\text{th}}$ data point is specified by the variable $\alpha_n \in \\{0, 1 \\}$. 
 The model assumes that an implicit Riemannian manifold $h$ parameterised as a Gaussian processs separates the two regimes. 
-The output of $h$ determines the assignment $\alpha_n$ by passing its output through the probit function. The figure below shows the graphical model of the generative process.
+The output of $h$ determines the assignment $\alpha\_n$ by passing its output through the probit function. The figure below shows the graphical model of the generative process.
 
 ![alt text](./featured.png  "Graphical model of our generative model.")
 
 We denote all of the $N$ inputs $\mathbf{X} = \[\mathbf{x}\_1, ..., \mathbf{x}\_N\]$, all of the targets $\mathbf{Y} = [\mathbf{y}\_1, ..., \mathbf{y}\_N]$ and all of the assignments $\pmb{\alpha} = \\{ \alpha\_1, ..., \alpha\_N \\}$. 
-The value of the $k^{th}$ latent function $f_k$ associated with the $n^{\text{th}}$ input is denoted as $\mathbf{f}^{(k)}\_n = f_k(\mathbf{x}\_n)$ and collected into $\mathbf{f}^{(k)} = \\{ \mathbf{f}^{(k)}\_1,...,\mathbf{f}^{(k)}\_N \\}$ for all data points.
+The value of the $k^{th}$ latent function $f\_k$ associated with the $n^{\text{th}}$ input is denoted as $\mathbf{f}^{(k)}\_n = f_k(\mathbf{x}\_n)$ and collected into $\mathbf{f}^{(k)} = \\{ \mathbf{f}^{(k)}\_1,...,\mathbf{f}^{(k)}\_N \\}$ for all data points.
 We then collect the latent functions as $\mathbf{F} = [ \mathbf{f}^{(1)}, \mathbf{f}^{(2)} ]$.
 Similarly for the latent function $h$ the values $\mathbf{h}\_n = h(\mathbf{x}\_n)$ are collected as $\mathbf{h} = \\{ \mathbf{h}\_1,...,\mathbf{h}\_N \\}$. The likelihood of our model takes the form,
 \begin{equation}
-	p(\mathbf{Y} | \mathbf{F}, \pmb{\alpha}) = {\displaystyle \prod_{n=1}^{N}} \mathcal{N}	(\mathbf{y}_n| \mathbf{f}^{(1)}\_n, \epsilon_1)^{\alpha_n} \mathcal{N}	(\mathbf{y}_n| \mathbf{f}^{(2)}\_n, \epsilon_2)^{1 - \alpha_n},
+	p(\mathbf{Y} | \mathbf{F}, \pmb{\alpha}) = {\displaystyle \prod\_{n=1}^{N}} \mathcal{N}	(\mathbf{y}\_n| \mathbf{f}^{(1)}\_n, \epsilon\_1)^{\alpha\_n} \mathcal{N}	(\mathbf{y}\_n| \mathbf{f}^{(2)}\_n, \epsilon\_2)^{1 - \alpha_n},
 \end{equation}
 and we place GP priors on the latent functions $\mathbf{F}$,
 \begin{equation}
@@ -94,11 +94,11 @@ and we place GP priors on the latent functions $\mathbf{F}$,
 \end{equation}
 where $k^{(k)}(\cdot, \cdot)$ represents the squared exponential kernel with automatic relevance determination.
 
-We assume that there is a relationship between our assignments $\alpha_n$ and the input space $\mathbf{x}$ such that we can separate the assignments according to an implicit Riemannian manifold. Placing a GP prior on this manifold means that we can encode our prior knowledge of the associations by the choice of mean function. Our prior on the manifold takes the form,
+We assume that there is a relationship between our assignments $\alpha\_n$ and the input space $\mathbf{x}$ such that we can separate the assignments according to an implicit Riemannian manifold. Placing a GP prior on this manifold means that we can encode our prior knowledge of the associations by the choice of mean function. Our prior on the manifold takes the form,
 \begin{equation}
-	p(h | \mathbf{X}) \sim \mathcal{N}(h | \mu_h(\mathbf{X}), k_h(\mathbf{X}, \mathbf{X}))
+	p(h | \mathbf{X}) \sim \mathcal{N}(h | \mu\_h(\mathbf{X}), k\_h(\mathbf{X}, \mathbf{X}))
 \end{equation}
-where $\mu_h(\cdot)$ represents the manifolds mean function and $k_h(\cdot, \cdot)$ represents the manifolds covariance function.
+where $\mu\_h(\cdot)$ represents the manifolds mean function and $k\_h(\cdot, \cdot)$ represents the manifolds covariance function.
 <!-- The output from the GP modelling the separation manifold needs to be constrained $\alpha_n \in [0, 1]$ and thus we define, -->
 <!-- \begin{equation} -->
 <!-- 	p(\pmb{\alpha} | h) = \text{probit}(h). -->
