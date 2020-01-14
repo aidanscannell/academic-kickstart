@@ -75,10 +75,12 @@ email: "scannell.aidan@gmail.com"
 # - Visitors
 ---
 
-My name is Aidan Scannell and I am a PhD researcher at the Bristol Robotics Laboratory under the supervision of Professor Arthur Richards and Dr Carl Henrik Ek. Whilst completing my degree I developed a keen interest in mathematics, programming and robotics and became fascinated by how they form a common connection between humans and the surrounding world. 
+My name is Aidan Scannell and I am a PhD researcher at the *University of Bristol* and the *Bristol Robotics Laboratory* under the supervision of Professor Arthur Richards and Dr Carl Henrik Ek. Whilst completing my degree I developed a keen interest in mathematics, programming and robotics and became fascinated by how they form a common connection between humans and the surrounding world. 
 
-My research is focused on data-efficient learning for control of robotic systems (currently Micro Air Vehicles MAVs).
-I am particularly interested in probabilistic modelling, Gaussian processes, variational inference, model-based reinforcement 
-learning and methods for encoding expert domain knowledge into such models.
+My research is focused on data-efficient machine learning for the control of robotic systems.
+I am particularly interested in uncertainty quantification in model-based reinforcement learning and as a result a lot of my work focuses on Bayesian non-parametric methods, specifically Gaussian processes and variational inference.
+<!-- My research is focused on data-efficient learning for control of robotic systems (currently Micro Air Vehicles MAVs). -->
+<!-- I am particularly interested in probabilistic modelling, Gaussian processes, variational inference, model-based reinforcement  -->
+<!-- learning and methods for encoding expert domain knowledge into such models. -->
 
 
