@@ -1,0 +1,4 @@
+* TODO should $p(\mathbf{h} | \mathbf{u}\_h, \mathbf{X}, \mathbf{Z}\_h)$ be dependent on Z??
+
+ <2020-01-14 Tue>
+ [[file:~/Developer/web-projects/academic-aidanscannell/content/project/seperating-stable-unstable-regimes-in-gaussian-process-transition-dynamics-models/index.md::TODO%20should%20$p(\mathbf{h}%20|%20\mathbf{u}\_h,%20\mathbf{X},%20\mathbf{Z}\_h)$%20be%20dependent%20on%20Z??]]
