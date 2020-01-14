@@ -2,6 +2,7 @@
 title = "Gaussian Process Regression"
 subtitle = ""
 markup = "blackfriday"
+
 # Add a summary to display on homepage (optional).
 summary = "This post introduces the theory underpinning Gaussian process regression and provides a basic walk-through in python. "
 
@@ -32,7 +33,7 @@ projects = ["probabilistic-modelling"]
 # To use, add an image named `featured.jpg/png` to your page's folder. 
 [image]
   # Caption (optional)
-  caption = "Noise free Gaussian process regression"
+  caption = ""
 
   # Focal point (optional)
   # Options: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight
