@@ -1,7 +1,7 @@
 +++
 title = "Gaussian Process Regression"
 subtitle = ""
-
+markup: blackfriday
 # Add a summary to display on homepage (optional).
 summary = "This post introduces the theory underpinning Gaussian process regression and provides a basic walk-through in python. "
 
