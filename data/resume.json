@@ -34,12 +34,12 @@
       "website": "",
       "startDate": "2018-09-30",
       "endDate": "",
-      "summary": "Alongside my PhD studies I am a teaching assistant for the following courses:",
+      "summary": "Alongside my PhD studies I am a teaching assistant for 1) [Machine Learning COMS30007](https://bit.ly/2C6UbKp), 2) [Robotic Systems COMSM0012](https://bit.ly/2LV7rpZ) and previosuly 3) [Intelligent Software Systems EMATM0042](https://bit.ly/2Rn2mwx).",
       "highlights": [
-        "[Machine Learning COMS30007](https://bit.ly/2C6UbKp)",
-        "[Robotic Systems COMSM0012](https://bit.ly/2LV7rpZ)",
-        "[Intelligent Software Systems EMATM0042](https://bit.ly/2Rn2mwx)"
-      ]
+        "I attempt to help students understand both the mathematics and the intuition for how we construct ML models and perform inference.",
+        "This role has definitely made me a believer that \"you never really learn something until you teach it\".",
+        "I must say that teaching has not only honed my ability to communicate my unerstanding of a concept but it has also prompted me to think about the many other ways a concept can be understood and thus explained."
+        ]
     },
     {
       "company": "Bristol Robotics Laboratory - University of Bristol",
