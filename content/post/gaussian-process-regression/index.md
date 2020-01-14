@@ -5,7 +5,7 @@ subtitle = ""
 # Add a summary to display on homepage (optional).
 summary = "This post introduces the theory underpinning Gaussian process regression and provides a basic walk-through in python. "
 
-date = 2019-05-22T11:49:59+01:00
+date = 2019-10-01
 draft = false
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.

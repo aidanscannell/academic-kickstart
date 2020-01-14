@@ -5,7 +5,7 @@ subtitle = ""
 # Add a summary to display on homepage (optional).
 summary = ""
 
-date = 2020-01-01T14:50:37Z
+date = 2020-01-01
 draft = false
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
