@@ -1,7 +1,7 @@
 +++
 title = "How RSI Made Me a Better Developer"
 subtitle = ""
-markup: blackfriday
+markup = "blackfriday"
 
 # Add a summary to display on homepage (optional).
 summary = ""
