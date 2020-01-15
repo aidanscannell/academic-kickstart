@@ -1,21 +1,25 @@
 +++
 title = "Bayesian Machine Learning"
 author = ["Aidan Scannell"]
-date = 2020-01-12T20:01:00+00:00
 tags = ["machine-learning", "bayesian-inference", "probabilistic-modelling"]
-draft = false
+draft = true
+markup = "blackfriday"
 +++
 
 In this post I want to introduce the main concepts in Bayesian machine learning.
-I could have also called this post "Bayesian Inference" or "Probabilistic Modelling and Approximate Inference" as the terms seem to be used interchangeably.
-Anyway, it took me a while to understand some of the concepts in Bayesian ML and how they link together, so I am hoping that this post explains the key concepts and links them together in an easy to understand way.
+It took me a while to understand some of the concepts in Bayesian ML and how they link together, so I am hoping that this post explains the key concepts and links them together in an easy to understand way.
 I've decided to walk through what I believe are the main concepts and I introduce simple examples to help explain some of the concepts.
-Bayesian inference plays a key role in my research so I really hope that I have picked up some useful intuitions that can help others in their pursuit of Bayesian mastery.
+Bayesian inference plays a key role in my research so I really hope that I have picked up some useful intuitions that can help others in their pursuit of becoming a Bayesian master.
 
 Lets start from the beginning and give a definition for machine learning.
 We can view machine learning as the science of learning models from data.
 This is achieved by defining a space of models and then learning the parameters and the structure of the models from data.
 We can then use our learned model to make predictions and decisions.
+
+{{% toc %}}
+
+
+## Uncertainty in Machine Learning {#uncertainty-in-machine-learning}
 
 Uncertainty is fundamental in the field of machine learning and arises from working with incomplete or imperfect information.
 In machine learning we often want to learn predictive models that map inputs to an output, a continuous variable in regression or a discrete class label in classification.
@@ -25,7 +29,7 @@ gives a great introduction to uncertainty in machine learning and I would encour
 Here's a quick overview of the main sources of uncertianty.
 
 
-## Noise in Data (Aleatoric Uncertainty) {#noise-in-data--aleatoric-uncertainty}
+### Noise in Data (Aleatoric Uncertainty) {#noise-in-data--aleatoric-uncertainty}
 
 This type of uncertainty refers to variability in the observations.
 It can arise from the data having natural variations or from the measurement process intorducing variations/noise.
@@ -33,7 +37,7 @@ The figure below shows a dataset with regions of low and high noise.
 ![](images/dataset.png)
 
 
-## Incomplete Coverage of the Domain (Epistemic Uncertainty) {#incomplete-coverage-of-the-domain--epistemic-uncertainty}
+### Incomplete Coverage of the Domain (Epistemic Uncertainty) {#incomplete-coverage-of-the-domain--epistemic-uncertainty}
 
 Observations used to train a model are just samples from the true distribution and thus are incomplete.
 The figure below shows a set of functions fit to some observations (training data).
@@ -43,7 +47,7 @@ This is known as epistemic uncertainty and in the limit of infinte data it is co
 {{< figure src="images/limited_data2.png" >}}
 
 
-## Imperfect Models {#imperfect-models}
+### Imperfect Models {#imperfect-models}
 
 In machine learning we specify a class of models that we use to represent observations from a system.
 We have to use our knowledge of the system to specify this restricted set of models and the mismatch between these and all possible models introduces uncertainty.
@@ -52,7 +56,7 @@ The figure below shows a crude example where we have restricted the model class 
 ![](images/imperfect_models.png)
 
 
-## Uncertainty in Machine Learning {#uncertainty-in-machine-learning}
+### Why Do We Care About Uncertainty {#why-do-we-care-about-uncertainty}
 
 Uncertainty is present in all machine learning models (and also inference) but only some techniques provide a principled way to model it.
 For example, imagine we have a neural network with uncertainty from incomplete coverage of the domain.
@@ -65,7 +69,7 @@ The figure below shows a function fit to such a dataset; this is representative 
 ![](images/deterministic_function.png)
 If we want to make predictions (at locations shown by the black lines) then our learned function will return the corresponding point predictions.
 Great, we did some machine learning and made some predictions!
-Now, which prediction is the model more certain about?
+Which prediction is the model more certain about?
 Probably the one closest to the middle data point.
 Many ML models do not have the capability to provide a notion of uncerainty in their predictions.
 Should we then, be trusting these models in safety critical or high risk applications?
@@ -80,7 +84,7 @@ The figure below illustrates this.
 It also shows the notion of probabilistic predictions, that is, returning a probability distribution over the predicted output, as opposed to a point prediction (like the previous example).
 In this example each prediction is represented by a Gaussian (normal) distribution.
 This distribution is goverend by two parameters; mean \\(\mu\\) and variance \\(\sigma\\) (or standard deviation \\(\sigma^2\\)).
-Their effect on the probability density function is illustrated below.
+The Gaussian (normal) distributions' probability density function is illustrated below.
 
 {{< figure src="images/normal\_dist.png" title="[source Wikipedia](![](https://en.wikipedia.org/wiki/Normal%5Fdistribution#/media/File:Normal%5FDistribution%5FPDF.svg))" lightbox="true" >}}
       ![](images/normal_dist.png)
@@ -89,15 +93,14 @@ Now that we can see how the parameters govern the distribution, lets return to o
 The mean corresponds to the point prediction achieved in the deterministic example i.e. what would be output by a neural network.
 We now also have the variance of the Gaussian distribution which provides us with a notion of uncertainty; lower variances correspond to being more certain.
 This extra value is extrememly useful, it can be used for decision making, intelligent data collection and much much more.
-In settings like helthcare we now know if we can trust our model or if we should ask a human expert.
 
-> I wanted to mention this example to justify why we may want probabilistic predictions from our models.
+> I mentioned this example to justify why we may want to model uncertainty in our ML models.
   This example is noise free Gaussian process regression and if you are interested in how we can do this in neural networks check out the field of Bayesian neural networks.
+  It is worth noting here that this is only one type of superviesed learning (regression) and in other settings we do not necessarily care about probabilistic predicitions (but we do care about modelling uncertainty).
+  For example, we can treat unsupervised learning (e.g. clustering, dimensionality reduction) and reinforcement learning (check out [PILCO](<http://mlg.eng.cam.ac.uk/pilco/>)) probabilisticly so that we can model our uncerainty.
 
-We've spoken about what uncertainties we would like to model and how probabilistic predicitons provide information regarding how certain we are.
-How then, do we construct models capable of handling these uncertainties and providing probabilistic predictions?
-
-Probability theory is a filed of mathematics designed to handle and harness uncertainty.
+We've spoken about what uncertainties we would like to model but how do we construct models capable of handling these uncertainties?
+Probability theory is a field of mathematics designed to handle and harness uncertainty.
 In probabilistic modelling the model describes data that can be observed from the system.
 If we use probability theory to express all forms of uncertainty in our model, then we can use Baye's rule to infer unknown quantities, adapt our models, make predictions and learn from data.
 Bayesian inference provides a principled framework for modelling uncertainty through the use of probability theory.
@@ -119,12 +122,15 @@ P(hypothesis | data)=\frac{P(data |hypothesis) P(hypothesis)}{P(data)}.
 Mathematical definitions can often be hard to understand without an example so we will get stuck into an example from a ML point of view.
 
 
-## The Model {#the-model}
+## A Bayesian Coin Toss {#a-bayesian-coin-toss}
 
 Lets assume that we have observed a system with a binary outcome (e.g. a coin toss).
 We denote a single observation from the system as \\(x \in \\\{0, 1\\\}\\), that is, \\(x\\) can either take the value \\(0\\) (heads) or the value \\(1\\) (tails).
-
 Being Bayesian we would like to model observations from this system using probability distributions.
+
+
+### The Likelihood {#the-likelihood}
+
 The first thing we need to specify is our likelihood and it should tell us how likely an observation is given the parameterization of the system, i.e. \\(p(x | \theta)\\).
 Here \\(\theta\\) represents our model parameters.
 For a binary system such as this, it makes sense to use a Bernoulli distribution as the likelihood,
@@ -132,8 +138,8 @@ For a binary system such as this, it makes sense to use a Bernoulli distribution
 p(x | \theta) = p(x | \mu) = \text{Bern}(x | \mu) = \mu^{x} (1 - \mu)^{1-x}.
 \\]
 The Bernoulli ditribution is parameterised by a single parameter \\(\mu\\).
-The reason we have picked this distribution is because it makes sense to parameterize the system using a single parameter \\(\mu\\) that conatins information regarding how often we observe each outcome i.e. how biased is the coin.
-\\(\mu\\) is the probability of getting a tails and \\(1-\mu\\) is the probability of getting a heads.
+The reason we have picked this distribution is because it makes sense to parameterize the system using a single parameter \\(\mu\\) that conatins information regarding how often we observe each outcome
+i.e. how biased is the coin, \\(\mu\\) is the probability of getting a tails and \\(1-\mu\\) is the probability of getting a heads.
 If we think the coin is fair then we would initially guess \\(\mu=0.5\\) and if we thought it was biased towards heads then maybe \\(\mu=0.3\\).
 
 Lets now look at the value of our likelihood for each of our possible observations to get some intuition for what is going on,
@@ -158,7 +164,7 @@ The results are as expected so our choice of likelihood is good!
 We can extend our likelihood for \\(N\\) observations (coin tosses) \\(\mathbf{x} = \\\{ x\\_n \\\}\_{n=1}^N\\),
 
 \\[
-p(\\mathbf{x} | \\mu) = \\prod\\_{n=1}^N \\mu^{x\_n} (1 - \mu)^{1-x\\_n}
+p(\\mathbf{x} | \\mu) = \\prod\_{n=1}^N \\mu^{x}\_n (1 - \mu)^{1-x\_n}
 \\]
 where we have made the assumption that each coin toss is independent.
 This is why we have multiplied the likelihood for each individual coin toss.
@@ -168,43 +174,54 @@ If we know the parameters of our system, in this case \\(\mu\\), then we can gen
 That is, we can make predictions!
 What we would like to do then, is learn the value of \\(\mu\\) from observations of the actual system.
 
-> One obvious way to do this is to perform maximum likelihood estimation.
+One obvious way to do this is to perform maximum likelihood estimation.
 That is, set the parameter \\(\mu\\) to the value that maximizes the likelihood,
 \\[
   \mu = \underset{\mu}{\text{argmax}}\ p(\mathbf{x} | \mu).
 \\]
 Hopefully you can see how this is quite an intuitive thing to do.
+However, we want to model our uncerainty in \\(\mu\\) by performing Bayesian inference.
+We therefore need to specify a prior distribution on \\(\mu\\) and use Baye's rule to obtain the posterior \\(p(\mu | \mathbf{x})\\).
 
 
-## The Prior Distribution {#the-prior-distribution}
+### The Prior Distribution {#the-prior-distribution}
 
-However, in order to use Baye's rule we need to specify a prior belief about the parameters in our model, in this case just \\(\mu\\).
 What prior knowledge do we have about our system?
 Well, most coins that one comes across are not biased and the value of \\(\mu\\) is \\(0.5\\).
 Now we just need to incorporate this knowledge to specify a prior distribution over \\(\mu\\).
 Then we can just use Baye's rule to reach the posterior of the parameters given the data,
 
 \\[
-p(\mu | x) = \frac{p(x|\mu) p(\mu)}{p(x)}.
+p(\mu | \mathbf{x}) = \frac{p(\mathbf{x}|\mu) p(\mu)}{p(\mathbf{x})}.
 \\]
 
 How then, does one pick the distribution for the prior?
 If we specify either our prior or likelihood wrong then this computation may not even be analytically tractable.
 Because of the integral in the denominator \\(p(\mathbf{x}) = \int p(\mathbf{x}| \mu) p(\mu) \text{d}\mu\\).
-When this is the case we resort to approximations, with the main methods being Monte Carlo (sampling) and variational inference.
+When this is the case we resort to approximations, with the main methods being Markov Chain Monte Carlo and variational inference.
 
 Luckily, we can exploit something known as conjugacy.
-In Bayes rule, if the posterior distribution \\(p(x | \mu)\\) is in the same probability distribution family as the prior distribution \\(p(\mu)\\), then they are called conjugate distributions.
+In Bayes rule, if the posterior distribution \\(p(\mathbf{x} | \mu)\\) is in the same probability distribution family as the prior distribution \\(p(\mu)\\), then they are called conjugate distributions.
 The prior is also called the conjugate prior to the likelihood function.
 
 > It is important to note that the form of the conjugate prior depends on what parameter from the likelihood distribution is unknown and thus being learned.
-For example, if we have a Gaussian likelihood where we known the mean and want to infer the variance from data, then the conjugate prior distribution is inverse gamma.
+For example, if we have a Gaussian likelihood where we know the mean and want to infer the variance from data, then the conjugate prior distribution is inverse gamma.
 However, if the variance was known and we wanted to infer the mean, then the conjugate prior distribution would be Gaussian.
 
 Why do we care about this?
 Well, if both the prior and the posterior are from the same probability distribution family, then we don't need to calculate the denominator of Baye's rule (the evidence).
 We can simply multiply the prior and the likelihood and identify the parameters of the posterior (as we know its form).
 It's not important to know how to determine conjugate priors as mathematicians do it for us (and put them on [Wikipedia](<https://en.wikipedia.org/wiki/Conjugate%5Fprior>) :laughing:).
+
+The conjugate prior to the only parameter \\(\mu\\) in our Bernoulli likelihood is the Beta distribution.
+        The Beta distribution is defined on the interval \\([0, 1]\\) and is goverend by two shape parameters (\\(\alpha\\) and \\(\beta\\)).
+        See the figure below for how they influence the distribution.
+
+{{< figure src="images/beta-distribution.png" >}}
+
+\\[
+        \text{Beta}(\mu | \alpha, \beta)=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha) \Gamma(\beta)} \mu^{\alpha-1}(1-\mu)^{\beta-1}
+        \\]
 
 
 ## Bayesian Inference {#bayesian-inference}
