@@ -2,11 +2,12 @@
   "basics": {
     "name": "Aidan Scannell",
     "label": "PhD Candidate at Bristol Robotics Lab",
-    "picture": "../aidan_portrait.jpeg",
+    "picture": "./img/aidan_portrait.jpeg",
     "email": "aidan.scannell@brl.ac.uk",
     "phone": "+44 787 558 3912",
     "website": "https://aidanscannell.com",
-    "summary": "Whilst completing my degree I developed a keen interest in mathematics, programming and robotics and became fascinated by how they form a common connection between humans and the surrounding world. I am now pursuing a PhD investigating methods for learning both data efficiently and safely onboard physical robotic systems. I am particularly interested in using probabilistic models for learning dynamics models and their integration into model-based reinforcement learning algorithms.",
+    "summaryold": "Whilst completing my degree I developed a keen interest in mathematics, programming and robotics and became fascinated by how they form a common connection between humans and the surrounding world. I am now pursuing a PhD investigating methods for learning both data efficiently and safely onboard physical robotic systems. I am particularly interested in using probabilistic models for learning dynamics models and their integration into model-based reinforcement learning algorithms.",
+      "summary": "I am a PhD researcher investigating data-efficient machine learning for the control of robotic systems. I am particularly interested in uncertainty quantification in model-based reinforcement learning and as a result a lot of my work focuses on Bayesian non-parametric methods, specifically Gaussian processes and variational inference.",
     "location": {
       "address": "27 Beaumont Street",
       "postalCode": "BS50TD",
@@ -29,33 +30,43 @@
   },
   "work": [
     {
-      "company": "University of Bristol",
-      "position": "Teaching Assistant",
-      "website": "",
-      "startDate": "2018-09-30",
-      "endDate": "",
-      "summary": "Alongside my PhD studies I am a teaching assistant for 1) [Machine Learning COMS30007](https://www.bris.ac.uk/unit-programme-catalogue/UnitDetails.jsa?ayrCode=19%2F20&unitCode=COMS30007), 2) [Robotic Systems COMSM0012](https://www.bris.ac.uk/unit-programme-catalogue/UnitDetails.jsa?ayrCode=19%2F20&unitCode=COMSM0012) and previosuly 3) [Intelligent Software Systems EMATM0042](https://bit.ly/2Rn2mwx).",
-      "highlights": [
-        "I help students understand both the mathematics and the intuition for how we construct ML models and perform inference.",
-        "This role has definitely made me a believer that \"you never really learn something until you teach it\".",
-        "I must say that teaching has not only honed my ability to communicate my unerstanding of a concept but it has also prompted me to think about the many other ways a concept can be understood and thus explained."
-        ]
-    },
-    {
-      "company": "Bristol Robotics Laboratory - University of Bristol",
+      "company": "Bristol Robotics Lab",
       "position": "PhD Researcher",
       "website": "",
       "startDate": "2017-09-01",
-      "endDate": "",
-
-      "summary": "My research is focused on data-efficient learning for the control of robotic systems. I am particularly interested in uncertainty quantification and how we can utilise tools such as Gaussian processes/variational inference in model-based reinforcement learning. For an initial insight into some of my work see [this preliminary publication](https://www.aidanscannell.com//publication/separating-bimodal-noise-variances-in-gaussian-process-transition-dynamics-models) and [corresponding project](https://www.aidanscannell.com/project/seperating-stable-unstable-regimes-in-gaussian-process-transition-dynamics-models) on seperating low and high noise variances in Gaussian process transition dynamics models. Also check out [this project ](https://www.aidanscannell.com/project/pilco/) (where I have re-implemented the PILCO model-based reinforcement learning algorithm in Python/TensorFlow/GPflow. EPSRC Centre for Doctoral Training in Future Autonomous and Robotic Systems (FARSCOPE).",
-      "summary_old": "My research is focused on data-efficient learning for the control of robotic systems. I am particularly interested in uncertainty quantification and how we can utilise tools such as Gaussian processes/variational inference in model-based reinforcement learning. For an initial insight into some of my work see [this preliminary publication]({{< ref '/publication/separating-bimodal-noise-variances-in-gaussian-process-transition-dynamics-models/index.md' >}}) and [corresponding project ]({{< ref '/project/seperating-stable-unstable-regimes-in-gaussian-process-transition-dynamics-models/index.md' >}}) on seperating low and high noise variances in Gaussian process transition dynamics models. Also check out [this project ]({{< ref '/project/pilco'>}}) where I have re-implemented the PILCO model-based reinforcement learning algorithm in Python/TensorFlow/GPflow. EPSRC Centre for Doctoral Training in Future Autonomous and Robotic Systems (FARSCOPE).",
+      "summary": "My research is focused on data-efficient learning for the control of robotic systems. I am particularly interested in uncertainty quantification and how we can utilise tools such as Gaussian processes/variational inference in model-based reinforcement learning. For an initial insight into some of my work see [this preliminary publication](https://www.aidanscannell.com//publication/separating-bimodal-noise-variances-in-gaussian-process-transition-dynamics-models) and [corresponding project](https://www.aidanscannell.com/project/seperating-stable-unstable-regimes-in-gaussian-process-transition-dynamics-models) on seperating low and high noise variances in Gaussian process transition dynamics models. Also check out [this project ](https://www.aidanscannell.com/project/pilco/) where I have re-implemented the PILCO model-based reinforcement learning algorithm in Python/TensorFlow/GPflow. EPSRC Centre for Doctoral Training in Future Autonomous and Robotic Systems (FARSCOPE).",
       "highlights": [
         "Bayesian machine learning",
         "Gaussian processes",
         "Variational inference",
         "Model-based reinforcement learning",
         "Robust control"
+      ],
+      "summaryold": "Researching methods for learning both data efficiently and safely onboard physical robotic systems. In particular, investigating learning probabilistic dynamics models to reduce the impact of model errors and their integration with control techniques to provide safety guarantees within a model-based reinforcement learning framework. EPSRC Centre for Doctoral Training in Future Autonomous and Robotic Systems (FARSCOPE).",
+      "highlightsold": [
+        "Model-based reinforcement learning",
+        "Probabilistic Modelling",
+        "Bayesian inference",
+        "Optimal control",
+        "System identification"
+      ]
+    },
+    {
+      "company": "University of Bristol",
+      "position": "Teaching Assistant",
+      "website": "",
+      "startDate": "2018-09",
+      "summary": "Alongside my PhD studies I am a teaching assistant for 1) [Machine Learning COMS30007](https://www.bris.ac.uk/unit-programme-catalogue/UnitDetails.jsa?ayrCode=19%2F20&unitCode=COMS30007), 2) [Robotic Systems COMSM0012](https://www.bris.ac.uk/unit-programme-catalogue/UnitDetails.jsa?ayrCode=19%2F20&unitCode=COMSM0012) and previosuly 3) [Intelligent Software Systems EMATM0042](https://bit.ly/2Rn2mwx).",
+      "highlights": [
+        "I help students understand both the mathematics and the intuition for how we construct ML models and perform inference.",
+        "This role has definitely made me a believer that \"you never really learn something until you teach it\".",
+        "I must say that teaching has not only honed my ability to communicate my unerstanding of a concept but it has also prompted me to think about the many other ways a concept can be understood and thus explained."
+      ],
+      "summaryold": "Alongside my PhD studies I am a teaching assistant for the following courses:",
+      "highlightsold": [
+        "Machine Learning COMS30007 - https://bit.ly/2C6UbKp",
+        "Robotic Systems COMSM0012 - https://bit.ly/2LV7rpZ",
+        "Intelligent Software Systems EMATM0042 - https://bit.ly/2Rn2mwx"
       ]
     },
     {
@@ -63,16 +74,16 @@
       "position": "Mechanical Engineering Intern",
       "website": "",
       "startDate": "2015-06-01",
-      "endDate": "2015-08-01",
       "summary": "I worked as a mechanical engineer within the building services division where I developed my teamwork skills and learned the importance of knowledge management. I was in charge of optimising the heating, ventilation and air-conditioning of a building at Hackney Wick underground station. I met with external architects to communicate our ideas and I personally overcame logistical issues and improved a systems efficiency, resulting in the designs approval. I consistently met deadlines whilst working under pressure and was offered future employment. This internship strengthened my desire to move away from engineering and pursue a research driven career involving mathematics and programming.",
-      "highlightsold": [
+      "highlights_old": [
         "Developed teamwork skills, learning the importance of knowledge management within a team.",
         "Overcame logistical issues and improved a system’s efficiency, resulting in the design’s approval.",
         "Consistently met deadlines whilst working under pressure.",
         "Conducted a feasibility study and estimated project costs that informed subsequent action.",
         "Located an error and proposed a solution. Communicating this to relevant managers resulted in its successful implementation.",
         "Mott MacDonald offered me future employment following my summer placement."
-      ]
+      ],
+      "endDate": "2015-08-01"
     }
   ],
   "education": [
@@ -82,7 +93,7 @@
       "studyType": "MRes",
       "startDate": "2017-01-01",
       "gpa": "75%",
-      "summary": "Extending BDI Agents to Model and Reason with Uncertainty (77%) - https://github.com/aidanscannell/uncertain-agentspeak",
+      "summary": "[Extending BDI Agents to Model and Reason with Uncertainty (77%)](https://www.aidanscannell.com/project/uncertain-agentspeak/)",
       "courses": [
         "Amazon Picking Challenge - 64%",
         "Artificial Intelligence with Logic Programming - 73%",

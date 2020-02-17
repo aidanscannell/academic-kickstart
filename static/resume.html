@@ -1,0 +1,1498 @@
+<!doctype html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"
+        />
+        <title>Aidan Scannell</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+        <style>
+            /********************************************
+            * 	reset from
+            * 	http://meyerweb.com/eric/tools/css/reset/
+            *******************************************/
+            
+            html,
+            body,
+            div,
+            span,
+            applet,
+            object,
+            iframe,
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6,
+            p,
+            blockquote,
+            pre,
+            a,
+            abbr,
+            acronym,
+            address,
+            big,
+            cite,
+            code,
+            del,
+            dfn,
+            em,
+            img,
+            ins,
+            kbd,
+            q,
+            s,
+            samp,
+            small,
+            strike,
+            strong,
+            sub,
+            sup,
+            tt,
+            var,
+            b,
+            u,
+            i,
+            center,
+            dl,
+            dt,
+            dd,
+            ol,
+            ul,
+            li,
+            fieldset,
+            form,
+            label,
+            legend,
+            table,
+            caption,
+            tbody,
+            tfoot,
+            thead,
+            tr,
+            th,
+            td,
+            article,
+            aside,
+            canvas,
+            details,
+            embed,
+            figure,
+            figcaption,
+            footer,
+            header,
+            hgroup,
+            menu,
+            nav,
+            output,
+            ruby,
+            section,
+            summary,
+            time,
+            mark,
+            audio,
+            video {
+                margin: 0;
+                padding: 0;
+                border: 0;
+                font-size: 100%;
+                vertical-align: baseline;
+            }
+            
+            article,
+            aside,
+            details,
+            figcaption,
+            figure,
+            footer,
+            header,
+            hgroup,
+            menu,
+            nav,
+            section {
+                display: block;
+            }
+            
+            body {
+                line-height: 1;
+            }
+            
+            ol,
+            ul {
+                list-style: none;
+            }
+            
+            blockquote,
+            q {
+                quotes: none;
+            }
+            
+            blockquote:before,
+            blockquote:after,
+            q:before,
+            q:after {
+                content: none;
+            }
+            
+            table {
+                border-collapse: collapse;
+                border-spacing: 0;
+            }
+            
+            
+            /****************
+            *	COMMONS
+            ****************/
+            
+            body,
+            html {
+                font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+                font-size: 13px;
+                color: #40484f;
+                font-weight: 400;
+                letter-spacing: 0;
+                line-height: 1.46153846;
+                text-align: left;
+                -webkit-text-size-adjust: 100%;
+            }
+            
+            p {
+                display: block;
+                margin-bottom: 1.3em;
+            }
+            
+            a {
+                color: #0095ff;
+                text-decoration: none;
+            }
+            
+            a:hover {
+                color: #0c65a5;
+                text-decoration: underline;
+            }
+            
+            ul {
+                margin-top: 1rem;
+            }
+            
+            li {
+                list-style-type: square;
+                list-style-position: outside;
+                margin-left: 1.3em;
+            }
+            
+            .highlights>li>p {
+                margin-bottom: 0.5em;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.67rem;
+            }
+            
+            h3 {
+                font-size: 1.27rem;
+            }
+            
+            em {
+                color: #757575;
+            }
+            
+            blockquote {
+                margin-bottom: 1em;
+            }
+            
+            strong {
+                font-weight: 700;
+            }
+            
+            
+            /* main container */
+            
+            #resume {
+                padding: 1rem;
+                margin-top: 2rem;
+            }
+            
+            
+            /* every section wrapper */
+            
+            .section {
+                margin-bottom: 1rem;
+            }
+            
+            section .location {
+                margin-right: .5em;
+                color: #606d76;
+                font-weight: 700;
+            }
+            
+            #contact {
+                margin-top: .5rem;
+            }
+            
+            #profiles .item {
+                padding: 0;
+            }
+            
+            #header>#profiles,
+            #header>#contact,
+            #skills,
+            #languages,
+            #interests {
+                display: -webkit-box;
+                display: -moz-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: flex;
+                -webkit-flex-flow: row wrap;
+                flex-flow: row wrap;
+                -webkit-justify-content: flex-start;
+                justify-content: flex-start;
+            }
+            
+            #header>div {
+                line-height: 1.5;
+            }
+            
+            #header>div>div {
+                margin-right: 1.2em;
+            }
+            
+            #header h1.name {
+                font-size: 2.8rem;
+                font-weight: 100;
+                line-height: 100%;
+            }
+            
+            #header h2.label {
+                color: #202931;
+                font-size: 1.47rem;
+                font-weight: 300;
+            }
+            
+            #header .picture {
+                width: 11em;
+                float: right;
+                border-radius: 4px;
+            }
+            
+            .main-summary {
+                background: #f1f8ff;
+                padding: 1.2em 1em;
+                margin-top: 1rem;
+            }
+            
+            .main-summary p {
+                margin: .15em 0 0;
+            }
+            
+            h2.section-title {
+                display: inline-block;
+                background: #fff;
+                padding: 0 1em 0.3em 0;
+                color: #ff6d1f;
+                text-transform: uppercase;
+                font-weight: 600;
+                border: none;
+                font-size: .9rem;
+            }
+            
+            .section>header {
+                position: relative;
+            }
+            
+            .fa {
+                margin-right: 0.25em;
+            }
+            
+            .section>header::after {
+                position: absolute;
+                left: 0;
+                top: .7em;
+                height: 1px;
+                background: #ccc;
+                content: "";
+                width: 100%;
+                z-index: -100;
+                display: block;
+            }
+            
+            .section.main-summary>section {
+                margin: 0;
+            }
+            
+            .section>section>header {
+                font-size: 1.38rem;
+                position: relative;
+                margin-top: .7em;
+            }
+            
+            .section>section>header:first-of-type {
+                margin: 0;
+            }
+            
+            .section>section>header .space-left {
+                position: absolute;
+                left: -1.56rem;
+                top: 5px;
+                color: #aaa;
+                line-height: 1;
+                opacity: 0;
+            }
+            
+            .position,
+            .company,
+            .organization,
+            .institution,
+            .date,
+            .area,
+            .studyType,
+            .title,
+            .awarder {
+                display: inline;
+            }
+            
+            .position,
+            .studyType,
+            .area,
+            .title,
+            .language,
+            .name {
+                font-weight: 600;
+            }
+            
+            .company::before,
+            .institution::before,
+            .organization::before,
+            .awarder::before {
+                content: "at "
+            }
+            
+            .company,
+            .institution,
+            .organization,
+            .awarder {
+                color: #606d76;
+                font-weight: 400;
+            }
+            
+            .section header .date {
+                font-size: 1rem;
+                display: inline-table;
+                padding: .1em 0;
+                font-weight: 600;
+            }
+            
+            ul.keywords,
+            ul.courses {
+                margin-top: .5em;
+            }
+            
+            ul.keywords li,
+            ul.courses li {
+                display: inline-block;
+                margin: 2px 2px 2px 0;
+                padding: 4px 5px 5px;
+                font-size: .9rem;
+                line-height: 1;
+                text-transform: lowercase;
+                color: #3e6d8e;
+                background-color: #dfeaf1;
+                border: 0 solid #dfeaf1;
+                white-space: nowrap;
+            }
+            
+            ul.keywords li:hover,
+            ul.courses li:hover {
+                background: #dfeaf0;
+            }
+            
+            .item {
+                padding: .5em 0;
+            }
+            
+            .gpa {
+                padding-bottom: .5em;
+            }
+            
+            .fa.social {
+                font-size: 1.1em;
+            }
+            
+            
+            /* Social Media Brand Colors */
+            
+            .google-plus {
+                color: #dd4b39;
+            }
+            
+            .tumblr {
+                color: #32506d;
+            }
+            
+            .foursquare {
+                color: #0072b1;
+            }
+            
+            .facebook {
+                color: #3b5998;
+            }
+            
+            .linkedin {
+                color: #007bb6;
+            }
+            
+            .pinterest {
+                color: #cb2027;
+            }
+            
+            .dribbble {
+                color: #ea4c89;
+            }
+            
+            .instagram {
+                color: #517fa4;
+            }
+            
+            .twitter {
+                color: #00aced;
+            }
+            
+            .soundcloud {
+                color: #ff3a00;
+            }
+            
+            .wordpress {
+                color: #21759b;
+            }
+            
+            .youtube {
+                color: #bb0000;
+            }
+            
+            .github {
+                color: #171515;
+            }
+            
+            .stack-overflow {
+                color: #828386;
+                position: relative;
+            }
+            
+            .flickr {
+                color: #ff0084;
+            }
+            
+            .stack-overflow::after {
+                position: absolute;
+                left: 0;
+                content: '\f16c';
+                color: #f68a1f;
+                overflow: hidden;
+                height: 100%;
+            }
+            
+            .telegram {
+                color: #2291c3;
+            }
+            
+            #languages .item,
+            #skills .item,
+            #interests .item {
+                width: 15em;
+                padding: 0 .5em .5em 0;
+                border-bottom: none;
+            }
+            
+            #skills .item {
+                width: 16em;
+            }
+            
+            #skills .item .keywords {
+                width: 15em;
+            }
+            
+            
+            /* Skill chart */
+            
+            .level {
+                margin-bottom: .5em;
+            }
+            
+            .level .bar {
+                border: 1px solid #ddd;
+                display: block;
+                width: 10em;
+                height: 5px;
+                position: relative;
+            }
+            
+            .level .bar::after {
+                position: absolute;
+                content: " ";
+                top: 0;
+                left: 0;
+                background: black;
+                height: 5px;
+            }
+            
+            .level.beginner .bar::after {
+                background: #EB5F51;
+                width: 2.5em;
+            }
+            
+            .level.intermediate .bar::after {
+                background: #ffdf1f;
+                width: 5em;
+            }
+            
+            .level.advanced .bar::after,
+            .level.fluent .bar::after {
+                background: #5CB85C;
+                width: 7.5em;
+            }
+            
+            .level.master .bar::after,
+            .level.native.speaker .bar::after {
+                background: #59C596;
+                width: 10em;
+            }
+            
+            #references .item {
+                padding-left: .5em;
+                border-left: 5px solid #ff6d1f;
+            }
+            
+            .toggle-item {
+              visibility: hidden;
+            }
+            
+            /******************
+            *	HELPER CLASSES
+            ******************/
+            
+            .clear::after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+            
+            .display {
+                display: block;
+                opacity: 1 !important;
+            }
+            
+            .margin1 {
+                margin-bottom: .5rem;
+            }
+            
+            
+            /****************
+            *		TABLET
+            ****************/
+            
+            @media screen and (min-width: 602px) {
+                #resume {
+                    width: 80%;
+                    margin: 0 auto;
+                }
+            }
+            
+            
+            /****************
+            *		LAPTOP
+            ****************/
+            
+            @media screen and (min-width: 1025px) {
+                li {
+                    margin-left: 1.5em;
+                }
+                #resume {
+                    width: 820px;
+                    margin: 2rem auto;      
+                }
+                .section>section>header .space-left {
+                    opacity: 1;
+                    cursor: pointer;
+                }
+                .section>section {
+                    margin-left: 1.67rem;
+                }
+                .toggle-item {
+                    transform: translate(-9999px);
+                }
+                .toggle-item+label {
+                    display: block;
+                    margin-top: -16px;
+                }
+                .toggle-item:checked+label:after {
+                    content: '\f0d7';
+                }
+                .toggle-item+label:after {
+                    float: left;
+                    cursor: pointer;
+                    margin-left: -20px;
+                    color: #aaa;
+                    font-size: 16px;
+                    content: '\f0da';
+                    font-family: Fontawesome;
+                }
+                .toggle-item~.item {
+                    height: 0;
+                    opacity: 0;
+                }
+                .toggle-item:checked~.item {
+                    height: auto;
+                    opacity: 1;
+                    transition: all .5s linear;
+                }
+                .company::before,
+                .institution::before,
+                .organization::before,
+                .awarder::before {
+                    content: "| ";
+                }
+                .header-left {
+                    float: left;
+                    width: 70%;
+                    word-break: normal;
+                }
+                .section header .date {
+                    float: right;
+                    padding: .2em;
+                }
+                .display {
+                    display: none;
+                }
+                .display:not(.none) {
+                    display: block;
+                }
+            }
+            
+            @media print {
+                #resume {
+                    margin: 0;
+                    padding: 0;
+                    -ms-word-wrap: break-word;
+                    word-wrap: break-word;
+                    line-height: 1.3;
+                    /*font-family: Arial, Georgia, "Lucida Grande", sans-serif;*/
+                }
+                @page {
+                    margin: 1cm 1.4cm;
+                }
+                .item-count {
+                    display: none;
+                }
+                .company::before,
+                .institution::before,
+                .organization::before,
+                .awarder::before {
+                    content: "at ";
+                }
+                .main-summary {
+                    padding: 2rem 0;
+                }
+                .section {
+                    margin: .8rem 0;
+                    padding: 0;
+                }
+                .section header {
+                    padding-bottom: .15rem;
+                }
+                .section .location {
+                    padding-bottom: .15rem;
+                }
+                .stack-overflow::after {
+                    content: "";
+                }
+                .fa.social {
+                    color: #828386;
+                }
+                ul {
+                    margin-top: .4em;
+                }
+                ul,
+                li {
+                    padding: 0;
+                }
+                ul.keywords li,
+                ul.courses li {
+                    margin: 0;
+                    padding: 0;
+                    font-size: .8rem;
+                    text-transform: lowercase;
+                }
+                ul.keywords li::after,
+                ul.courses li::after {
+                    padding: 0 0 0 .1rem;
+                    content: " |";
+                }
+                ul.keywords::before,
+                ul.courses::before {
+                    font-size: .8rem;
+                    font-weight: 600;
+                }
+                ul.keywords::before {
+                    content: "Skills acquired: ";
+                }
+                #skills .keywords::before {
+                    content: '';
+                }
+                .section p {
+                    margin: 0;
+                    padding: 0;
+                }
+                ul.courses::before {
+                    content: "Major courses: ";
+                }
+                ul.keywords li:last-of-type::after,
+                ul.courses li:last-of-type::after {
+                    content: "";
+                }
+                .level em {
+                    font-style: normal;
+                    padding: .1em 0;
+                }
+                .level .bar {
+                    display: none;
+                }
+                #profiles .item {
+                    padding: 0;
+                }
+                .item.display {
+                    display: block;
+                    opacity: 1 !important;
+                }
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div id="resume">
+            <header id="header" class="clear">
+                <img class="picture" src="./img/aidan_portrait.jpeg" alt="Aidan Scannell"
+                />
+                <div class="middle">
+                    	<h1 class="name">Aidan Scannell</h1>
+
+                    	<h2 class="label">PhD Candidate at Bristol Robotics Lab</h2>
+
+                </div>	<span class="location">
+    			<span class="address">27 Beaumont Street,</span> 	<span class="postalCode">BS50TD,</span> 
+                <span
+                class="city">Bristol,</span>	<span class="countryCode"></span> </span>
+                    <div id="contact">
+                        <div class="website">	<span class="fa fa-external-link"></span>
+	<a target="_blank" target="_blank"
+                            href="https://aidanscannell.com">https://aidanscannell.com</a>
+
+                        </div>
+                        <div class="email">	<span class="fa fa-envelope-o"></span>
+	<a href="mailto:aidan.scannell@brl.ac.uk">aidan.scannell@brl.ac.uk</a>
+
+                        </div>
+                        <div class="phone">	<span class="fa fa-mobile"></span>
+	<a href="tel:+44 787 558 3912">+44 787 558 3912</a>
+
+                        </div>
+                    </div>
+                    <div id="profiles">
+                        <div class="item">
+                            <div class="username">	<span class="fa fa-github github social"></span>
+	<span class="url">
+    						<a target="_blank" href="https://github.com/aidanscannell">aidanscannell</a>
+    					</span> 
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="username">	<span class="fa fa-sourcerer sourcerer social"></span>
+	<span class="url">
+    						<a target="_blank" href="https://sourcerer.io/aidanscannell">sourcerer.io</a>
+    					</span> 
+                            </div>
+                        </div>
+                    </div>
+            </header>
+            <section class="section main-summary">
+                <section>
+                    <div>
+                        <p>I am a PhD researcher investigating data-efficient machine learning for
+                            the control of robotic systems. I am particularly interested in uncertainty
+                            quantification in model-based reinforcement learning and as a result a
+                            lot of my work focuses on Bayesian non-parametric methods, specifically
+                            Gaussian processes and variational inference.</p>
+                    </div>
+                </section>
+            </section>
+            <section class="section margin1">
+                <header>
+                    	<h2 class='section-title'>Skills</h2>
+
+                </header>
+                <section id="skills">
+                    <div class="item">
+                        	<h3 class="name">
+    				Machine Learning
+    			</h3>
+
+                        <ul class="keywords">
+                            <li>Python</li>
+                            <li>numpy</li>
+                            <li>Tensorflow</li>
+                            <li>GPflow</li>
+                            <li>GPy</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        	<h3 class="name">
+    				Robotics
+    			</h3>
+
+                        <ul class="keywords">
+                            <li>Java</li>
+                            <li>C++</li>
+                            <li>ROS</li>
+                            <li>OpenCV</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        	<h3 class="name">
+    				Engineering
+    			</h3>
+
+                        <ul class="keywords">
+                            <li>MATLAB</li>
+                            <li>Simulink</li>
+                            <li>Autodesk Inventor</li>
+                            <li>SolidWorks</li>
+                            <li>MSC Patran</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        	<h3 class="name">
+    				Project
+    			</h3>
+
+                        <ul class="keywords">
+                            <li>GitHub</li>
+                            <li>Overleaf/LaTeX</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        	<h3 class="name">
+    				Web
+    			</h3>
+
+                        <ul class="keywords">
+                            <li>HTML</li>
+                            <li>CSS</li>
+                            <li>JavaScript</li>
+                            <li>PHP</li>
+                            <li>SQL</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        	<h3 class="name">
+    				JavaScript
+    			</h3>
+
+                        <ul class="keywords">
+                            <li>Node</li>
+                            <li>React</li>
+                        </ul>
+                    </div>
+                </section>
+            </section>
+            <section class="section">
+                <header>
+                     <h2 class='section-title'>Work Experience <span class="item-count">(3)</span></h2>
+
+                </header>
+                <section id="work">
+                    <section class="work-item">
+                        <input id="work-item-0" type="checkbox" class="toggle-item" checked="checked"
+                        />
+                        <label for="work-item-0"></label>
+                        <header>
+                            <div class="position">Teaching Assistant</div>
+                            <div class="company">University of Bristol</div>
+                            <div class="date"> <span class="startDate">September 2018</span> 	<span class="endDate">- Current</span>
+
+                            </div>
+                        </header>
+                        <div class="item" id="work-item">
+                            <div class="summary">
+                                <p>
+                                    <p>Alongside my PhD studies I am a teaching assistant for 1) <a href="https://www.bris.ac.uk/unit-programme-catalogue/UnitDetails.jsa?ayrCode=19%2F20&amp;unitCode=COMS30007">Machine Learning COMS30007</a>,
+                                        2) <a href="https://www.bris.ac.uk/unit-programme-catalogue/UnitDetails.jsa?ayrCode=19%2F20&amp;unitCode=COMSM0012">Robotic Systems COMSM0012</a> and
+                                        previosuly 3) <a href="https://bit.ly/2Rn2mwx">Intelligent Software Systems EMATM0042</a>.</p>
+                                </p>
+                            </div>
+                            <ul class="highlights">
+                                <li>
+                                    <p>I help students understand both the mathematics and the intuition for
+                                        how we construct ML models and perform inference.</p>
+                                </li>
+                                <li>
+                                    <p>This role has definitely made me a believer that &quot;you never really
+                                        learn something until you teach it&quot;.</p>
+                                </li>
+                                <li>
+                                    <p>I must say that teaching has not only honed my ability to communicate
+                                        my unerstanding of a concept but it has also prompted me to think about
+                                        the many other ways a concept can be understood and thus explained.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                    <section class="work-item">
+                        <input id="work-item-1" type="checkbox" class="toggle-item" />
+                        <label for="work-item-1"></label>
+                        <header>
+                            <div class="position">PhD Researcher</div>
+                            <div class="company">Bristol Robotics Lab</div>
+                            <div class="date"> <span class="startDate">September 2017</span> 	<span class="endDate">- Current</span>
+
+                            </div>
+                        </header>
+                        <div class="item" id="work-item">
+                            <div class="summary">
+                                <p>
+                                    <p>My research is focused on data-efficient learning for the control of robotic
+                                        systems. I am particularly interested in uncertainty quantification and
+                                        how we can utilise tools such as Gaussian processes/variational inference
+                                        in model-based reinforcement learning. For an initial insight into some
+                                        of my work see <a href="https://www.aidanscannell.com//publication/separating-bimodal-noise-variances-in-gaussian-process-transition-dynamics-models">this preliminary publication</a> and
+                                        <a
+                                        href="https://www.aidanscannell.com/project/seperating-stable-unstable-regimes-in-gaussian-process-transition-dynamics-models">corresponding project</a>on seperating low and high noise variances in
+                                            Gaussian process transition dynamics models. Also check out <a href="https://www.aidanscannell.com/project/pilco/">this project </a> where
+                                            I have re-implemented the PILCO model-based reinforcement learning algorithm
+                                            in Python/TensorFlow/GPflow. EPSRC Centre for Doctoral Training in Future
+                                            Autonomous and Robotic Systems (FARSCOPE).</p>
+                                </p>
+                            </div>
+                            <ul class="highlights">
+                                <li>
+                                    <p>Bayesian machine learning</p>
+                                </li>
+                                <li>
+                                    <p>Gaussian processes</p>
+                                </li>
+                                <li>
+                                    <p>Variational inference</p>
+                                </li>
+                                <li>
+                                    <p>Model-based reinforcement learning</p>
+                                </li>
+                                <li>
+                                    <p>Robust control</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                    <section class="work-item">
+                        <input id="work-item-2" type="checkbox" class="toggle-item" />
+                        <label for="work-item-2"></label>
+                        <header>
+                            <div class="position">Mechanical Engineering Intern</div>
+                            <div class="company">Mott MacDonald</div>
+                            <div class="date"> <span class="startDate">June 2015</span> 	<span class="endDate">- August 2015</span> 
+                            </div>
+                        </header>
+                        <div class="item" id="work-item">
+                            <div class="summary">
+                                <p>
+                                    <p>I worked as a mechanical engineer within the building services division
+                                        where I developed my teamwork skills and learned the importance of knowledge
+                                        management. I was in charge of optimising the heating, ventilation and
+                                        air-conditioning of a building at Hackney Wick underground station. I met
+                                        with external architects to communicate our ideas and I personally overcame
+                                        logistical issues and improved a systems efficiency, resulting in the designs
+                                        approval. I consistently met deadlines whilst working under pressure and
+                                        was offered future employment. This internship strengthened my desire to
+                                        move away from engineering and pursue a research driven career involving
+                                        mathematics and programming.</p>
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="section">
+                <header>
+                     <h2 class='section-title'>Volunteer</h2>
+
+                </header>
+                <section id="volunteer">
+                    <section class="volunteer-item">
+                        <input id="volunteer-item-0" type="checkbox" class="toggle-item" checked="checked"
+                        />
+                        <label for="volunteer-item-0"></label>
+                        <header>
+                            <div class="header-left">
+                                <div class="position">STEM Ambassador</div>
+                                <div class="organization">STEM Learning</div>
+                            </div>
+                            <div class="date"> <span class="startDate">
+              January 2018
+              </span>
+ <span class="endDate">
+              - Current
+              </span>
+
+                            </div>
+                        </header>
+                        <div class="website"> <a target="_blank" href="https://www.stem.org.uk/stem-ambassadors">https://www.stem.org.uk/stem-ambassadors</a>
+
+                        </div>
+                        <div class="item">
+                            <div class="summary">
+                                <p>
+                                    <p>I volunteer as a STEM ambassador, offering my time and enthusiasm through
+                                        engagement with children both inside and outside of the classroom.</p>
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="volunteer-item">
+                        <input id="volunteer-item-1" type="checkbox" class="toggle-item" />
+                        <label for="volunteer-item-1"></label>
+                        <header>
+                            <div class="header-left">
+                                <div class="position">Club Leader</div>
+                                <div class="organization">Code Club</div>
+                            </div>
+                            <div class="date"> <span class="startDate">
+              December 2017
+              </span>
+ <span class="endDate">
+              - April 2018
+              </span>
+
+                            </div>
+                        </header>
+                        <div class="website"> <a target="_blank" href="https://codeclub.org/en/">https://codeclub.org/en/</a>
+
+                        </div>
+                        <div class="item">
+                            <div class="summary">
+                                <p>
+                                    <p>I collaborated with Code Club and Bristol Libraries to set up and run
+                                        a Code Club for young people aged 9-13 at Junction 3 Library in Easton,
+                                        Bristol.</p>
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="volunteer-item">
+                        <input id="volunteer-item-2" type="checkbox" class="toggle-item" />
+                        <label for="volunteer-item-2"></label>
+                        <header>
+                            <div class="header-left">
+                                <div class="position">Technical Lead (Drivetrain)</div>
+                                <div class="organization">Formula Student, University of Bristol</div>
+                            </div>
+                            <div class="date"> <span class="startDate">
+              January 2015
+              </span>
+ <span class="endDate">
+              - January 2016
+              </span>
+
+                            </div>
+                        </header>
+                        <div class="website"> <a target="_blank" href="https://www.beracing.co.uk/">https://www.beracing.co.uk/</a>
+
+                        </div>
+                        <div class="item">
+                            <div class="summary">
+                                <p>
+                                    <p>Each year, as part of Formula Student, students design, build and race
+                                        a single seat race car.</p>
+                                </p>
+                            </div>
+                            <ul class="highlights">
+                                <li>
+                                    <p>Finished 2nd in the National Class 2 competition in 2013/2014, I was then
+                                        selected as the Drivetrain lead.</p>
+                                </li>
+                                <li>
+                                    <p>This role improved my communication skills as I was leading weekly presentations.</p>
+                                </li>
+                                <li>
+                                    <p>I developed my leadership skills through setting realistic objectives,
+                                        effectively allocating work to the appropriate team members and monitoring
+                                        outcomes.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                    <section class="volunteer-item">
+                        <input id="volunteer-item-3" type="checkbox" class="toggle-item" />
+                        <label for="volunteer-item-3"></label>
+                        <header>
+                            <div class="header-left">
+                                <div class="position">Snowboard Captain</div>
+                                <div class="organization">Snowsports Club, University of Bristol</div>
+                            </div>
+                            <div class="date"> <span class="startDate">
+              January 2014
+              </span>
+ <span class="endDate">
+              - January 2015
+              </span>
+
+                            </div>
+                        </header>
+                        <div class="website"> <a target="_blank" href="http://www.ubsc.co.uk/">http://www.ubsc.co.uk/</a>
+
+                        </div>
+                        <div class="item">
+                            <div class="summary">
+                                <p>
+                                    <p></p>
+                                </p>
+                            </div>
+                            <ul class="highlights">
+                                <li>
+                                    <p>Organised multiple weekly training sessions, demonstrating my ability
+                                        to plan and run events smoothly.</p>
+                                </li>
+                                <li>
+                                    <p>Negotiated competitive prices for a growing member base within an inherently
+                                        expensive sport.</p>
+                                </li>
+                                <li>
+                                    <p>Responsible for aiding the smooth running of the club and helping to organise
+                                        the annual university ski trip, with circa 1500 participants, working under
+                                        pressure to manage people in high stress situations.</p>
+                                </li>
+                                <li>
+                                    <p>Awarded the ‘Team of the Year’ award and full colours for my performances
+                                        and contributions to the sport.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                    <section class="volunteer-item">
+                        <input id="volunteer-item-4" type="checkbox" class="toggle-item" />
+                        <label for="volunteer-item-4"></label>
+                        <header>
+                            <div class="header-left">
+                                <div class="position">Shop Assistant</div>
+                                <div class="organization">Help the Aged</div>
+                            </div>
+                            <div class="date"> <span class="startDate">
+              January 2009
+              </span>
+ <span class="endDate">
+              - January 2011
+              </span>
+
+                            </div>
+                        </header>
+                        <div class="website"> <a target="_blank" href="https://www.ageuk.org.uk/">https://www.ageuk.org.uk/</a>
+
+                        </div>
+                        <div class="item">
+                            <div class="summary">
+                                <p>
+                                    <p>Helping in the shop was rewarding and I developed my sales skills and
+                                        an understanding of customer service.</p>
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="section">
+                <header>
+                     <h2 class='section-title'>Education <span class="item-count">(3)</span></h2>
+
+                </header>
+                <section id="education">
+                    <section class="education-item">
+                        <input id="education-item-0" type="checkbox" class="toggle-item" checked="checked"
+                        />
+                        <label for="education-item-0"></label>
+                        <header>
+                            <div class="header-left">
+                                <div class="studyType">MRes</div>
+                                <div class="area">Robotics and Autonomous Systems</div>
+                                <div class="institution">University of Bristol</div>
+                            </div>
+                            <div class="date"> <span class="startDate">
+              2017
+              </span>
+ <span class="endDate">
+              - 2018
+              </span>
+
+                            </div>
+                        </header>
+                        <ul class="courses">
+                            <li>Amazon Picking Challenge - 64%</li>
+                            <li>Artificial Intelligence with Logic Programming - 73%</li>
+                            <li>Bio-Inspired Artificial Intelligence - 91%</li>
+                            <li>Master&#x27;s Dissertation - 77%</li>
+                            <li>Machine Learning - 78%</li>
+                            <li>Robotic Fundamentals - 80%</li>
+                            <li>Robotics Research Preperation - 69%</li>
+                            <li>Technology and Context of Robotics and Autonomous Systems - 67%</li>
+                            <li>Uncertainty Modelling for Intelligent Systems - 68%</li>
+                        </ul>
+                        <div class="item">
+                            <div class='gpa'> <strong> Grade:</strong>  <span>75%</span>
+
+                            </div>
+                            <div class="summary">
+                                <p>
+                                    <p><a href="https://www.aidanscannell.com/project/uncertain-agentspeak/">Extending BDI Agents to Model and Reason with Uncertainty (77%)</a>
+                                    </p>
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="education-item">
+                        <input id="education-item-1" type="checkbox" class="toggle-item" />
+                        <label for="education-item-1"></label>
+                        <header>
+                            <div class="header-left">
+                                <div class="studyType">MEng</div>
+                                <div class="area">Mechanical Engineering</div>
+                                <div class="institution">University of Bristol</div>
+                            </div>
+                            <div class="date"> <span class="startDate">
+              2012
+              </span>
+ <span class="endDate">
+              - 2016
+              </span>
+
+                            </div>
+                        </header>
+                        <ul class="courses">
+                            <li>Robotic Systems - 87%</li>
+                            <li>Generic Propulsion - 76%</li>
+                            <li>Nonlinear Structural Dynamics - 75%</li>
+                            <li>Acoustics - Fundamentals and Applications - 84%</li>
+                            <li>Ultrasonic Non-Destructive Testing - 77%</li>
+                            <li>Systems and Control Engineering 4 - 72%</li>
+                            <li>Non-Linear Behaviour of Materials - 57%</li>
+                            <li>Virtual Product Development - 74%</li>
+                        </ul>
+                        <div class="item">
+                            <div class='gpa'> <strong> Grade:</strong>  <span>73%</span>
+
+                            </div>
+                            <div class="summary">
+                                <p>
+                                    <p>Graduated in the top 10% of cohort.</p>
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="education-item">
+                        <input id="education-item-2" type="checkbox" class="toggle-item" />
+                        <label for="education-item-2"></label>
+                        <header>
+                            <div class="header-left">
+                                <div class="studyType">A-Levels</div>
+                                <div class="area"></div>
+                                <div class="institution">Ripon Grammar School</div>
+                            </div>
+                            <div class="date"> <span class="startDate">
+              2005
+              </span>
+ <span class="endDate">
+              - 2012
+              </span>
+
+                            </div>
+                        </header>
+                        <ul class="courses">
+                            <li>(A2 Level) Chemistry - A*</li>
+                            <li>(A2 Level) Mathematics - A*</li>
+                            <li>(A2 Level) Physics - A*</li>
+                            <li>(AS Level) Design &amp; Technology - A</li>
+                        </ul>
+                        <div class="item">
+                            <div class="summary">
+                                <p>
+                                    <p></p>
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="section">
+                <header>
+                     <h2 class='section-title'>Awards</h2>
+
+                </header>
+                <section id="awards">
+                    <section class="award-item">
+                        <input id="award-item-0" type="checkbox" class="toggle-item" checked="checked"
+                        />
+                        <label for="award-item-0"></label>
+                        <header>
+                            <div class="header-left">
+                                <div class="title">British University Snowboard Slalom Champion</div>
+                                <div class="awarder">British Universities &amp; College Sport</div>
+                            </div>
+                            <div class="date">2018</div>
+                        </header>
+                        <div class="item">
+                            <div class="summary">
+                                <p>
+                                    <p>In the 2017/2018 season I won all National British University Slalom Competitions.
+                                        I have also podiumed in several British University SnowboardX and Slopestyle
+                                        competitions.</p>
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="award-item">
+                        <input id="award-item-1" type="checkbox" class="toggle-item" />
+                        <label for="award-item-1"></label>
+                        <header>
+                            <div class="header-left">
+                                <div class="title">Starting to Teach</div>
+                                <div class="awarder">University of Bristol</div>
+                            </div>
+                            <div class="date">2018</div>
+                        </header>
+                        <div class="item">
+                            <div class="summary">
+                                <p>
+                                    <p>Acquired the knowledge and skills to establish myself as a confident,
+                                        enthusiastic and effective teacherwho is able to engage, encourage and
+                                        develop students&#39; learning.</p>
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="award-item">
+                        <input id="award-item-2" type="checkbox" class="toggle-item" />
+                        <label for="award-item-2"></label>
+                        <header>
+                            <div class="header-left">
+                                <div class="title">Full Sporting Colours</div>
+                                <div class="awarder">University of Bristol</div>
+                            </div>
+                            <div class="date">2017</div>
+                        </header>
+                        <div class="item">
+                            <div class="summary">
+                                <p>
+                                    <p>Awarded full sporting colours for outstanding achievement in snowboarding.</p>
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="award-item">
+                        <input id="award-item-3" type="checkbox" class="toggle-item" />
+                        <label for="award-item-3"></label>
+                        <header>
+                            <div class="header-left">
+                                <div class="title">The Bristol PLUS Award</div>
+                                <div class="awarder">University of Bristol</div>
+                            </div>
+                            <div class="date">2016</div>
+                        </header>
+                        <div class="item">
+                            <div class="summary">
+                                <p>
+                                    <p>For undertaking a wide range of tasks to further enhance student skills
+                                        - only 700 out of 23000 achieved this awards per annum.</p>
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="award-item">
+                        <input id="award-item-4" type="checkbox" class="toggle-item" />
+                        <label for="award-item-4"></label>
+                        <header>
+                            <div class="header-left">
+                                <div class="title">The Duke of Edinburgh&#x27;s Award (Bronze/Silver/Gold)</div>
+                                <div class="awarder">Ripon Grammar School</div>
+                            </div>
+                            <div class="date">2012</div>
+                        </header>
+                        <div class="item">
+                            <div class="summary">
+                                <p>
+                                    <p></p>
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="award-item">
+                        <input id="award-item-5" type="checkbox" class="toggle-item" />
+                        <label for="award-item-5"></label>
+                        <header>
+                            <div class="header-left">
+                                <div class="title">Mary Jones prize for Mathematics</div>
+                                <div class="awarder">Ripon Grammar School</div>
+                            </div>
+                            <div class="date">2012</div>
+                        </header>
+                        <div class="item">
+                            <div class="summary">
+                                <p>
+                                    <p></p>
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="award-item">
+                        <input id="award-item-6" type="checkbox" class="toggle-item" />
+                        <label for="award-item-6"></label>
+                        <header>
+                            <div class="header-left">
+                                <div class="title">Gold Crest Award</div>
+                                <div class="awarder">British Science Association</div>
+                            </div>
+                            <div class="date">2012</div>
+                        </header>
+                        <div class="item">
+                            <div class="summary">
+                                <p>
+                                    <p>Achieved through completion of the engineering education scheme.</p>
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="award-item">
+                        <input id="award-item-7" type="checkbox" class="toggle-item" />
+                        <label for="award-item-7"></label>
+                        <header>
+                            <div class="header-left">
+                                <div class="title">Nissan Rose Bowl</div>
+                                <div class="awarder">Engineering Education Scheme</div>
+                            </div>
+                            <div class="date">2012</div>
+                        </header>
+                        <div class="item">
+                            <div class="summary">
+                                <p>
+                                    <p>Awarded the Nissan Rose Bowl for the best team at the North Regional Assessment
+                                        Day.</p>
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </section>
+    </body>
+
+</html>

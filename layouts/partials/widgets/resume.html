@@ -1,0 +1,18 @@
+{{- define "main" -}}
+{{ readFile "/static/resume.html" }}
+
+<article class="article article-project">
+
+  {{ partial "page_header.html" . }}
+
+  <div class="article-container">
+
+    <div class="article-style">
+      {{ .Site.resume.html}}
+    </div>
+
+    {{ partial "page_footer" . }}
+
+  </div>
+</article>
+{{- end -}}
