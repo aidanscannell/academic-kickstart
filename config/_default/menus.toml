@@ -39,7 +39,7 @@
 
 [[main]]
   name = "Resume"
-  url = "https://aidanscannell.github.io/"
+  url = "/resume.html"
   weight = 50
 
 [[main]]
