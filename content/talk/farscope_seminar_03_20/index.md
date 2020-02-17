@@ -21,7 +21,7 @@ date_end: 2020-03-05T16:00:00Z
 all_day: false
 
 # Schedule page publish date (NOT talk date).
-publishDate: 2020-02-16T15:14:00Z
+publishDate: 2020-03-05T15:14:00Z
 
 authors: ['Aidan Scannell']
 tags: []
