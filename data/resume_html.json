@@ -60,7 +60,7 @@
       "highlights": [
         "I help students understand both the mathematics and the intuition for how we construct ML models and perform inference.",
         "This role has definitely made me a believer that \"you never really learn something until you teach it\".",
-        "I must say that teaching has not only honed my ability to communicate my unerstanding of a concept but it has also prompted me to think about the many other ways a concept can be understood and thus explained."
+        "I must say that teaching has not only honed my ability to communicate my understanding of a concept but it has also prompted me to think about the many other ways a concept can be understood and thus explained."
       ],
       "summaryold": "Alongside my PhD studies I am a teaching assistant for the following courses:",
       "highlightsold": [
@@ -92,13 +92,8 @@
       "area": "Robotics and Autonomous Systems",
       "studyType": "MRes",
       "startDate": "2017-01-01",
-<<<<<<< HEAD
       "gpa": "73%",
       "summary": "Extending BDI Agents to Model and Reason with Uncertainty (77%) - https://github.com/aidanscannell/uncertain-agentspeak",
-=======
-      "gpa": "75%",
-      "summary": "[Extending BDI Agents to Model and Reason with Uncertainty (77%)](https://www.aidanscannell.com/project/uncertain-agentspeak/)",
->>>>>>> master
       "courses": [
         "Amazon Picking Challenge - 64%",
         "Artificial Intelligence with Logic Programming - 73%",
