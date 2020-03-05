@@ -46,7 +46,7 @@ image:
 #   icon: twitter
 
 # Optional filename of your slides within your talk's folder or a URL.
-url_slides: /talks/farscope_seminar_03_20/uncertainty-ml-robotics.html
+url_slides: /talks/farscope_seminar/farscope_seminar_03_20.html
 
 url_code:
 url_pdf:
