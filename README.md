@@ -8,7 +8,7 @@
 2. Export org sub-tree (a single blog post) to markdown in /posts/../ folder using C-c C-c H H
 3. To serve the site locally run,
     ```
-    hugo server -disableFastRender
+    hugo server --disableFastRender
     ```
     or use spacemacs SPC+p+c.
 
