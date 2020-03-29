@@ -92,8 +92,13 @@
       "area": "Robotics and Autonomous Systems",
       "studyType": "MRes",
       "startDate": "2017-01-01",
+<<<<<<< HEAD
+      "gpa": "73%",
+      "summary": "Extending BDI Agents to Model and Reason with Uncertainty (77%) - https://github.com/aidanscannell/uncertain-agentspeak",
+=======
       "gpa": "75%",
       "summary": "[Extending BDI Agents to Model and Reason with Uncertainty (77%)](https://www.aidanscannell.com/project/uncertain-agentspeak/)",
+>>>>>>> master
       "courses": [
         "Amazon Picking Challenge - 64%",
         "Artificial Intelligence with Logic Programming - 73%",
