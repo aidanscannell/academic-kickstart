@@ -5,13 +5,9 @@ date = 2020-01-01T12:14:00+00:00
 publishDate = 2020-01-01T12:14:00+00:00
 tags = ["emacs"]
 draft = false
-markup = "blackfriday"
-lastmod = 2020-01-01T12:14:00+00:00
 +++
 
 Hello and welcome to my blog.
-[frontmatter]
-date = ["myDate", ":default"]
 
 I am an aspiring researcher (aka phd student) with interests at the intersection of robotics and machine learning.
 I am particularly interested in uncertainty quantification in ML and as a result spend a significant amount of time with Bayesian non-parametric methods, specifically Gaussian processes.
