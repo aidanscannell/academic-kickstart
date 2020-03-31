@@ -1,8 +1,7 @@
 +++
 title = "Welcome to Emacs Anonymous, Sorry, My Blog"
 author = ["Aidan Scannell"]
-date = 2020-01-01T12:14:00+00:00
-publishDate = 2020-01-01T12:14:00+00:00
+date = 2019-09-16T12:14:00+01:00
 tags = ["emacs"]
 draft = false
 +++
