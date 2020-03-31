@@ -5,6 +5,7 @@ date = 2020-01-01T12:14:00+00:00
 publishDate = 2020-01-01T12:14:00+00:00
 tags = ["emacs"]
 draft = false
+markup = "blackfriday"
 +++
 
 Hello and welcome to my blog.
