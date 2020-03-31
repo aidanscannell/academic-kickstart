@@ -6,7 +6,7 @@ publishDate = 2020-01-01T12:14:00+00:00
 tags = ["emacs"]
 draft = false
 markup = "blackfriday"
-lastmod = ["publishDate", "lastmod", ":fileModTime", ":default"]
+lastmod = 2020-01-01T12:14:00+00:00
 +++
 
 Hello and welcome to my blog.
