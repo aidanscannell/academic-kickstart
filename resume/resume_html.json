@@ -1,9 +1,9 @@
 {
   "basics": {
     "name": "Aidan Scannell",
-    "label": "PhD Candidate at Bristol Robotics Lab",
+    "label": "PhD Researcher at University of Bristol",
     "picture": "./img/aidan_portrait.jpeg",
-    "email": "aidan.scannell@brl.ac.uk",
+    "email": "aidan.scannell@bristol.ac.uk",
     "phone": "+44 787 558 3912",
     "website": "https://www.aidanscannell.com/",
       "summary": "I am a PhD researcher investigating data-efficient machine learning for the control of robotic systems. I am particularly interested in uncertainty quantification in model-based reinforcement learning and as a result a lot of my work focuses on Bayesian non-parametric methods, specifically Gaussian processes and variational inference.",
