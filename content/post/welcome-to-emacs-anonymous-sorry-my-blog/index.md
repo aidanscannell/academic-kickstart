@@ -4,6 +4,7 @@ author = ["Aidan Scannell"]
 date = 2019-09-16T12:14:00+01:00
 tags = ["emacs"]
 draft = false
+markup = "blackfriday"
 +++
 
 Hello and welcome to my blog.
