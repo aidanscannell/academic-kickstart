@@ -246,32 +246,17 @@
     {
       "name": "Machine Learning",
       "level": "",
-      "keywords": ["Python", "numpy", "Tensorflow", "GPflow", "GPy"]
+      "keywords": ["Python", "Tensorflow", "GPflow", "GPy"]
     },
     {
       "name": "Robotics",
       "level": "",
-      "keywords": ["Java", "C++", "ROS", "OpenCV"]
-    },
-    {
-      "name": "Engineering",
-      "level": "",
-      "keywords": ["MATLAB", "Simulink", "Autodesk Inventor", "SolidWorks", "MSC Patran"]
+      "keywords": ["Java", "C++", "ROS"]
     },
     {
       "name": "Project",
       "level": "",
-      "keywords": ["GitHub", "Overleaf/LaTeX"]
-    },
-    {
-      "name": "Web",
-      "level": "",
-      "keywords": ["HTML", "CSS", "JavaScript", "PHP", "SQL"]
-    },
-    {
-      "name": "JavaScript",
-      "level": "",
-      "keywords": ["Node", "React"]
+      "keywords": ["Git", "LaTeX"]
     }
-  ]
+]
 }
