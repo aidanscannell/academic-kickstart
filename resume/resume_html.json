@@ -94,11 +94,35 @@
         "Virtual Product Development - 74%"
       ],
       "endDate": "2016-01-01"
-    },
-    {
     }
   ],
   "awards": [
+    {
+      "title": "British University Snowboard Slalom Champion",
+      "date": "2018",
+      "awarder": "British Universities & College Sport",
+      "summary": "In the 2017-2018 season I won all National British University Slalom Competitions. I have also podiumed in several British University SnowboardX and Slopestyle competitions."
+    },
+    {
+      "title": "Starting to Teach",
+      "date": "2018",
+      "awarder": "University of Bristol",
+      "summary": "Acquired the knowledge and skills to establish myself as a confident, enthusiastic and effective teacher who is able to engage, encourage and develop students' learning."
+    },
+    {
+      "title": "Full Sporting Colours",
+      "date": "2017",
+      "awarder": "University of Bristol",
+      "summary": "Awarded full sporting colours for outstanding achievement in snowboarding."
+    },
+    {
+      "title": "The Bristol PLUS Award",
+      "date": "2016",
+      "awarder": "University of Bristol",
+      "summary": "For undertaking a wide range of tasks to further enhance student skills - only 700 out of 23000 achieved this awards per annum."
+    }
+  ],
+  "awards_old": [
     {
       "title": "British University Snowboard Slalom Champion",
       "date": "2018",
