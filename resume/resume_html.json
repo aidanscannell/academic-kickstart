@@ -29,25 +29,17 @@
   },
   "work": [
     {
-      "company": "Bristol Robotics Lab",
+      "company": "University of Bristol - Bristol Robotics Lab",
       "position": "PhD Researcher",
-      "website": "",
+      "website": "https://www.farscope.bris.ac.uk/aidan-scannell",
       "startDate": "2017-09-01",
-      "summary": "My research is focused on data-efficient learning for the control of robotic systems. I am particularly interested in uncertainty quantification and how we can utilise tools such as Gaussian processes/variational inference in model-based reinforcement learning. For an initial insight into some of my work see [this preliminary publication](https://www.aidanscannell.com//publication/separating-bimodal-noise-variances-in-gaussian-process-transition-dynamics-models) and [corresponding project](https://www.aidanscannell.com/project/seperating-stable-unstable-regimes-in-gaussian-process-transition-dynamics-models) on seperating low and high noise variances in Gaussian process transition dynamics models. Also check out [this project ](https://www.aidanscannell.com/project/pilco/) where I have re-implemented the PILCO model-based reinforcement learning algorithm in Python/TensorFlow/GPflow. EPSRC Centre for Doctoral Training in Future Autonomous and Robotic Systems (FARSCOPE).",
+      "summary": "My research is focused on data-efficient learning for the control of robotic systems. EPSRC Centre for Doctoral Training in Future Autonomous and Robotic Systems (FARSCOPE).",
       "highlights": [
-        "Bayesian machine learning",
+        "Probabilistic models",
         "Gaussian processes",
         "Variational inference",
         "Model-based reinforcement learning",
         "Robust control"
-      ],
-      "summaryold": "Researching methods for learning both data efficiently and safely onboard physical robotic systems. In particular, investigating learning probabilistic dynamics models to reduce the impact of model errors and their integration with control techniques to provide safety guarantees within a model-based reinforcement learning framework. EPSRC Centre for Doctoral Training in Future Autonomous and Robotic Systems (FARSCOPE).",
-      "highlightsold": [
-        "Model-based reinforcement learning",
-        "Probabilistic Modelling",
-        "Bayesian inference",
-        "Optimal control",
-        "System identification"
       ]
     },
     {
