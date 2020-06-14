@@ -1,4 +1,4 @@
-# Aidan Scannells Academic Kickstart
+# Aidan Scannell's Academic Kickstart
 
 1. Create a new blog post using org-capture SPC+o+c h.
 1. Create a new project/publication/talk,
@@ -13,4 +13,3 @@
     or use spacemacs SPC+p+c.
 
 4. Pushing to GitHub will auto deploy on netlify.
-

@@ -1,12 +1,11 @@
 {
   "basics": {
     "name": "Aidan Scannell",
-    "label": "PhD Candidate at Bristol Robotics Lab",
+    "label": "PhD Researcher at University of Bristol",
     "picture": "./img/aidan_portrait.jpeg",
-    "email": "aidan.scannell@brl.ac.uk",
+    "email": "aidan.scannell@bristol.ac.uk",
     "phone": "+44 787 558 3912",
-    "website": "https://aidanscannell.com",
-    "summaryold": "Whilst completing my degree I developed a keen interest in mathematics, programming and robotics and became fascinated by how they form a common connection between humans and the surrounding world. I am now pursuing a PhD investigating methods for learning both data efficiently and safely onboard physical robotic systems. I am particularly interested in using probabilistic models for learning dynamics models and their integration into model-based reinforcement learning algorithms.",
+    "website": "https://www.aidanscannell.com/",
       "summary": "I am a PhD researcher investigating data-efficient machine learning for the control of robotic systems. I am particularly interested in uncertainty quantification in model-based reinforcement learning and as a result a lot of my work focuses on Bayesian non-parametric methods, specifically Gaussian processes and variational inference.",
     "location": {
       "address": "27 Beaumont Street",
@@ -30,25 +29,17 @@
   },
   "work": [
     {
-      "company": "Bristol Robotics Lab",
+      "company": "University of Bristol - Bristol Robotics Lab",
       "position": "PhD Researcher",
-      "website": "",
+      "website": "https://www.farscope.bris.ac.uk/aidan-scannell",
       "startDate": "2017-09-01",
-      "summary": "My research is focused on data-efficient learning for the control of robotic systems. I am particularly interested in uncertainty quantification and how we can utilise tools such as Gaussian processes/variational inference in model-based reinforcement learning. For an initial insight into some of my work see [this preliminary publication](https://www.aidanscannell.com//publication/separating-bimodal-noise-variances-in-gaussian-process-transition-dynamics-models) and [corresponding project](https://www.aidanscannell.com/project/seperating-stable-unstable-regimes-in-gaussian-process-transition-dynamics-models) on seperating low and high noise variances in Gaussian process transition dynamics models. Also check out [this project ](https://www.aidanscannell.com/project/pilco/) where I have re-implemented the PILCO model-based reinforcement learning algorithm in Python/TensorFlow/GPflow. EPSRC Centre for Doctoral Training in Future Autonomous and Robotic Systems (FARSCOPE).",
+      "summary": "My research is focused on data-efficient learning for the control of robotic systems. EPSRC Centre for Doctoral Training in Future Autonomous and Robotic Systems (FARSCOPE).",
       "highlights": [
-        "Bayesian machine learning",
+        "Probabilistic models",
         "Gaussian processes",
         "Variational inference",
         "Model-based reinforcement learning",
         "Robust control"
-      ],
-      "summaryold": "Researching methods for learning both data efficiently and safely onboard physical robotic systems. In particular, investigating learning probabilistic dynamics models to reduce the impact of model errors and their integration with control techniques to provide safety guarantees within a model-based reinforcement learning framework. EPSRC Centre for Doctoral Training in Future Autonomous and Robotic Systems (FARSCOPE).",
-      "highlightsold": [
-        "Model-based reinforcement learning",
-        "Probabilistic Modelling",
-        "Bayesian inference",
-        "Optimal control",
-        "System identification"
       ]
     },
     {
@@ -56,34 +47,12 @@
       "position": "Teaching Assistant",
       "website": "",
       "startDate": "2018-09",
-      "summary": "Alongside my PhD studies I am a teaching assistant for 1) [Machine Learning COMS30007](https://www.bris.ac.uk/unit-programme-catalogue/UnitDetails.jsa?ayrCode=19%2F20&unitCode=COMS30007), 2) [Robotic Systems COMSM0012](https://www.bris.ac.uk/unit-programme-catalogue/UnitDetails.jsa?ayrCode=19%2F20&unitCode=COMSM0012) and previosuly 3) [Intelligent Software Systems EMATM0042](https://bit.ly/2Rn2mwx).",
-      "highlights": [
+      "summary": "Alongside my PhD I am a teaching assistant for 1) [Machine Learning COMS30007](https://www.bris.ac.uk/unit-programme-catalogue/UnitDetails.jsa?ayrCode=19%2F20&unitCode=COMS30007), 2) [Robotic Systems COMSM0012](https://www.bris.ac.uk/unit-programme-catalogue/UnitDetails.jsa?ayrCode=19%2F20&unitCode=COMSM0012) and previosuly 3) [Intelligent Software Systems EMATM0042](https://bit.ly/2Rn2mwx).",
+      "highlights_old": [
         "I help students understand both the mathematics and the intuition for how we construct ML models and perform inference.",
         "This role has definitely made me a believer that \"you never really learn something until you teach it\".",
         "I must say that teaching has not only honed my ability to communicate my unerstanding of a concept but it has also prompted me to think about the many other ways a concept can be understood and thus explained."
-      ],
-      "summaryold": "Alongside my PhD studies I am a teaching assistant for the following courses:",
-      "highlightsold": [
-        "Machine Learning COMS30007 - https://bit.ly/2C6UbKp",
-        "Robotic Systems COMSM0012 - https://bit.ly/2LV7rpZ",
-        "Intelligent Software Systems EMATM0042 - https://bit.ly/2Rn2mwx"
       ]
-    },
-    {
-      "company": "Mott MacDonald",
-      "position": "Mechanical Engineering Intern",
-      "website": "",
-      "startDate": "2015-06-01",
-      "summary": "I worked as a mechanical engineer within the building services division where I developed my teamwork skills and learned the importance of knowledge management. I was in charge of optimising the heating, ventilation and air-conditioning of a building at Hackney Wick underground station. I met with external architects to communicate our ideas and I personally overcame logistical issues and improved a systems efficiency, resulting in the designs approval. I consistently met deadlines whilst working under pressure and was offered future employment. This internship strengthened my desire to move away from engineering and pursue a research driven career involving mathematics and programming.",
-      "highlights_old": [
-        "Developed teamwork skills, learning the importance of knowledge management within a team.",
-        "Overcame logistical issues and improved a system’s efficiency, resulting in the design’s approval.",
-        "Consistently met deadlines whilst working under pressure.",
-        "Conducted a feasibility study and estimated project costs that informed subsequent action.",
-        "Located an error and proposed a solution. Communicating this to relevant managers resulted in its successful implementation.",
-        "Mott MacDonald offered me future employment following my summer placement."
-      ],
-      "endDate": "2015-08-01"
     }
   ],
   "education": [
@@ -92,13 +61,8 @@
       "area": "Robotics and Autonomous Systems",
       "studyType": "MRes",
       "startDate": "2017-01-01",
-<<<<<<< HEAD
-      "gpa": "73%",
-      "summary": "Extending BDI Agents to Model and Reason with Uncertainty (77%) - https://github.com/aidanscannell/uncertain-agentspeak",
-=======
-      "gpa": "75%",
-      "summary": "[Extending BDI Agents to Model and Reason with Uncertainty (77%)](https://www.aidanscannell.com/project/uncertain-agentspeak/)",
->>>>>>> master
+      "gpa": "First Class Honours",
+      "summary": "[Extending BDI Agents to Model and Reason with Uncertainty](https://www.aidanscannell.com/project/uncertain-agentspeak/)",
       "courses": [
         "Amazon Picking Challenge - 64%",
         "Artificial Intelligence with Logic Programming - 73%",
@@ -117,8 +81,8 @@
       "area": "Mechanical Engineering",
       "studyType": "MEng",
       "startDate": "2012-01-01",
-      "gpa": "73%",
-      "summary": "Graduated in the top 10% of cohort.",
+      "gpa": "First Class Honours",
+      "summary": "Graduated in top 10% of cohort.",
       "courses": [
         "Robotic Systems - 87%",
         "Generic Propulsion - 76%",
@@ -130,23 +94,35 @@
         "Virtual Product Development - 74%"
       ],
       "endDate": "2016-01-01"
-    },
-    {
-      "institution": "Ripon Grammar School",
-      "area": "",
-      "studyType": "A-Levels",
-      "startDate": "2005-01-01",
-      "summary": "",
-      "courses": [
-        "(A2 Level) Chemistry - A*",
-        "(A2 Level) Mathematics - A*",
-        "(A2 Level) Physics - A*",
-        "(AS Level) Design & Technology - A"
-      ],
-      "endDate": "2012-01-01"
     }
   ],
   "awards": [
+    {
+      "title": "British University Snowboard Slalom Champion",
+      "date": "2018",
+      "awarder": "British Universities & College Sport",
+      "summary": "In the 2017-2018 season I won all National British University Slalom Competitions. I have also podiumed in several British University SnowboardX and Slopestyle competitions."
+    },
+    {
+      "title": "Starting to Teach",
+      "date": "2018",
+      "awarder": "University of Bristol",
+      "summary": "Acquired the knowledge and skills to establish myself as a confident, enthusiastic and effective teacher who is able to engage, encourage and develop students' learning."
+    },
+    {
+      "title": "Full Sporting Colours",
+      "date": "2017",
+      "awarder": "University of Bristol",
+      "summary": "Awarded full sporting colours for outstanding achievement in snowboarding."
+    },
+    {
+      "title": "The Bristol PLUS Award",
+      "date": "2016",
+      "awarder": "University of Bristol",
+      "summary": "For undertaking a wide range of tasks to further enhance student skills - only 700 out of 23000 achieved this awards per annum."
+    }
+  ],
+  "awards_old": [
     {
       "title": "British University Snowboard Slalom Champion",
       "date": "2018",
@@ -240,47 +216,23 @@
         "Awarded the ‘Team of the Year’ award and full colours for my performances and contributions to the sport."
       ],
       "endDate": "2015"
-    },
-    {
-      "organization": "Help the Aged",
-      "position": "Shop Assistant",
-      "website": "https://www.ageuk.org.uk/",
-      "startDate": "2009",
-      "summary": "Helping in the shop was rewarding and I developed my sales skills and an understanding of customer service.",
-      "highlights": [],
-      "endDate": "2011"
     }
   ],
   "skills": [
     {
       "name": "Machine Learning",
       "level": "",
-      "keywords": ["Python", "numpy", "Tensorflow", "GPflow", "GPy"]
+      "keywords": ["Python", "Tensorflow", "GPflow", "GPy"]
     },
     {
       "name": "Robotics",
       "level": "",
-      "keywords": ["Java", "C++", "ROS", "OpenCV"]
-    },
-    {
-      "name": "Engineering",
-      "level": "",
-      "keywords": ["MATLAB", "Simulink", "Autodesk Inventor", "SolidWorks", "MSC Patran"]
+      "keywords": ["Java", "C++", "ROS"]
     },
     {
       "name": "Project",
       "level": "",
-      "keywords": ["GitHub", "Overleaf/LaTeX"]
-    },
-    {
-      "name": "Web",
-      "level": "",
-      "keywords": ["HTML", "CSS", "JavaScript", "PHP", "SQL"]
-    },
-    {
-      "name": "JavaScript",
-      "level": "",
-      "keywords": ["Node", "React"]
+      "keywords": ["Git", "LaTeX"]
     }
-  ]
+]
 }
