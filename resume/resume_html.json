@@ -5,8 +5,7 @@
     "picture": "./img/aidan_portrait.jpeg",
     "email": "aidan.scannell@brl.ac.uk",
     "phone": "+44 787 558 3912",
-    "website": "https://aidanscannell.com",
-    "summaryold": "Whilst completing my degree I developed a keen interest in mathematics, programming and robotics and became fascinated by how they form a common connection between humans and the surrounding world. I am now pursuing a PhD investigating methods for learning both data efficiently and safely onboard physical robotic systems. I am particularly interested in using probabilistic models for learning dynamics models and their integration into model-based reinforcement learning algorithms.",
+    "website": "https://www.aidanscannell.com/",
       "summary": "I am a PhD researcher investigating data-efficient machine learning for the control of robotic systems. I am particularly interested in uncertainty quantification in model-based reinforcement learning and as a result a lot of my work focuses on Bayesian non-parametric methods, specifically Gaussian processes and variational inference.",
     "location": {
       "address": "27 Beaumont Street",
