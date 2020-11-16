@@ -6,6 +6,14 @@ draft = true
 markup = "blackfriday"
 +++
 
+In this post I want to introduce some of (what I feel are) the main concepts in Bayesian machine learning.
+I am hoping that
+
+It took me a while to understand them and link them together into a coherent story but once I did it
+was the start of a love story.
+so I am hoping that this post provides intuition an easy to understand
+ explains the key concepts and links them together in an easy to understand way.
+
 In this post I want to introduce the main concepts in Bayesian machine learning.
 It took me a while to understand some of the concepts in Bayesian ML and how they link together, so I am hoping that this post explains the key concepts and links them together in an easy to understand way.
 I've decided to walk through what I believe are the main concepts and I introduce simple examples to help explain some of the concepts.
@@ -26,10 +34,10 @@ In machine learning we often want to learn predictive models that map inputs to 
 There are multiple sources of uncertainty that ideally we would like to know and thus should attempt to model.
 [This blog post by Jason Brownlee](<https://machinelearningmastery.com/uncertainty-in-machine-learning/>)
 gives a great introduction to uncertainty in machine learning and I would encourage reading it if this is a new concept for you.
-Here's a quick overview of the main sources of uncertianty.
+Here's a quick overview of the main sources of uncertainty.
 
 
-### Noise in Data (Aleatoric Uncertainty) {#noise-in-data--aleatoric-uncertainty}
+### Noisy Data (Aleatoric Uncertainty) {#noisy-data--aleatoric-uncertainty}
 
 This type of uncertainty refers to variability in the observations.
 It can arise from the data having natural variations or from the measurement process intorducing variations/noise.
@@ -83,7 +91,7 @@ The figure below illustrates this.
 
 It also shows the notion of probabilistic predictions, that is, returning a probability distribution over the predicted output, as opposed to a point prediction (like the previous example).
 In this example each prediction is represented by a Gaussian (normal) distribution.
-This distribution is goverend by two parameters; mean \\(\mu\\) and variance \\(\sigma\\) (or standard deviation \\(\sigma^2\\)).
+This distribution is goverend by two parameters; mean \\(\mu\\) and variance \\(\sigma^2\\) (or standard deviation \\(\sigma\\)).
 The Gaussian (normal) distributions' probability density function is illustrated below.
 
 {{< figure src="images/normal\_dist.png" title="[source Wikipedia](![](https://en.wikipedia.org/wiki/Normal%5Fdistribution#/media/File:Normal%5FDistribution%5FPDF.svg))" lightbox="true" >}}
@@ -96,8 +104,6 @@ This extra value is extrememly useful, it can be used for decision making, intel
 
 > I mentioned this example to justify why we may want to model uncertainty in our ML models.
   This example is noise free Gaussian process regression and if you are interested in how we can do this in neural networks check out the field of Bayesian neural networks.
-  It is worth noting here that this is only one type of superviesed learning (regression) and in other settings we do not necessarily care about probabilistic predicitions (but we do care about modelling uncertainty).
-  For example, we can treat unsupervised learning (e.g. clustering, dimensionality reduction) and reinforcement learning (check out [PILCO](<http://mlg.eng.cam.ac.uk/pilco/>)) probabilisticly so that we can model our uncerainty.
 
 We've spoken about what uncertainties we would like to model but how do we construct models capable of handling these uncertainties?
 Probability theory is a field of mathematics designed to handle and harness uncertainty.
@@ -113,13 +119,13 @@ Before introducing Bayesian inference it is important to first understand Baye's
 I have to say, Baye's theorem is pretty cool!
 It allows us to use any knowledge or belief that we already have about a system to help us calculate the probability of an event.
 For example, if we wanted to find the probability of a coin toss being heads, Baye's rule gives us the tools to use our prior knowledge of the likelihood of the coin toss being heads.
-We'll be going into more detail throughout the post but for now all you need to know is that Baye's theorem allows us to update the probability of a hypothesis as we receive more evidence or information.
+All you need to know is that Baye's theorem allows us to update the probability of a hypothesis as we receive more evidence or information.
 Mathematically Baye's theorem is defined as,
 
 \\[
 P(hypothesis | data)=\frac{P(data |hypothesis) P(hypothesis)}{P(data)}.
 \\]
-Mathematical definitions can often be hard to understand without an example so we will get stuck into an example from a ML point of view.
+Mathematical definitions can often be hard to understand so let's get stuck into a machine learning example.
 
 
 ## A Bayesian Coin Toss {#a-bayesian-coin-toss}
@@ -139,10 +145,11 @@ p(x | \theta) = p(x | \mu) = \text{Bern}(x | \mu) = \mu^{x} (1 - \mu)^{1-x}.
 \\]
 The Bernoulli ditribution is parameterised by a single parameter \\(\mu\\).
 The reason we have picked this distribution is because it makes sense to parameterize the system using a single parameter \\(\mu\\) that conatins information regarding how often we observe each outcome
-i.e. how biased is the coin, \\(\mu\\) is the probability of getting a tails and \\(1-\mu\\) is the probability of getting a heads.
+i.e. how biased is the coin.
+\\(\mu\\) is the probability of getting a tails and \\(1-\mu\\) is the probability of getting a heads.
 If we think the coin is fair then we would initially guess \\(\mu=0.5\\) and if we thought it was biased towards heads then maybe \\(\mu=0.3\\).
 
-Lets now look at the value of our likelihood for each of our possible observations to get some intuition for what is going on,
+Let's now look at the value of our likelihood for each of our possible observations to get some intuition for what is going on,
 \\[
 p(x=0 | \mu) = \mu^{0} (1 - \mu)^{1-0} = 1 - \mu
 \\]
@@ -161,7 +168,7 @@ p(x=0 | \mu=0.3) = 0.3^{0} (1 - 0.3)^{1-0} = 1 \times (1 - 0.3) = 0.7
 p(x=1 | \mu=0.3) = 0.3^{1} (1 - 0.3)^{1-1} = 0.3 \times 1 = 0.3
 \\]
 The results are as expected so our choice of likelihood is good!
-We can extend our likelihood for \\(N\\) observations (coin tosses) \\(\mathbf{x} = \\\{ x\\_n \\\}\_{n=1}^N\\),
+We can extend our likelihood for \\(N\\) observations (coin tosses) \\(\mathbf{x} = \\\{ x\_n \\\}\_{n=1}^N\\),
 
 \\[
 p(\\mathbf{x} | \\mu) = \\prod\_{n=1}^N \\mu^{x}\_n (1 - \mu)^{1-x\_n}
