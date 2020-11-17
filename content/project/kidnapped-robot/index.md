@@ -52,7 +52,7 @@ theory this configuration enabled the robot to turn without displacing the senso
 although in reality this is unlikely.
 
 The localisation algorithm utilised a particle filter to approximately calculate
-the robot’s position. The Euclidean distance was used to score the particles with
+the robots position. The Euclidean distance was used to score the particles with
 a low variance resampling procedure. Once a suitable estimation for the position
 of the robot was calculated, a wave-front based route planner was implemented to
 generate a discretised route to the target. To ensure that the robot did not clash
