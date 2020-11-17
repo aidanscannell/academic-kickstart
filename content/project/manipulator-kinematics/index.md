@@ -1,6 +1,7 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
+draft: true
 title: "Manipulator Kinematics and Trajectory Planning"
 summary: "This project involved deriving and implementing the serial kinematics for a Lynxmotion arm as well as the parallel kinematics for a planar parallel robot used in surgical procedures."
 authors: ["Aidan Scannell"]
@@ -43,7 +44,6 @@ This project involved deriving and implementing the serial kinematics for a Lynx
 
 ### Serial Manipulator
 This involved deriving the DH representation of the forward kinematics for the Lnyxmotion arm before analysing the workspace of the centre of the wrist. I then derived the inverse kinematics model for the manipulator (analytical solution) and tested the model on a pick and place task.
-![alt text][image]
 [image]: serial_kinematics.png "Serial Kinematics"
 Following this, I implemented several trajectory planning algorithms in both joint space and cartesian space, namely:
 
@@ -55,5 +55,4 @@ Following this, I implemented several trajectory planning algorithms in both joi
 
 ### Parallel Manipulator
 The figure below shows a needle positioning parallel robot that is used for surgical procedures. This is the parallel robot that was studied and implemented. 
-![alt text][image2]
-[image2]: parallel-manipulator.png "Parallel Manipulator"
+[image]: parallel-manipulator.png "Parallel Manipulator"
