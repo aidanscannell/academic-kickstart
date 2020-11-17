@@ -25,11 +25,12 @@ organizations:
 bio: My research interests include probabilistic dynamics models, gaussian processes, variational inference, reinforcement learning and robust control.
 
 interests:
-  - Probabilistic Models
-  - Gaussian Processes
-  - Variational Inference
-  - Model-Based Reinforcement Learning
-  - Robust Control
+  - Probabilistic modelling
+  - Gaussian processes
+  - Bayesian inference
+  - Variational inference
+  - Model-based reinforcement learning
+  - Optimal control
 
 education:
   courses:
@@ -63,7 +64,7 @@ social:
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
 - icon: cv
   icon_pack: ai
-  link: https://aidanscannell.github.io/
+  link: /resume.html
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
 email: "scannell.aidan@gmail.com"
