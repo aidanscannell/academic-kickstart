@@ -53,13 +53,13 @@ The denominator is known as the marginal likelihood (or evidence) and represents
 p(\mathbf{Y}) = \int p(\mathbf{Y}, \mathbf{\theta}) d\theta.
 \end{equation}
 
-Sometimes this integral is intractable (computationally or analytically) so we cannot exploit conjugacy to avoid it's calculation. For this reason we have to make approximations to this integral. 
+Sometimes this integral is intractable (computationally or analytically) so we cannot exploit conjugacy to avoid its calculation. For this reason we have to make approximations to this integral. 
 
 ## Image Restoration
 This can be demonstrated through image restoration, the process of cleaning up images that have been corrupted by noise. Image restoration of binary images.
 
 ### The Model
-Our task here is to build a model of images, in specific of binary or black-and-white images. Images are normally represented as a grid of pixels $y_i$ however the images we observe are noisy and rather will be a realisation of an underlying latent pixel representation $x_i$. Lets say that white is encoded by $x_i = 1$ and black with $x_i = −1$ and that the grey-scale values that we observed $y_i \in (0, 1)$. We will write our likelihood on this form,
+Our task here is to build a model of images, in specific of binary or black-and-white images. Images are normally represented as a grid of pixels $y_i$ however the images we observe are noisy and rather will be a realisation of an underlying latent pixel representation $x_i$. Lets say that white is encoded by $x_i = 1$ and black with $x_i = −1$ and that the grey-scale values that we observed $y_i \in (0, 1)$. Our likelihood takes the form,
 
 \begin{equation}
 p(\mathbf{y} \mid \mathbf{x}) = \frac{1}{Z_1} \prod\_{i=1}^N e^{L_i(x_i)}
