@@ -22,7 +22,7 @@ organizations:
   url: "https://www.uwe.ac.uk/"
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include probabilistic dynamics models, gaussian processes, variational inference, reinforcement learning and robust control.
+bio: My research interests include probabilistic modelling, gaussian processes, variational inference, reinforcement learning and optimal control.
 
 interests:
   - Probabilistic modelling
@@ -86,11 +86,10 @@ I grew up in North Yorkshire and graduated from the University of Bristol in 201
 I am now a PhD researcher under the supervision of Professor Arthur Richards and Dr Carl Henrik Ek focusing on data-efficient learning for the control of robotic systems (quadcopters).
 I am particularly interested in uncertainty quantification in model-based reinforcement learning and as a result a lot of my work focuses on Bayesian non-parametric methods, specifically Gaussian processes and variational inference.
 
-I spend a lot of my time staring at equations and programming in
-my beautiful text editor,
-however, my favourite time is that dedicated to tinkering with my [dotfiles](https://github.com/aidanscannell/.dotfiles).
-I am a real programmer that
-[uses the butterfly effect](https://xkcd.com/378/) to program.
+I am a real programmer that [uses the butterfly effect](https://xkcd.com/378/) to program.
+Joking aside, my favourite time is that dedicated to tinkering with my [dotfiles](https://github.com/aidanscannell/.dotfiles)
+and configuring my beautiful text editor.
+
 <!-- I am a real programmer that -->
 <!-- [uses butterflies](https://xkcd.com/378/). -->
 
