@@ -32,6 +32,10 @@ date_format = "Jan 2006"
 My research is focused on data-efficient learning for the control of robotic systems.
 I am particularly interested in uncertainty quantification in model-based reinforcement learning and as a result a lot of my work focuses on Bayesian nonparametric methods, specifically Gaussian processes.
 EPSRC Centre for Doctoral Training in Future Autonomous and Robotic Systems (FARSCOPE).
+
+Work to date:
+1. [Identifiable Mixtures of Sparse Variational Gaussian Process Experts](/project/mixtures-of-sparse-variational-gaussian-process-experts)
+2. [Trajectory Optimisation in Learned Multimodal Dynamical Systems](/project/trajectory-optimisation-in-learned-multimodal-dynamical-systems)
   """
 
 [[experience]]
