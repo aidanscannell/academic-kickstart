@@ -50,4 +50,4 @@ hero_media = ""
  [cta_note]
   label = ''
 +++
-PhD Researcher | Bayesian Machine Learning for Robotics
+PhD Researcher | Bayesian Machine Learning and Robotic Control
