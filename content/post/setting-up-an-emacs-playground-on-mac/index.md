@@ -1,5 +1,4 @@
 +++
-title = "Setting Up an Emacs Playground on MacOS - Emacs Mac Port | Chemacs | Emacsclient | Spacemacs"
 author = ["Aidan Scannell"]
 date = 2020-03-29T23:05:00+01:00
 tags = ["spacemacs", "emacs"]
@@ -22,30 +21,30 @@ Many GitHub issues later and [The Emacs Mac Port](https://bitbucket.org/mituharu
 In particular, it provides a lot of native GUI support.
 
 I personally don't like having a title bar on my beautiful editor so I choose not to install it.
-I think I read somewhere that it might interfere with tiling window managers as well and we can't be having that, so lets install it without,
+I think I read somewhere that it might interfere with tiling window managers as well and we can't be having that, so let's install it without,
 
-```emacs-lisp
+```zsh
 brew install emacs-mac --with-no-title-bars
 ```
 
 and to make sure that we are using the right install be sure to link emacs-mac with,
 
-```emacs-lisp
+```zsh
 brew link emacs-mac
 ```
 
 Now that we are using The Emacs Mac Port we need to add the following to our config file (user-config in spacemacs) if we want to enjoy the fruits of our labour,
 
-```emacs-lisp
-;; combined with emacs-mac this gives good pdf quality for retina display
-(setq pdf-view-use-scaling t)
+```lisp
+  ;; combined with emacs-mac this gives good pdf quality for retina display
+  (setq pdf-view-use-scaling t)
 ```
 
 I also like PDFView to open with the pdf fit to the screen (show 1 page) so I also added the following,
 
-```emacs-lisp
-;; default page width behavior
-(setq-default pdf-view-display-size 'fit-page)
+```lisp
+  ;; default page width behavior
+  (setq-default pdf-view-display-size 'fit-page)
 ```
 
 
@@ -73,23 +72,23 @@ Once you have it setup the main functionality comes from two files.
 First there is the `~/.emacs-profiles.el` file where you define all of your different configurations.
 This is what my `~/.emacs-profiles.el` file looks like,
 
-```nil
-(("vanilla" . ((user-emacs-directory . "~/.dotfiles/vanilla-emacs")))
+```lisp
+  (("vanilla" . ((user-emacs-directory . "~/.dotfiles/vanilla-emacs")))
 
-("spacemacs-old-m" . ((user-emacs-directory . "~/spacemacs")
-                 (env . (("SPACEMACSDIR" . "~/.dotfiles/spacemacs-old")))))
+  ("spacemacs-old-m" . ((user-emacs-directory . "~/spacemacs")
+                   (env . (("SPACEMACSDIR" . "~/.dotfiles/spacemacs-old")))))
 
-("spacemacs-old-d" . ((user-emacs-directory . "~/spacemacs/develop")
-                 (env . (("SPACEMACSDIR" . "~/.dotfiles/spacemacs-old")))))
+  ("spacemacs-old-d" . ((user-emacs-directory . "~/spacemacs/develop")
+                   (env . (("SPACEMACSDIR" . "~/.dotfiles/spacemacs-old")))))
 
-("spacemacs-master" . ((user-emacs-directory . "~/spacemacs")
-                 (env . (("SPACEMACSDIR" . "~/.dotfiles/spacemacs-base-new")))))
+  ("spacemacs-master" . ((user-emacs-directory . "~/spacemacs")
+                   (env . (("SPACEMACSDIR" . "~/.dotfiles/spacemacs-base-new")))))
 
- ("new-config" . ((user-emacs-directory . "~/spacemacs/develop")
-                  (env . (("SPACEMACSDIR" . "~/.dotfiles/spacemacs-base-new")))))
+   ("new-config" . ((user-emacs-directory . "~/spacemacs/develop")
+                    (env . (("SPACEMACSDIR" . "~/.dotfiles/spacemacs-base-new")))))
 
- ("org-config" . ((user-emacs-directory . "~/spacemacs/develop")
-                  (env . (("SPACEMACSDIR" . "~/.dotfiles/spacemacs-org-config"))))))
+   ("org-config" . ((user-emacs-directory . "~/spacemacs/develop")
+                    (env . (("SPACEMACSDIR" . "~/.dotfiles/spacemacs-org-config"))))))
 ```
 
 1.  Chemacs will load the `init.el` file from the `user-emacs-directory`,
@@ -102,7 +101,7 @@ This is what my `~/.emacs-profiles.el` file looks like,
 The other Chemacs file is the `~/.emacs-profile` file where you set the default config to use.
 Mine is currently,
 
-```emacs-lisp
+```lisp
 new-config
 ```
 
@@ -112,13 +111,13 @@ For example I have put all of my snippets (for use with [yasnippet](https://gith
 `~/.dotfiles/spacemacs-base-new/private/snippets` and all of my layers are inside `~/.dotfiles/spacemacs-base-new/layers`.
 To make my configs more portable I also set the layer path variable in the `dotspacemacs/layers` function using,
 
-```emacs-lisp
-dotspacemacs-configuration-layer-path (list (concat dotspacemacs-directory "layers/"))
+```lisp
+   dotspacemacs-configuration-layer-path (list (concat dotspacemacs-directory "layers/"))
 ```
 
 and set any references to the private directory with something like,
 
-```emacs-lisp
+```lisp
 (auto-completion :variables auto-completion-private-snippets-directory (concat dotspacemacs-directory "/private/snippets")
 ```
 
@@ -134,7 +133,7 @@ These new instances open almost instantaneously for me.
 To get this working you first have to start the server.
 I have been struggling to get it setup with the spacemacs server config so I turn off all of the spacemacs server functionality,
 
-```emacs-lisp
+```lisp
 ;; If non-nil, start an Emacs server if one is not already running.
 ;; (default nil)
 dotspacemacs-enable-server nil
@@ -154,8 +153,8 @@ dotspacemacs-persistent-server nil
 
 and start my own by adding,
 
-```emacs-lisp
-(server-start)
+```lisp
+  (server-start)
 ```
 
 to my `user-config`.
@@ -163,7 +162,7 @@ to my `user-config`.
 We now need to know if an Emacs server is running so that we can either connect to it or start a new Emacs instance if not.
 To get this working I use the following shell script.
 
-```shell
+```zsh
 #!/usr/bin/env zsh
 
 EMACS='/usr/local/opt/emacs-mac/Emacs.app/Contents/MacOS/Emacs.sh'
@@ -185,22 +184,22 @@ fi
 ```
 
 You might have to change the `EMACS` and `EMACS_CLIENT` variables depending where brew linked your install.
-Lets give our shell script permissions,
+Let's give our shell script permissions,
 
 ```bash
-chmod +x ~/.emacs.d/emacs-client-server.sh
+  chmod +x ~/.emacs.d/emacs-client-server.sh
 ```
 
 and set an alias `e` "emacs" by executing the following (assuming you use zsh),
 
 ```bash
-echo "alias te=\"~/.emacs.d/emacs-client-server.sh\"" >> ~/.zshrc
+  echo "alias te=\"~/.emacs.d/emacs-client-server.sh\"" >> ~/.zshrc
 ```
 
 If you use `bash` then it will be,
 
 ```bash
-echo "alias te=\"~/.emacs.d/emacs-client-server.sh\"" >> ~/.bashrc
+  echo "alias te=\"~/.emacs.d/emacs-client-server.sh\"" >> ~/.bashrc
 ```
 
 but you should consider switching!
@@ -210,7 +209,7 @@ I take this one step further as I use [`skhd`](https://github.com/koekeishiya/sk
 Creating an extra script was probably overkill but it works so I am happy.
 The only difference here is that no filename is passed to `emacsclient` so we instead ask it to open a new frame.
 
-```bash
+```zsh
 #!/usr/bin/env zsh
 
 EMACS='/usr/local/opt/emacs-mac/Emacs.app/Contents/MacOS/Emacs.sh'
@@ -226,15 +225,15 @@ else
 fi
 ```
 
-Again lets give it permissions,
+Again let's give it permissions,
 
-```bash
-chmod +x ~/.emacs.d/skhd-emacs-client-server.sh
+```zsh
+  chmod +x ~/.emacs.d/skhd-emacs-client-server.sh
 ```
 
 I then set `CMD m` to run the shell script by placing the following in my `~/.config/skhd/skhdrc` file,
 
-```bash
+```zsh
 cmd - m : ~/.emacs.d/skhd-emacs-client-server.sh
 ```
 
