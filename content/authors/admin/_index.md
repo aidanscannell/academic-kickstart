@@ -27,10 +27,10 @@ bio: My research interests include probabilistic modelling, gaussian processes, 
 interests:
   - Probabilistic modelling
   - Gaussian processes
-  - Bayesian inference
   - Variational inference
   - Model-based reinforcement learning
   - Optimal control
+  - Robotics
 
 education:
   courses:
@@ -87,8 +87,8 @@ I am now a PhD researcher under the supervision of Professor Arthur Richards and
 I am particularly interested in uncertainty quantification in model-based reinforcement learning and as a result a lot of my work focuses on Bayesian non-parametric methods, specifically Gaussian processes and variational inference.
 
 I am a real programmer that [uses the butterfly effect](https://xkcd.com/378/) to program.
-Joking aside, my favourite time is that dedicated to tinkering with my [dotfiles](https://github.com/aidanscannell/.dotfiles)
-and configuring my beautiful text editor.
+<!-- Joking aside, my favourite time is that dedicated to tinkering with my [dotfiles](https://github.com/aidanscannell/.dotfiles) -->
+<!-- and configuring my beautiful text editor. -->
 
 <!-- I am a real programmer that -->
 <!-- [uses butterflies](https://xkcd.com/378/). -->
