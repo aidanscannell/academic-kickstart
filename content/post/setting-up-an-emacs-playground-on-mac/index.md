@@ -1,9 +1,9 @@
 +++
+title = "Setting Up an Emacs Playground on MacOS - Emacs Mac Port | Chemacs | Emacsclient | Spacemacs "
 author = ["Aidan Scannell"]
-date = 2020-03-29T23:05:00+01:00
+date = 2020-03-29T00:00:00+00:00
 tags = ["spacemacs", "emacs"]
 draft = false
-markup = "blackfriday"
 +++
 
 This is a short post detailing how I installed Emacs and configured an environment for maintaining multiple configurations (on my MacBook Pro).

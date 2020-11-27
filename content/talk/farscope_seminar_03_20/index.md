@@ -1,6 +1,7 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
+draft: true
 title: "Handling Uncertainties in Learnt Probabilistic Transition Dynamics Models"
 event: "FARSCOPE Seminar Series"
 event_url:
