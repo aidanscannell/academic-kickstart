@@ -10,6 +10,10 @@
     ```
     hugo server --disableFastRender
     ```
+    or to include drafts use,
+    ```
+    hugo server --disableFastRender -D
+    ```
     or use spacemacs SPC+p+c.
 
 4. Pushing to GitHub will auto deploy on netlify.
