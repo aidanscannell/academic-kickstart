@@ -39,7 +39,7 @@
 
 [[main]]
   name = "Resume"
-  url = "/resume.html"
+  url = "/resume.pdf"
   weight = 50
 
 [[main]]
