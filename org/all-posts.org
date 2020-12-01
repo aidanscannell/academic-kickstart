@@ -1,0 +1,2268 @@
+#+hugo_base_dir: /Users/aidanscannell/Developer/web-projects/academic-kickstart
+#+hugo_section: post
+
+* Blog Ideas
+** DONE Setting Up an Emacs Playground on MacOS - Emacs Mac Port | Chemacs | Emacsclient | Spacemacs :spacemacs:emacs:
+:PROPERTIES:
+:EXPORT_FILE_NAME: index.md
+:EXPORT_AUTHOR: Aidan Scannell
+:EXPORT_HUGO_BUNDLE: setting-up-an-emacs-playground-on-mac
+:EXPORT_DATE: [2020-03-29 Fri]
+:END:
+This is a short post detailing how I installed Emacs and configured an environment for maintaining multiple configurations (on my MacBook Pro).
+I wanted to write the post because I have been on a roller coaster getting an Emacs install that provides all of the functionality that I want (maybe even need!).
+
+Some Emacs installs (e.g. [[https://github.com/brew-stuff/homebrew-emacs][emacs]] from homebrew) are not recognised by the yabai tiling window manager and don't tile properly.
+This really started to bug me so I invested a hefty chunk of time (in classic Emacs style) to find a solution.
+I stumbled across [[https://github.com/d12frosted/homebrew-emacs-plus][Emacs-plus]] which solved the issue but left me with another...
+I use the [[https://github.com/politza/pdf-tools][pdf-tools]] package through the [[https://develop.spacemacs.org/layers/+tools/pdf-tools/README.html][pdf-tools spacemacs layer]] for viewing all my pdfs; writing =LaTeX= docs (using org-mode and/or auctex), reading books, reading papers (using [[https://github.com/jkitchin/org-ref][org-ref]]) etc.
+Unfortunately, both of these installs don't support retina pdf quality in PDFView (pdf-tools).
+So I set out on a second mission to get my myself a high res pdf viewing experience within Emacs.
+
+Many GitHub issues later and [[https://bitbucket.org/mituharu/emacs-mac/src/master/README-mac][The Emacs Mac Port]] came to the rescue.
+[[https://ylluminarious.github.io/2019/05/23/emacs-mac-port-introduction/][This]] is an excellent blog post detailing how [[https://bitbucket.org/mituharu/emacs-mac/src/master/README-mac][The Emacs Mac Port]] (which I installed using Homebrew from [[https://github.com/railwaycat/homebrew-emacsmacport][this repo]]) greatly improves Emacs' functionality with MacOS.
+In particular, it provides a lot of native GUI support.
+
+I personally don't like having a title bar on my beautiful editor so I choose not to install it.
+I think I read somewhere that it might interfere with tiling window managers as well and we can't be having that, so let's install it without,
+#+begin_src zsh :tangle yes
+brew install emacs-mac --with-no-title-bars
+#+end_src
+and to make sure that we are using the right install be sure to link emacs-mac with,
+#+begin_src zsh :tangle yes
+brew link emacs-mac
+#+end_src
+Now that we are using The Emacs Mac Port we need to add the following to our config file (user-config in spacemacs) if we want to enjoy the fruits of our labour,
+#+begin_src lisp :tangle yes
+  ;; combined with emacs-mac this gives good pdf quality for retina display
+  (setq pdf-view-use-scaling t)
+#+end_src
+I also like PDFView to open with the pdf fit to the screen (show 1 page) so I also added the following,
+#+begin_src lisp :tangle yes
+  ;; default page width behavior
+  (setq-default pdf-view-display-size 'fit-page)
+#+end_src
+*** Chemacs
+[[https://github.com/plexus/chemacs][Chemacs]] is an Emacs profile switcher that makes it easy to run multiple Emacs configs side by side.
+I am currently running six Emacs configurations,
+1. New Spacemacs Base (Develop Branch)
+   - This is a new config that I am setting up using just spacemacs-base instead of full spacemacs. I want to understand all of the packages I am using and install only the ones I need, thus avoiding a lot of bloat.
+2. New Spacemacs Base (Master Branch)
+   - This is the same config file but running on spacemacs master instead of the develop branch.
+3. Literate Org Config File
+   - This is the same configuration but written in an Org file with lots of documentation. I use tangle/detangle to produce emacs lisp files from the org file. I haven't decided if I want to fully invest in a literate config file so this is a nice way to experiment.
+4. Vanilla Emacs
+   - Although I love spacemacs I am eager to build a full Emacs config from scratch and this config is my attempt.
+5. Spacemacs Old Develop
+   - This is my old (full) spacemacs config running on the develop branch.
+6. Spacemacs Old Master
+   - This is my old spacemacs config running on master.
+
+It's super easy to setup, just clone the repo and run the install script.
+I don't think I need to repeat the instructions that are listed in their README.
+Once you have it setup the main functionality comes from two files.
+First there is the =~/.emacs-profiles.el= file where you define all of your different configurations.
+This is what my =~/.emacs-profiles.el= file looks like,
+#+begin_src lisp
+  (("vanilla" . ((user-emacs-directory . "~/.dotfiles/vanilla-emacs")))
+
+  ("spacemacs-old-m" . ((user-emacs-directory . "~/spacemacs")
+                   (env . (("SPACEMACSDIR" . "~/.dotfiles/spacemacs-old")))))
+
+  ("spacemacs-old-d" . ((user-emacs-directory . "~/spacemacs/develop")
+                   (env . (("SPACEMACSDIR" . "~/.dotfiles/spacemacs-old")))))
+
+  ("spacemacs-master" . ((user-emacs-directory . "~/spacemacs")
+                   (env . (("SPACEMACSDIR" . "~/.dotfiles/spacemacs-base-new")))))
+
+   ("new-config" . ((user-emacs-directory . "~/spacemacs/develop")
+                    (env . (("SPACEMACSDIR" . "~/.dotfiles/spacemacs-base-new")))))
+
+   ("org-config" . ((user-emacs-directory . "~/spacemacs/develop")
+                    (env . (("SPACEMACSDIR" . "~/.dotfiles/spacemacs-org-config"))))))
+#+end_src
+1. Chemacs will load the =init.el= file from the =user-emacs-directory=,
+   - you can change the file name/path by setting the =cutom-file= variable.
+2. You can set each configuration file to use a different server name with the =server-name= variable,
+   - this is super useful if you want to exploit emacsclient for a speedy startup, something I am currently working on!
+3. A set of environment variables with =env=,
+   - I use this to set the =SPACEMACSDIR= variable which tells spacemacs where to look for extra customisation's.
+The other Chemacs file is the =~/.emacs-profile= file where you set the default config to use.
+Mine is currently,
+#+begin_src lisp :tangle yes
+new-config
+#+end_src
+Another great benefit of Chemacs is that it also makes it super easy to version control all of your emacs configuration files, layers, snippets etc.
+I keep all of mine in my version controlled =~/.dotfiles= folder with their own dedicated folders.
+For example I have put all of my snippets (for use with [[https://github.com/joaotavora/yasnippet][yasnippet]]) inside a private folder
+=~/.dotfiles/spacemacs-base-new/private/snippets= and all of my layers are inside =~/.dotfiles/spacemacs-base-new/layers=.
+To make my configs more portable I also set the layer path variable in the =dotspacemacs/layers= function using,
+#+begin_src lisp :tangle yes
+   dotspacemacs-configuration-layer-path (list (concat dotspacemacs-directory "layers/"))
+#+end_src
+and set any references to the private directory with something like,
+#+begin_src lisp :tangle yes
+(auto-completion :variables auto-completion-private-snippets-directory (concat dotspacemacs-directory "/private/snippets")
+#+end_src
+
+
+*** Emacs Server/Client
+The Emacs server is super useful if your config file takes a couple of seconds to load.
+I know that some of mine do and I hate waiting...
+
+Luckily we can run an Emacs server with the first instance we open and then connect to this server using =emacsclient= when "opening" subsequent instances.
+These new instances open almost instantaneously for me.
+
+
+To get this working you first have to start the server.
+I have been struggling to get it setup with the spacemacs server config so I turn off all of the spacemacs server functionality,
+#+begin_src lisp :tangle yes
+;; If non-nil, start an Emacs server if one is not already running.
+;; (default nil)
+dotspacemacs-enable-server nil
+
+;; Set the emacs server socket location.
+;; If nil, uses whatever the Emacs default is, otherwise a directory path
+;; like \"~/.emacs.d/server\". It has no effect if
+;; `dotspacemacs-enable-server' is nil.
+;; (default nil)
+dotspacemacs-server-socket-dir nil
+;; dotspacemacs-server-socket-dir "~/.emacs.d/server"
+
+;; If non-nil, advise quit functions to keep server open when quitting.
+;; (default nil)
+dotspacemacs-persistent-server nil
+#+end_src
+and start my own by adding,
+#+begin_src lisp :tangle yes
+  (server-start)
+#+end_src
+to my =user-config=.
+
+We now need to know if an Emacs server is running so that we can either connect to it or start a new Emacs instance if not.
+To get this working I use the following shell script.
+#+begin_src zsh
+#!/usr/bin/env zsh
+
+EMACS='/usr/local/opt/emacs-mac/Emacs.app/Contents/MacOS/Emacs.sh'
+EMACS_CLIENT='/usr/local/opt/emacs-mac/bin/emacsclient'
+
+DEFAULT_EVAL='(switch-to-buffer "*scratch*")'
+# DEFAULT_SERVER='-s '$HOME'/.emacs.d/server/server'
+NO_WAIT='-nw'
+
+
+# Checks if there's a frame open
+if pgrep Emacs &> /dev/null; then
+echo "opening emacsclient"
+$EMACS_CLIENT $NO_WAIT $DEFAULT_EVAL "$@"
+else
+echo "opening emacs"
+$EMACS
+fi
+#+end_src
+You might have to change the =EMACS= and =EMACS_CLIENT= variables depending where brew linked your install.
+Let's give our shell script permissions,
+#+begin_src bash :results none
+  chmod +x ~/.emacs.d/emacs-client-server.sh
+#+end_src
+and set an alias =e= "emacs" by executing the following (assuming you use zsh),
+#+begin_src bash :results none
+  echo "alias te=\"~/.emacs.d/emacs-client-server.sh\"" >> ~/.zshrc
+#+end_src
+If you use =bash= then it will be,
+#+begin_src bash :results none
+  echo "alias te=\"~/.emacs.d/emacs-client-server.sh\"" >> ~/.bashrc
+#+end_src
+but you should consider switching!
+We can now open new Emacs instances by typing =e <file-name>= or simply =e= into terminal.
+
+I take this one step further as I use [[https://github.com/koekeishiya/skhd][=skhd=]] (a simple hotkey daemon for macOS) to open my default Emacs config (utilising emacsclient) with a simple keybinding.
+Creating an extra script was probably overkill but it works so I am happy.
+The only difference here is that no filename is passed to =emacsclient= so we instead ask it to open a new frame.
+#+begin_src zsh
+#!/usr/bin/env zsh
+
+EMACS='/usr/local/opt/emacs-mac/Emacs.app/Contents/MacOS/Emacs.sh'
+EMACS_CLIENT='/usr/local/opt/emacs-mac/bin/emacsclient'
+
+# Checks if there's a frame open
+if pgrep Emacs &> /dev/null; then
+    echo "opening emacsclient"
+    $EMACS_CLIENT -nqc
+else
+    echo "opening emacs"
+    $EMACS
+fi
+#+end_src
+Again let's give it permissions,
+#+begin_src zsh
+  chmod +x ~/.emacs.d/skhd-emacs-client-server.sh
+#+end_src
+I then set =CMD m= to run the shell script by placing the following in my =~/.config/skhd/skhdrc= file,
+#+begin_src zsh
+cmd - m : ~/.emacs.d/skhd-emacs-client-server.sh
+#+end_src
+This will either connect to the server of a previously running instance and open a new frame or open a new Emacs instance and start a server.
+
+Fantastic, we now have a super speedy Emacs setup that we can easily use with six different configurations.
+If anyone has any great ideas for improving anything I  have shown here I am all ears :ear:.
+Happy hacking..
+** DONE Welcome to Emacs Anonymous, Sorry, My Blog :emacs:
+CLOSED: [2019-09-16 Mon 12:14]
+:PROPERTIES:
+:EXPORT_FILE_NAME: index.md
+:EXPORT_HUGO_BUNDLE: welcome-to-emacs-anonymous-sorry-my-blog
+:EXPORT_AUTHOR: Aidan Scannell
+:END:
+# :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :frontmatter '((date . ("20-01-01" :default)) (hugo . "0.48"))
+Hello and welcome to my blog.
+
+I am an aspiring researcher (aka phd student) with interests at the intersection of robotics and machine learning.
+I am particularly interested in uncertainty quantification in ML and as a result spend a significant amount of time with Bayesian non-parametric methods, specifically Gaussian processes.
+
+I spend some of my time staring at equations and questioning what I am doing with my life.
+And I also do a little bit of programming in python within my *beautiful* text editor.
+
+Mainly though, I spend my time configuring my *AMAZING* text editor to make the little time I spend working more enjoyable.
+I am all about that work-life balance.
+
+This blog is inevitably going to contain a mixture of Emacs/Spacemacs posts and some more involved mathematical ML posts.
+There will probably be some where I just dump the contents of my mind and others where I actually plan what I am going to write.
+
+/Disclaimer 1: I am an Emacs noob at the start of my journey to enlightenment./
+
+/Disclaimer 2: I'm rocking multiple Spacemacs configs and one vanilla Emacs config, so most of my posts will probably be tailored to Spacemacs./
+
+This blog is written in Emacs Org mode ([[https://ox-hugo.scripter.co/][thanks to ox-hugo]]).
+
+** PROGRESS Bayesian Machine Learning part 1/3 - Uncertainty :machine_learning:bayesian_inference:probabilistic_modelling:uncertainty:
+:PROPERTIES:
+:EXPORT_FILE_NAME: index.md
+:EXPORT_HUGO_BUNDLE: bayesian-machine-learning-part-1-uncerainty
+:EXPORT_AUTHOR: Aidan Scannell
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :markup blackfriday
+:END:
+# #+hugo_tags: machine-learning bayesian-inference probabilistic-modelling
+# #+hugo_categories:
+# #+hugo_:
+
+In this set of 3 posts I want to introduce some of (what I feel are) the main concepts in Bayesian machine learning.
+It took me a little while to make sense of (and link together) some of the concepts, but once I did, it was the start of a love story.
+Bayesian inference plays a key role in my research so I hope I have picked out some helpful insights/intuitions.
+
+# TODO: Add line about thes being some of the points I had to use when being a teaching assistant.
+
+Let's start from the beginning and give a definition for machine learning.
+We can view machine learning as the science of learning models from data.
+This is achieved by defining a space of models and then learning the parameters and the structure of the models from data.
+We can then use our learned model to make predictions, and this is machine learning!
+
+# {{% toc %}}
+
+
+*** Uncertainty in Machine Learning
+Uncertainty is fundamental in the field of machine learning (ML)!
+It arises from working with incomplete or imperfect information.
+In machine learning we often want to learn predictive models that map inputs to outputs; a continuous variable in regression or a discrete variable (class label) in classification.
+There are multiple sources of uncertainty in ML, and ideally, we would like to know them all.
+This would require a quantitative representation so should be considered when constructing our ML models.
+[This blog post by Jason Brownlee](https://machinelearningmastery.com/uncertainty-in-machine-learning/)
+gives a great introduction to uncertainty in machine learning and I would encourage reading it if this is a new concept for you.
+Here's a quick overview of the main sources of uncertainty.
+
+**** Noisy Data (Aleatoric Uncertainty)
+This type of uncertainty refers to variability in the observations.
+It can arise from the data having natural variations or from the measurement process intorducing variations/noise.
+The figure below shows a dataset with regions of low and high noise.
+[[file:images/dataset.png]]
+# {{< figure src="images/dataset.png" lightbox="true" >}}
+
+**** Incomplete Coverage of the Domain (Epistemic Uncertainty)
+Observations used to train a model are just samples from the true distribution and thus are incomplete.
+The figure below shows a set of functions fit to some observations (training data).
+Around the observations all of these functions are very similar but as we move away from the observations we can no longer be certain which function is correct.
+This is known as epistemic uncertainty and in the limit of infinte data it is compeltely reduced.
+# {{< figure src="images/limited_data2.png" lightbox="true" >}}
+[[file:images/limited_data2.png]]
+
+**** Imperfect Models
+In machine learning we specify a class of models that we use to represent observations from a system.
+We have to use our knowledge of the system to specify this restricted set of models and the mismatch between these and all possible models introduces uncertainty.
+The figure below shows a crude example where we have restricted the model class to linear functions even though the data was generated by a composite function consisting of both a linear function and a sinusoidal function.
+{{< figure src="images/imperfect_models.png" lightbox="true" >}}
+[[file:images/imperfect_models.png]]
+
+
+**** Why Do We Care About Uncertainty
+Uncertainty is present in all machine learning models (and also inference) but only some techniques provide a principled way to model it.
+For example, imagine we have a neural network with uncertainty from incomplete coverage of the domain.
+If we attempt to make a predcition for an input that does not lie in the training distribution then our model cannot be confident in its predicition, especially if it is really far away.
+Neural networks have no mechanism for modelling this and as a result cannot inform us of when they are uncertain.
+
+Let's illustrate this for a simple 1D regression problem consiting of 3 data points.
+The figure below shows a function fit to such a dataset; this is representative of what would happen with a neural network i.e. they represent a deterministic function.
+# {{< figure src="images/deterministic_function.png" lightbox="true" >}}
+[[file:images/deterministic_function.png]]
+If we want to make predictions (at locations shown by the black lines) then our learned function will return the corresponding point predictions.
+Great, we did some machine learning and made some predictions!
+Which prediction is the model more certain about?
+Probably the one closest to the middle data point.
+Many ML models do not have the capability to provide a notion of uncerainty in their predictions.
+Should we then, be trusting these models in safety critical or high risk applications?
+Probably not...
+
+Let's now consider more of the possible functions that could be fit to the dataset.
+The figure below illustrates this.
+
+{{< figure src="images/stochastic_function.png" lightbox="true" >}}
+      [[file:images/stochastic_function.png]]
+
+
+It also shows the notion of probabilistic predictions, that is, returning a probability distribution over the predicted output, as opposed to a point prediction (like the previous example).
+In this example each prediction is represented by a Gaussian (normal) distribution.
+This distribution is goverend by two parameters; mean $\mu$ and variance $\sigma^2$ (or standard deviation $\sigma$).
+The Gaussian (normal) distributions' probability density function is illustrated below.
+
+{{< figure src="images/normal_dist.png" title="[source Wikipedia](https://en.wikipedia.org/wiki/Normal_distribution#/media/File:Normal_Distribution_PDF.svg)" lightbox="true" >}}
+      [[file:images/normal_dist.png]]
+
+Now that we can see how the parameters govern the distribution, let's return to our probabilistic prediction.
+The mean corresponds to the point prediction achieved in the deterministic example i.e. what would be output by a neural network.
+We now also have the variance of the Gaussian distribution which provides us with a notion of uncertainty; lower variances correspond to being more certain.
+This extra value is extrememly useful, it can be used for decision making, intelligent data collection and much much more.
+# In settings like helthcare we now know if we can trust our model or if we should ask a human expert.
+
+> I mentioned this example to justify why we may want to model uncertainty in our ML models.
+  This example is noise free Gaussian process regression and if you are interested in how we can do this in neural networks check out the field of Bayesian neural networks.
+  # It is worth noting here that this is only one type of superviesed learning (regression) and in other settings we do not necessarily care about probabilistic predicitions (but we do care about modelling uncertainty).
+  # For example, we can treat unsupervised learning (e.g. clustering, dimensionality reduction) and reinforcement learning (check out [PILCO](http://mlg.eng.cam.ac.uk/pilco/)) probabilisticly so that we can model our uncerainty.
+
+We've spoken about what uncertainties we would like to model but how do we construct models capable of handling these uncertainties?
+Probability theory is a field of mathematics designed to handle and harness uncertainty.
+In probabilistic modelling the model describes data that can be observed from the system.
+If we use probability theory to express all forms of uncertainty in our model, then we can use Baye's rule to infer unknown quantities, adapt our models, make predictions and learn from data.
+Bayesian inference provides a principled framework for modelling uncertainty through the use of probability theory.
+
+Before introducing Bayesian inference it is important to first understand Baye's rule.
+
+*** Baye's Theorem
+I have to say, Baye's theorem is pretty cool!
+It allows us to use any knowledge or belief that we already have about a system to help us calculate the probability of an event.
+For example, if we wanted to find the probability of a coin toss being heads, Baye's rule gives us the tools to use our prior knowledge of the likelihood of the coin toss being heads.
+All you need to know is that Baye's theorem allows us to update the probability of a hypothesis as we receive more evidence or information.
+Mathematically Baye's theorem is defined as,
+
+$$
+P(hypothesis | data)=\frac{P(data |hypothesis) P(hypothesis)}{P(data)}.
+$$
+Mathematical definitions can often be hard to understand so let's get stuck into a machine learning example.
+
+*** A Bayesian Coin Toss
+Let's assume that we have observed a system with a binary outcome (e.g. a coin toss).
+We denote a single observation from the system as $x \in \\{0, 1\\}$, that is, $x$ can either take the value $0$ (heads) or the value $1$ (tails).
+Being Bayesian we would like to model observations from this system using probability distributions.
+**** The Likelihood
+
+The first thing we need to specify is our likelihood and it should tell us how likely an observation is given the parameterization of the system, i.e. $p(x | \theta)$.
+Here $\theta$ represents our model parameters.
+For a binary system such as this, it makes sense to use a Bernoulli distribution as the likelihood,
+$$
+p(x | \theta) = p(x | \mu) = \text{Bern}(x | \mu) = \mu^{x} (1 - \mu)^{1-x}.
+$$
+The Bernoulli ditribution is parameterised by a single parameter $\mu$.
+The reason we have picked this distribution is because it makes sense to parameterize the system using a single parameter $\mu$ that conatins information regarding how often we observe each outcome
+i.e. how biased is the coin.
+$\mu$ is the probability of getting a tails and $1-\mu$ is the probability of getting a heads.
+If we think the coin is fair then we would initially guess $\mu=0.5$ and if we thought it was biased towards heads then maybe $\mu=0.3$.
+
+Let's now look at the value of our likelihood for each of our possible observations to get some intuition for what is going on,
+$$
+p(x=0 | \mu) = \mu^{0} (1 - \mu)^{1-0} = 1 - \mu
+$$
+$$
+p(x=1 | \mu) = \mu^{1} (1 - \mu)^{1-1} = \mu
+$$
+So what is this telling us?
+Well, if we think the coin is biased towards heads then we might set $\mu=0.3$.
+Remember our likelihood should return a probability value between $0$ and $1$, where $1$ means the observation was very likely and $0$ means very unlikely.
+If we observe a heads $x=0$ then our likelihood $p(x=0 | \mu)$ should return a value $>0.5$.
+Let's calculate the likelihood of each possible observation given the parameter settting $\mu=0.3$,
+$$
+p(x=0 | \mu=0.3) = 0.3^{0} (1 - 0.3)^{1-0} = 1 \times (1 - 0.3) = 0.7
+$$
+$$
+p(x=1 | \mu=0.3) = 0.3^{1} (1 - 0.3)^{1-1} = 0.3 \times 1 = 0.3
+$$
+The results are as expected so our choice of likelihood is good!
+We can extend our likelihood for $N$ observations (coin tosses) $\mathbf{x} = \\{ x_n \\}_{n=1}^N$,
+
+$$
+p(\\mathbf{x} | \\mu) = \\prod_{n=1}^N \\mu^{x}_n (1 - \mu)^{1-x_n}
+$$
+where we have made the assumption that each coin toss is independent.
+This is why we have multiplied the likelihood for each individual coin toss.
+For a given parameter setting we now have a method for caclulating how likely our dataset is given our model.
+
+If we know the parameters of our system, in this case $\mu$, then we can generate output that is similar to the actual system using the likelihood.
+That is, we can make predictions!
+What we would like to do then, is learn the value of $\mu$ from observations of the actual system.
+
+One obvious way to do this is to perform maximum likelihood estimation.
+That is, set the parameter $\mu$ to the value that maximizes the likelihood,
+$$
+  \mu = \underset{\mu}{\text{argmax}}\ p(\mathbf{x} | \mu).
+$$
+Hopefully you can see how this is quite an intuitive thing to do.
+However, we want to model our uncerainty in $\mu$ by performing Bayesian inference.
+We therefore need to specify a prior distribution on $\mu$ and use Baye's rule to obtain the posterior $p(\mu | \mathbf{x})$.
+
+**** The Prior Distribution
+What prior knowledge do we have about our system?
+Well, most coins that one comes across are not biased and the value of $\mu$ is $0.5$.
+Now we just need to incorporate this knowledge to specify a prior distribution over $\mu$.
+Then we can just use Baye's rule to reach the posterior of the parameters given the data,
+
+$$
+p(\mu | \mathbf{x}) = \frac{p(\mathbf{x}|\mu) p(\mu)}{p(\mathbf{x})}.
+$$
+
+How then, does one pick the distribution for the prior?
+If we specify either our prior or likelihood wrong then this computation may not even be analytically tractable.
+Because of the integral in the denominator $p(\mathbf{x}) = \int p(\mathbf{x}| \mu) p(\mu) \text{d}\mu$.
+When this is the case we resort to approximations, with the main methods being Markov Chain Monte Carlo and variational inference.
+
+Luckily, we can exploit something known as conjugacy.
+In Bayes rule, if the posterior distribution $p(\mathbf{x} | \mu)$ is in the same probability distribution family as the prior distribution $p(\mu)$, then they are called conjugate distributions.
+The prior is also called the conjugate prior to the likelihood function.
+
+> It is important to note that the form of the conjugate prior depends on what parameter from the likelihood distribution is unknown and thus being learned.
+For example, if we have a Gaussian likelihood where we know the mean and want to infer the variance from data, then the conjugate prior distribution is inverse gamma.
+However, if the variance was known and we wanted to infer the mean, then the conjugate prior distribution would be Gaussian.
+
+Why do we care about this?
+Well, if both the prior and the posterior are from the same probability distribution family, then we don't need to calculate the denominator of Baye's rule (the evidence).
+We can simply multiply the prior and the likelihood and identify the parameters of the posterior (as we know its form).
+It's not important to know how to determine conjugate priors as mathematicians do it for us (and put them on [Wikipedia](https://en.wikipedia.org/wiki/Conjugate_prior) :laughing:).
+
+The conjugate prior to the only parameter $\mu$ in our Bernoulli likelihood is the Beta distribution.
+        The Beta distribution is defined on the interval $[0, 1]$ and is goverend by two shape parameters ($\alpha$ and $\beta$).
+        See the figure below for how they influence the distribution.
+
+[[file:images/beta-distribution.png]]
+
+$$
+        \text{Beta}(\mu | \alpha, \beta)=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha) \Gamma(\beta)} \mu^{\alpha-1}(1-\mu)^{\beta-1}
+        $$
+
+
+*** Bayesian Inference
+
+Inference refers to the process of learning the parameters of a model.
+It is important to remember that a model is seperate to how you train it.
+If we consider deep learning, you usually train the network weights (parameters) using an optimizer such as Adam or RMSProp or any other optimizer (usually being a variant of stochastic grdient descent).
+
+Bayesian methods of inference consist of both deterministic and stochastic approaches.
+The most important methods being Monte Carlo (sampling) methods and variational inference.
+
+# <!-- In machine learning, inference is the task of combining our assumptions with the observed data in order to update our belief in the parameters. -->
+In machine learning, our goal is to infer $\theta$ from the data and then make predicitions using our learned model.
+The predicition will vary depending on the type of task (classification, regression, clustering, etc) but understanding how we make predicitions is key to understanding why we care about modelling a distribution over the model parameters.
+If we have a set of observed data $\mathcal{D} = \\{\mathbf{x}, \mathbf{y}\\}$ (supervised learning) and have parameterized a model with parameters $\pmb\theta$, then we wish to obtain the posterior over the parameters,
+# <!-- $$ -->
+# <!-- p(\pmb\theta \mid \mathbf{Y}) = \frac{p(\mathbf{Y} \mid \pmb\theta) p(\pmb\theta)}{p(\mathbf{Y})}. -->
+# <!-- $$ -->
+$$p(\mathbf{\theta}|\mathcal{D}) = \frac{p(\mathcal{D}|\mathbf{\theta})p(\mathbf{\theta})}{p(\mathcal{D})},$$
+so that we can make predicitions,
+$$
+p(\mathbf{y}\_\*| \mathbf{x}\_\*, \mathcal{D}) = \int p(\mathbf{y}\_\* | \mathbf{x}\_\*, \theta, \mathcal{D}) p(\theta | \mathcal{D}) \text{d} \theta,
+$$
+where $\mathbf{x}\_\*$ is a previously unseen test input and $\mathbf{y}\_\*$ is its corresponding output value.
+# <!-- Hopefully from this equation it is clear that the reason we seek a posterior over the parameters is because we would like to make probabilistic predictions that capture how certain we are in our prediction.  -->
+Hopefully from this equation it is clear why we seek a posterior distribution over the parameters.
+It is because we would like to make probabilistic predictions that capture how certain we are in our prediction.
+We have modelled our uncertainty by representing our parameters as probability distributions as opposed to single values.
+In this equation we are essentially calculating the expectation of the prediction function $p(\mathbf{y}\_\* | \mathbf{x}\_\*, \theta, \mathcal{D})$ under the posterior distribution of the parameters $p(\theta | \mathcal{D})$,
+i.e. we are calculating the prediction for different parameter settings and weighting them according to how likely we think each particular parameter setting is.
+
+This is very cool when you think about it!
+# <!-- We are essentially calculating the expected predictive distribution under the posterior over parameters. -->
+
+
+<!-- In Bayesian inference we seek to update a statistical hypothesis (our prior distribution $p(\mathbf{\Theta})$) when we observe data $\mathcal{D}$. Bayesian inference derives the posterior probability $p(\mathbf{\Theta}|\mathcal{D})$ from the prior probability $p(\mathbf{\Theta})$ and the likelihood function $p(\mathcal{D}|\mathbf{\Theta})$ (a statistical model for the observed data) using Bayes rule, -->
+
+
+Both learning and predicition can be seen as forms of inference
+
+** PROGRESS Bayesian Machine Learning part 2/3 :machine_learning:bayesian_inference:probabilistic_modelling:
+:PROPERTIES:
+:EXPORT_FILE_NAME: index.md
+:EXPORT_HUGO_BUNDLE: bayesian-machine-learning
+:EXPORT_AUTHOR: Aidan Scannell
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :markup blackfriday
+:END:
+# #+hugo_tags: machine-learning bayesian-inference probabilistic-modelling
+# #+hugo_categories:
+# #+hugo_:
+
+In this post I want to introduce some of (what I feel are) the main concepts in Bayesian machine learning.
+I am hoping that
+
+It took me a while to understand them and link them together into a coherent story but once I did it
+was the start of a love story.
+so I am hoping that this post provides intuition an easy to understand
+ explains the key concepts and links them together in an easy to understand way.
+
+In this post I want to introduce the main concepts in Bayesian machine learning.
+It took me a while to understand some of the concepts in Bayesian ML and how they link together, so I am hoping that this post explains the key concepts and links them together in an easy to understand way.
+I've decided to walk through what I believe are the main concepts and I introduce simple examples to help explain some of the concepts.
+Bayesian inference plays a key role in my research so I really hope that I have picked up some useful intuitions that can help others in their pursuit of becoming a Bayesian master.
+
+# TODO: Add line about thes being some of the points I had to use when being a teaching assistant.
+
+Let's start from the beginning and give a definition for machine learning.
+We can view machine learning as the science of learning models from data.
+This is achieved by defining a space of models and then learning the parameters and the structure of the models from data.
+We can then use our learned model to make predictions and decisions.
+
+# <!-- Data + Model $\stackrel{compute}{\rightarrow}$ Prediction -->
+
+# <!-- Motivations for Bayesian ML: -->
+
+# <!-- 1. Probabilistic predictions that provide a notion of uncertainty, -->
+# <!-- 2. The probabilistic nature can be harnessed for data-efficient learning, -->
+{{% toc %}}
+
+
+*** Uncertainty in Machine Learning
+Uncertainty is fundamental in the field of machine learning and arises from working with incomplete or imperfect information.
+In machine learning we often want to learn predictive models that map inputs to an output, a continuous variable in regression or a discrete class label in classification.
+There are multiple sources of uncertainty that ideally we would like to know and thus should attempt to model.
+[This blog post by Jason Brownlee](https://machinelearningmastery.com/uncertainty-in-machine-learning/)
+gives a great introduction to uncertainty in machine learning and I would encourage reading it if this is a new concept for you.
+Here's a quick overview of the main sources of uncertainty.
+
+**** Noisy Data (Aleatoric Uncertainty)
+This type of uncertainty refers to variability in the observations.
+It can arise from the data having natural variations or from the measurement process intorducing variations/noise.
+The figure below shows a dataset with regions of low and high noise.
+[[file:images/dataset.png]]
+# {{< figure src="images/dataset.png" lightbox="true" >}}
+
+**** Incomplete Coverage of the Domain (Epistemic Uncertainty)
+Observations used to train a model are just samples from the true distribution and thus are incomplete.
+The figure below shows a set of functions fit to some observations (training data).
+Around the observations all of these functions are very similar but as we move away from the observations we can no longer be certain which function is correct.
+This is known as epistemic uncertainty and in the limit of infinte data it is compeltely reduced.
+# {{< figure src="images/limited_data2.png" lightbox="true" >}}
+[[file:images/limited_data2.png]]
+
+**** Imperfect Models
+In machine learning we specify a class of models that we use to represent observations from a system.
+We have to use our knowledge of the system to specify this restricted set of models and the mismatch between these and all possible models introduces uncertainty.
+The figure below shows a crude example where we have restricted the model class to linear functions even though the data was generated by a composite function consisting of both a linear function and a sinusoidal function.
+{{< figure src="images/imperfect_models.png" lightbox="true" >}}
+[[file:images/imperfect_models.png]]
+
+
+**** Why Do We Care About Uncertainty
+Uncertainty is present in all machine learning models (and also inference) but only some techniques provide a principled way to model it.
+For example, imagine we have a neural network with uncertainty from incomplete coverage of the domain.
+If we attempt to make a predcition for an input that does not lie in the training distribution then our model cannot be confident in its predicition, especially if it is really far away.
+Neural networks have no mechanism for modelling this and as a result cannot inform us of when they are uncertain.
+
+Let's illustrate this for a simple 1D regression problem consiting of 3 data points.
+The figure below shows a function fit to such a dataset; this is representative of what would happen with a neural network i.e. they represent a deterministic function.
+# {{< figure src="images/deterministic_function.png" lightbox="true" >}}
+[[file:images/deterministic_function.png]]
+If we want to make predictions (at locations shown by the black lines) then our learned function will return the corresponding point predictions.
+Great, we did some machine learning and made some predictions!
+Which prediction is the model more certain about?
+Probably the one closest to the middle data point.
+Many ML models do not have the capability to provide a notion of uncerainty in their predictions.
+Should we then, be trusting these models in safety critical or high risk applications?
+Probably not...
+
+Let's now consider more of the possible functions that could be fit to the dataset.
+The figure below illustrates this.
+
+{{< figure src="images/stochastic_function.png" lightbox="true" >}}
+      [[file:images/stochastic_function.png]]
+
+
+It also shows the notion of probabilistic predictions, that is, returning a probability distribution over the predicted output, as opposed to a point prediction (like the previous example).
+In this example each prediction is represented by a Gaussian (normal) distribution.
+This distribution is goverend by two parameters; mean $\mu$ and variance $\sigma^2$ (or standard deviation $\sigma$).
+The Gaussian (normal) distributions' probability density function is illustrated below.
+
+{{< figure src="images/normal_dist.png" title="[source Wikipedia](https://en.wikipedia.org/wiki/Normal_distribution#/media/File:Normal_Distribution_PDF.svg)" lightbox="true" >}}
+      [[file:images/normal_dist.png]]
+
+Now that we can see how the parameters govern the distribution, let's return to our probabilistic prediction.
+The mean corresponds to the point prediction achieved in the deterministic example i.e. what would be output by a neural network.
+We now also have the variance of the Gaussian distribution which provides us with a notion of uncertainty; lower variances correspond to being more certain.
+This extra value is extrememly useful, it can be used for decision making, intelligent data collection and much much more.
+# In settings like helthcare we now know if we can trust our model or if we should ask a human expert.
+
+> I mentioned this example to justify why we may want to model uncertainty in our ML models.
+  This example is noise free Gaussian process regression and if you are interested in how we can do this in neural networks check out the field of Bayesian neural networks.
+  # It is worth noting here that this is only one type of superviesed learning (regression) and in other settings we do not necessarily care about probabilistic predicitions (but we do care about modelling uncertainty).
+  # For example, we can treat unsupervised learning (e.g. clustering, dimensionality reduction) and reinforcement learning (check out [PILCO](http://mlg.eng.cam.ac.uk/pilco/)) probabilisticly so that we can model our uncerainty.
+
+We've spoken about what uncertainties we would like to model but how do we construct models capable of handling these uncertainties?
+Probability theory is a field of mathematics designed to handle and harness uncertainty.
+In probabilistic modelling the model describes data that can be observed from the system.
+If we use probability theory to express all forms of uncertainty in our model, then we can use Baye's rule to infer unknown quantities, adapt our models, make predictions and learn from data.
+Bayesian inference provides a principled framework for modelling uncertainty through the use of probability theory.
+
+Before introducing Bayesian inference it is important to first understand Baye's rule.
+
+*** Baye's Theorem
+I have to say, Baye's theorem is pretty cool!
+It allows us to use any knowledge or belief that we already have about a system to help us calculate the probability of an event.
+For example, if we wanted to find the probability of a coin toss being heads, Baye's rule gives us the tools to use our prior knowledge of the likelihood of the coin toss being heads.
+All you need to know is that Baye's theorem allows us to update the probability of a hypothesis as we receive more evidence or information.
+Mathematically Baye's theorem is defined as,
+
+$$
+P(hypothesis | data)=\frac{P(data |hypothesis) P(hypothesis)}{P(data)}.
+$$
+Mathematical definitions can often be hard to understand so let's get stuck into a machine learning example.
+
+*** A Bayesian Coin Toss
+Let's assume that we have observed a system with a binary outcome (e.g. a coin toss).
+We denote a single observation from the system as $x \in \\{0, 1\\}$, that is, $x$ can either take the value $0$ (heads) or the value $1$ (tails).
+Being Bayesian we would like to model observations from this system using probability distributions.
+**** The Likelihood
+
+The first thing we need to specify is our likelihood and it should tell us how likely an observation is given the parameterization of the system, i.e. $p(x | \theta)$.
+Here $\theta$ represents our model parameters.
+For a binary system such as this, it makes sense to use a Bernoulli distribution as the likelihood,
+$$
+p(x | \theta) = p(x | \mu) = \text{Bern}(x | \mu) = \mu^{x} (1 - \mu)^{1-x}.
+$$
+The Bernoulli ditribution is parameterised by a single parameter $\mu$.
+The reason we have picked this distribution is because it makes sense to parameterize the system using a single parameter $\mu$ that conatins information regarding how often we observe each outcome
+i.e. how biased is the coin.
+$\mu$ is the probability of getting a tails and $1-\mu$ is the probability of getting a heads.
+If we think the coin is fair then we would initially guess $\mu=0.5$ and if we thought it was biased towards heads then maybe $\mu=0.3$.
+
+Let's now look at the value of our likelihood for each of our possible observations to get some intuition for what is going on,
+$$
+p(x=0 | \mu) = \mu^{0} (1 - \mu)^{1-0} = 1 - \mu
+$$
+$$
+p(x=1 | \mu) = \mu^{1} (1 - \mu)^{1-1} = \mu
+$$
+So what is this telling us?
+Well, if we think the coin is biased towards heads then we might set $\mu=0.3$.
+Remember our likelihood should return a probability value between $0$ and $1$, where $1$ means the observation was very likely and $0$ means very unlikely.
+If we observe a heads $x=0$ then our likelihood $p(x=0 | \mu)$ should return a value $>0.5$.
+Let's calculate the likelihood of each possible observation given the parameter settting $\mu=0.3$,
+$$
+p(x=0 | \mu=0.3) = 0.3^{0} (1 - 0.3)^{1-0} = 1 \times (1 - 0.3) = 0.7
+$$
+$$
+p(x=1 | \mu=0.3) = 0.3^{1} (1 - 0.3)^{1-1} = 0.3 \times 1 = 0.3
+$$
+The results are as expected so our choice of likelihood is good!
+We can extend our likelihood for $N$ observations (coin tosses) $\mathbf{x} = \\{ x_n \\}_{n=1}^N$,
+
+$$
+p(\\mathbf{x} | \\mu) = \\prod_{n=1}^N \\mu^{x}_n (1 - \mu)^{1-x_n}
+$$
+where we have made the assumption that each coin toss is independent.
+This is why we have multiplied the likelihood for each individual coin toss.
+For a given parameter setting we now have a method for caclulating how likely our dataset is given our model.
+
+If we know the parameters of our system, in this case $\mu$, then we can generate output that is similar to the actual system using the likelihood.
+That is, we can make predictions!
+What we would like to do then, is learn the value of $\mu$ from observations of the actual system.
+
+One obvious way to do this is to perform maximum likelihood estimation.
+That is, set the parameter $\mu$ to the value that maximizes the likelihood,
+$$
+  \mu = \underset{\mu}{\text{argmax}}\ p(\mathbf{x} | \mu).
+$$
+Hopefully you can see how this is quite an intuitive thing to do.
+However, we want to model our uncerainty in $\mu$ by performing Bayesian inference.
+We therefore need to specify a prior distribution on $\mu$ and use Baye's rule to obtain the posterior $p(\mu | \mathbf{x})$.
+
+**** The Prior Distribution
+What prior knowledge do we have about our system?
+Well, most coins that one comes across are not biased and the value of $\mu$ is $0.5$.
+Now we just need to incorporate this knowledge to specify a prior distribution over $\mu$.
+Then we can just use Baye's rule to reach the posterior of the parameters given the data,
+
+$$
+p(\mu | \mathbf{x}) = \frac{p(\mathbf{x}|\mu) p(\mu)}{p(\mathbf{x})}.
+$$
+
+How then, does one pick the distribution for the prior?
+If we specify either our prior or likelihood wrong then this computation may not even be analytically tractable.
+Because of the integral in the denominator $p(\mathbf{x}) = \int p(\mathbf{x}| \mu) p(\mu) \text{d}\mu$.
+When this is the case we resort to approximations, with the main methods being Markov Chain Monte Carlo and variational inference.
+
+Luckily, we can exploit something known as conjugacy.
+In Bayes rule, if the posterior distribution $p(\mathbf{x} | \mu)$ is in the same probability distribution family as the prior distribution $p(\mu)$, then they are called conjugate distributions.
+The prior is also called the conjugate prior to the likelihood function.
+
+> It is important to note that the form of the conjugate prior depends on what parameter from the likelihood distribution is unknown and thus being learned.
+For example, if we have a Gaussian likelihood where we know the mean and want to infer the variance from data, then the conjugate prior distribution is inverse gamma.
+However, if the variance was known and we wanted to infer the mean, then the conjugate prior distribution would be Gaussian.
+
+Why do we care about this?
+Well, if both the prior and the posterior are from the same probability distribution family, then we don't need to calculate the denominator of Baye's rule (the evidence).
+We can simply multiply the prior and the likelihood and identify the parameters of the posterior (as we know its form).
+It's not important to know how to determine conjugate priors as mathematicians do it for us (and put them on [Wikipedia](https://en.wikipedia.org/wiki/Conjugate_prior) :laughing:).
+
+The conjugate prior to the only parameter $\mu$ in our Bernoulli likelihood is the Beta distribution.
+        The Beta distribution is defined on the interval $[0, 1]$ and is goverend by two shape parameters ($\alpha$ and $\beta$).
+        See the figure below for how they influence the distribution.
+
+[[file:images/beta-distribution.png]]
+
+$$
+        \text{Beta}(\mu | \alpha, \beta)=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha) \Gamma(\beta)} \mu^{\alpha-1}(1-\mu)^{\beta-1}
+        $$
+
+
+*** Bayesian Inference
+
+Inference refers to the process of learning the parameters of a model.
+It is important to remember that a model is seperate to how you train it.
+If we consider deep learning, you usually train the network weights (parameters) using an optimizer such as Adam or RMSProp or any other optimizer (usually being a variant of stochastic grdient descent).
+
+Bayesian methods of inference consist of both deterministic and stochastic approaches.
+The most important methods being Monte Carlo (sampling) methods and variational inference.
+
+# <!-- In machine learning, inference is the task of combining our assumptions with the observed data in order to update our belief in the parameters. -->
+In machine learning, our goal is to infer $\theta$ from the data and then make predicitions using our learned model.
+The predicition will vary depending on the type of task (classification, regression, clustering, etc) but understanding how we make predicitions is key to understanding why we care about modelling a distribution over the model parameters.
+If we have a set of observed data $\mathcal{D} = \\{\mathbf{x}, \mathbf{y}\\}$ (supervised learning) and have parameterized a model with parameters $\pmb\theta$, then we wish to obtain the posterior over the parameters,
+# <!-- $$ -->
+# <!-- p(\pmb\theta \mid \mathbf{Y}) = \frac{p(\mathbf{Y} \mid \pmb\theta) p(\pmb\theta)}{p(\mathbf{Y})}. -->
+# <!-- $$ -->
+$$p(\mathbf{\theta}|\mathcal{D}) = \frac{p(\mathcal{D}|\mathbf{\theta})p(\mathbf{\theta})}{p(\mathcal{D})},$$
+so that we can make predicitions,
+$$
+p(\mathbf{y}\_\*| \mathbf{x}\_\*, \mathcal{D}) = \int p(\mathbf{y}\_\* | \mathbf{x}\_\*, \theta, \mathcal{D}) p(\theta | \mathcal{D}) \text{d} \theta,
+$$
+where $\mathbf{x}\_\*$ is a previously unseen test input and $\mathbf{y}\_\*$ is its corresponding output value.
+# <!-- Hopefully from this equation it is clear that the reason we seek a posterior over the parameters is because we would like to make probabilistic predictions that capture how certain we are in our prediction.  -->
+Hopefully from this equation it is clear why we seek a posterior distribution over the parameters.
+It is because we would like to make probabilistic predictions that capture how certain we are in our prediction.
+We have modelled our uncertainty by representing our parameters as probability distributions as opposed to single values.
+In this equation we are essentially calculating the expectation of the prediction function $p(\mathbf{y}\_\* | \mathbf{x}\_\*, \theta, \mathcal{D})$ under the posterior distribution of the parameters $p(\theta | \mathcal{D})$,
+i.e. we are calculating the prediction for different parameter settings and weighting them according to how likely we think each particular parameter setting is.
+
+This is very cool when you think about it!
+# <!-- We are essentially calculating the expected predictive distribution under the posterior over parameters. -->
+
+
+<!-- In Bayesian inference we seek to update a statistical hypothesis (our prior distribution $p(\mathbf{\Theta})$) when we observe data $\mathcal{D}$. Bayesian inference derives the posterior probability $p(\mathbf{\Theta}|\mathcal{D})$ from the prior probability $p(\mathbf{\Theta})$ and the likelihood function $p(\mathcal{D}|\mathbf{\Theta})$ (a statistical model for the observed data) using Bayes rule, -->
+
+
+Both learning and predicition can be seen as forms of inference
+
+
+*** Evidence
+
+In maximum likelihood estimation we seek to find the best model parameters by maximising the likelihood $p(\mathbf{Y} | \mathbf{\Theta})$.
+We obtain a point estimate for the "best" parameters $\mathbf{\Theta}$.
+The likelihood function is higher for more complex model structures which leads to overfitting.
+
+Bayesian methods overcome overfitting by treating the model parameters as random variables (as we have shown previosly) and maximising the logarithm of the marginal likelihood (or evidence) $p(\mathbf{Y})$,
+\begin{align}
+	\text{log}\ p(\mathbf{Y}) &= \text{log} \int p(\mathbf{Y}, \mathbf{\Theta}) \text{d}\mathbf{\Theta} = \text{log} \int p(\mathbf{Y} | \mathbf{\Theta}) p(\mathbf{\Theta}) \text{d}\mathbf{\Theta}.
+\end{align}
+This is advantageous as we now consider all parameter $\mathbf{\Theta}$ settings and we obtain the posterior $p(\mathbf{\Theta} | \mathbf{Y})$ for the unknown parameters, as opposed to just a point estimate as in maximum likelihood estimation. This provides automatic Occam's razor, penalising complex models and preventing overfitting.
+
+Often the posterior is not analytically tractable due to the integral,
+
+$$p(\mathcal{D}) = \int p(\mathcal{D}|\mathbf{\Theta})p(\mathbf{\Theta}) d\mathbf{\Theta},$$
+
+however, in the case of a Gaussian likelihood and a Gaussian process prior, the posterior takes the form of a Gaussian process over functions and is analytically tractable (hurray!).
+
+The denominator is known as the marginal likelihood (or evidence) and represents the probability of the observed data when all of the assumptions have been propagated through and integrated out,
+
+$$
+p(\mathbf{Y}) = \int p(\mathbf{Y}, \pmb\theta) d\theta.
+$$
+Sometimes this integral is intractable (computationally or analytically) so we cannot exploit conjugacy to avoid it's calculation. For this reason we have to make approximations to this integral.
+
+MacKay plot
+# {{< figure src="images/mckay.png" lightbox="true" >}}
+[[file:images/mckay.png]]
+
+*** Regression Example
+Let's assume that we have observed some inputs $\mathbf{X}$ and targets $\mathbf{Y}$ and collected them into a data set $\mathcal{D} = \\{\mathbf{X}, \mathbf{Y}\\}$. In regression we seek to learn the mapping $f$ from our observed data. We do this by constructing a model of the mapping that contains parameters (or hyper-parameters in the non-parametric case) $\mathbf{\Theta}$ that we want to learn from our data. As we wish to take uncertainty into account we are interested in obtaining the posterior over these parameters (representing the mapping) given the observations $p(\mathbf{\Theta}|\mathcal{D})$.
+
+In the Bayesian regression setting we are seeking to make predictions $p(\mathbf{y}|\mathbf{x}\_\*)$. That is, not only do we want the value of $\mathbf{y}\_{\*}$ corresponding to a previously unseen input but we also want to know how certain we are in our predicition.
+
+If you are interested in
+
+WE can
+
+
+# <!-- We are often interested in the log marginal likelihood $\text{log} p(\mathcal{D})$ and use it (or approximations) as an objective function in our learning algorithms. -->
+# <!-- ## Approximate Inference  -->
+
+
+# <!-- \begin{align} -->
+# <!-- 	\text{KL}(q(\pmb{\Theta}) || p(\pmb{\Theta} | \mathbf{Y})) &= \int q(\pmb{\Theta}) \text{log} \frac{q(\pmb{\Theta})}{p(\pmb{\Theta} | \mathbf{Y})} d\pmb{\Theta} \newline -->
+# <!-- 	&= \int q(\pmb{\Theta}) \text{log} \frac{q(\pmb{\Theta})}{p(\pmb{\Theta}, \mathbf{Y})} d\pmb{\Theta} + \text{log} p(\mathbf{Y})  \newline -->
+# <!-- 	&= \mathcal{H}(q(\pmb{\Theta})) - \mathbb{E}\_{q(\pmb{\Theta})} \bigg[ \text{log} p(\pmb{\Theta}, \mathbf{Y}) \bigg] + \text{log} p(\mathbf{Y}) -->
+# <!-- \end{align} -->
+
+# <!-- ## Jensen’s Inequality -->
+
+# <!-- In order to to understand variational inference we must first introduce __Jensen's inequality__, which relates the value of a convex function of an integral to the integral of the convex function. -->
+
+# <!-- **What's a convex function?** -->
+
+# <!-- Lets assume that $\mathbf{X}$ represents a convex set in the real vector space and $f$ be a function $f : \mathbf{X} \rightarrow \mathbf{R}$. A convex set is a set where the line joining any two points belonging to the set, also lies entirely in the set. This is illustrated in the figures below. -->
+
+# <!-- **Convex Set** -->
+# <!-- <img src="convex.svg" alt="convex" title="Convex Set" width="150" height="100" /> -->
+# <!-- **Non Convex Set** -->
+# <!-- <img src="nonconvex.png" alt="nonconvex" title="Non Convex Set" width="150" height="100" /> -->
+
+# <!-- With this definition of a convex set we can now define a convex function. The function $f$ is called convex if, -->
+# <!-- $$ -->
+# <!-- \forall x_1, x_2 \in \mathbf{X}, \forall t \in [0,1] : f(t x_1 + (1-t) x_2) \geq t f(x_1) + (1-t) f(x_2). -->
+# <!-- $$ -->
+# <!-- <img src="ConvexFunction.png" alt="convexfunction" title="Convex Function" width="100%" /> -->
+
+# <!-- The logarithm function is concave.   -->
+# <!-- $$ -->
+# <!-- \mathbb{E} [ f(x) ] \geq f(\mathbb{E} [ x ]) -->
+# <!-- $$ -->
+# <!-- ## Lower Bounding the Marginal Likelihood -->
+
+# <!-- Let $y$ denote the observed variables, $x$ denote the latent variables and $\theta$ denote the parameters.  -->
+
+# <!-- Lower bound $\text{log}p(\mathbf{Y})$ using a functional that depends on a variational distribution $q(\pmb{\Theta})$, -->
+# <!-- \begin{align} -->
+# <!-- 	\text{log}\ p(\mathbf{Y}) &= \text{log} \int p(\pmb{\Theta} | \mathbf{Y}) p(\mathbf{Y}) d\pmb{\Theta} -->
+# <!-- 	\newline -->
+# <!-- % 	&= \text{log} \int \frac{q(\pmb{\Theta})}{q(\pmb{\Theta})} p(\mathbf{Y}, \pmb{\Theta}) \text{d}\pmb{\Theta} -->
+# <!-- % 	\newline -->
+# <!-- % 	&= \text{log} \int q(\pmb{\Theta}) \frac{p(\mathbf{Y} | \pmb{\Theta}) p(\pmb{\Theta})}{q(\pmb{\Theta})} \text{d}\pmb{\Theta} -->
+# <!-- % 	\newline -->
+# <!-- 	&= \text{log} \int q(\pmb{\Theta}) \frac{p(\pmb{\Theta} | \mathbf{Y}) p(\mathbf{Y})}{q(\pmb{\Theta})} d\pmb{\Theta} -->
+# <!-- 	\newline -->
+# <!-- 	&\geq \int q(\pmb{\Theta}) \text{log} \frac{p(\pmb{\Theta} | \mathbf{Y})}{q(\pmb{\Theta})} d\pmb{\Theta} + \int q(\pmb{\Theta}) d\pmb{\Theta} \text{log} p(\mathbf{Y})  -->
+# <!-- 	\newline -->
+# <!-- 	&\geq - \text{KL}(q(\pmb{\Theta}) || p(\pmb{\Theta} | \mathbf{Y})) + \text{log}p(\mathbf{Y}) -->
+# <!-- \end{align} -->
+
+# <!-- Equal when $q(\pmb{\Theta}) = p(\pmb{\Theta} | \mathbf{Y})$.  -->
+
+# <!-- \begin{equation} -->
+# <!--     \text{argmin}\_{\pmb\Theta} \text{KL} ( q(\pmb\Theta) || p(\pmb\Theta | \mathbf{Y}) ) -->
+# <!-- \end{equation} -->
+
+# <!-- \begin{align} -->
+# <!-- 	\text{KL}(q(\pmb{\Theta}) || p(\pmb{\Theta} | \mathbf{Y})) &= \int q(\pmb{\Theta}) \text{log} \frac{q(\pmb{\Theta})}{p(\pmb{\Theta} | \mathbf{Y})} d\pmb{\Theta} \newline -->
+# <!-- 	&= \int q(\pmb{\Theta}) \text{log} \frac{q(\pmb{\Theta})}{p(\pmb{\Theta}, \mathbf{Y})} d\pmb{\Theta} + \text{log} p(\mathbf{Y})  \newline -->
+# <!-- 	&= \mathcal{H}(q(\pmb{\Theta})) - \mathbb{E}\_{q(\pmb{\Theta})} \bigg[ \text{log} p(\pmb{\Theta}, \mathbf{Y}) \bigg] + \text{log} p(\mathbf{Y}) -->
+# <!-- \end{align} -->
+
+# <!-- Bound equal when $q(\pmb{\Theta}) = p(\pmb{\Theta} | \mathbf{Y})$.  -->
+
+
+# <!-- \begin{align} -->
+# <!-- 	\text{log}p(\mathbf{Y}) &= \text{KL}(q(\pmb\Theta) || p(\mathbf{Y})) + \underbrace{\mathbb{E}\_{q(\pmb\Theta)} \bigg[ \text{log} p(\pmb{\Theta}, \mathbf{Y}) \bigg] - \mathcal{H}(q(\pmb\Theta))}\_{\text{ELBO}} \newline -->
+# <!-- 	&\geq \mathbb{E}\_{q(\pmb\Theta)} \bigg[ \text{log} p(\pmb{\Theta}, \mathbf{Y}) \bigg] - \mathcal{H}(q(\pmb\Theta)) = \mathcal{L}(q(\pmb{\Theta})) -->
+# <!-- \end{align} -->
+
+# <!-- Maximise ELBO to get:  -->
+
+# <!-- 1. Approximate posterior $q(\pmb\Theta)$, -->
+# <!-- 2. Approximation of marginal likelihood $p(\mathbf{Y})$. -->
+
+# <!-- Maximising $p(\mathbf{Y})$ is learning. -->
+** PROGRESS Bayesian Machine Learning part 3/3 :machine_learning:bayesian_inference:probabilistic_modelling:
+:PROPERTIES:
+:EXPORT_FILE_NAME: index.md
+:EXPORT_HUGO_BUNDLE: bayesian-machine-learning
+:EXPORT_AUTHOR: Aidan Scannell
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :markup blackfriday
+:END:
+# #+hugo_tags: machine-learning bayesian-inference probabilistic-modelling
+# #+hugo_categories:
+# #+hugo_:
+
+In this post I want to introduce some of (what I feel are) the main concepts in Bayesian machine learning.
+I am hoping that
+
+It took me a while to understand them and link them together into a coherent story but once I did it
+was the start of a love story.
+so I am hoping that this post provides intuition an easy to understand
+ explains the key concepts and links them together in an easy to understand way.
+
+In this post I want to introduce the main concepts in Bayesian machine learning.
+It took me a while to understand some of the concepts in Bayesian ML and how they link together, so I am hoping that this post explains the key concepts and links them together in an easy to understand way.
+I've decided to walk through what I believe are the main concepts and I introduce simple examples to help explain some of the concepts.
+Bayesian inference plays a key role in my research so I really hope that I have picked up some useful intuitions that can help others in their pursuit of becoming a Bayesian master.
+
+# TODO: Add line about thes being some of the points I had to use when being a teaching assistant.
+
+Let's start from the beginning and give a definition for machine learning.
+We can view machine learning as the science of learning models from data.
+This is achieved by defining a space of models and then learning the parameters and the structure of the models from data.
+We can then use our learned model to make predictions and decisions.
+
+# <!-- Data + Model $\stackrel{compute}{\rightarrow}$ Prediction -->
+
+# <!-- Motivations for Bayesian ML: -->
+
+# <!-- 1. Probabilistic predictions that provide a notion of uncertainty, -->
+# <!-- 2. The probabilistic nature can be harnessed for data-efficient learning, -->
+{{% toc %}}
+
+
+*** Uncertainty in Machine Learning
+Uncertainty is fundamental in the field of machine learning and arises from working with incomplete or imperfect information.
+In machine learning we often want to learn predictive models that map inputs to an output, a continuous variable in regression or a discrete class label in classification.
+There are multiple sources of uncertainty that ideally we would like to know and thus should attempt to model.
+[This blog post by Jason Brownlee](https://machinelearningmastery.com/uncertainty-in-machine-learning/)
+gives a great introduction to uncertainty in machine learning and I would encourage reading it if this is a new concept for you.
+Here's a quick overview of the main sources of uncertainty.
+
+**** Noisy Data (Aleatoric Uncertainty)
+This type of uncertainty refers to variability in the observations.
+It can arise from the data having natural variations or from the measurement process intorducing variations/noise.
+The figure below shows a dataset with regions of low and high noise.
+[[file:images/dataset.png]]
+# {{< figure src="images/dataset.png" lightbox="true" >}}
+
+**** Incomplete Coverage of the Domain (Epistemic Uncertainty)
+Observations used to train a model are just samples from the true distribution and thus are incomplete.
+The figure below shows a set of functions fit to some observations (training data).
+Around the observations all of these functions are very similar but as we move away from the observations we can no longer be certain which function is correct.
+This is known as epistemic uncertainty and in the limit of infinte data it is compeltely reduced.
+# {{< figure src="images/limited_data2.png" lightbox="true" >}}
+[[file:images/limited_data2.png]]
+
+**** Imperfect Models
+In machine learning we specify a class of models that we use to represent observations from a system.
+We have to use our knowledge of the system to specify this restricted set of models and the mismatch between these and all possible models introduces uncertainty.
+The figure below shows a crude example where we have restricted the model class to linear functions even though the data was generated by a composite function consisting of both a linear function and a sinusoidal function.
+{{< figure src="images/imperfect_models.png" lightbox="true" >}}
+[[file:images/imperfect_models.png]]
+
+
+**** Why Do We Care About Uncertainty
+Uncertainty is present in all machine learning models (and also inference) but only some techniques provide a principled way to model it.
+For example, imagine we have a neural network with uncertainty from incomplete coverage of the domain.
+If we attempt to make a predcition for an input that does not lie in the training distribution then our model cannot be confident in its predicition, especially if it is really far away.
+Neural networks have no mechanism for modelling this and as a result cannot inform us of when they are uncertain.
+
+Let's illustrate this for a simple 1D regression problem consiting of 3 data points.
+The figure below shows a function fit to such a dataset; this is representative of what would happen with a neural network i.e. they represent a deterministic function.
+# {{< figure src="images/deterministic_function.png" lightbox="true" >}}
+[[file:images/deterministic_function.png]]
+If we want to make predictions (at locations shown by the black lines) then our learned function will return the corresponding point predictions.
+Great, we did some machine learning and made some predictions!
+Which prediction is the model more certain about?
+Probably the one closest to the middle data point.
+Many ML models do not have the capability to provide a notion of uncerainty in their predictions.
+Should we then, be trusting these models in safety critical or high risk applications?
+Probably not...
+
+Let's now consider more of the possible functions that could be fit to the dataset.
+The figure below illustrates this.
+
+{{< figure src="images/stochastic_function.png" lightbox="true" >}}
+      [[file:images/stochastic_function.png]]
+
+
+It also shows the notion of probabilistic predictions, that is, returning a probability distribution over the predicted output, as opposed to a point prediction (like the previous example).
+In this example each prediction is represented by a Gaussian (normal) distribution.
+This distribution is goverend by two parameters; mean $\mu$ and variance $\sigma^2$ (or standard deviation $\sigma$).
+The Gaussian (normal) distributions' probability density function is illustrated below.
+
+{{< figure src="images/normal_dist.png" title="[source Wikipedia](https://en.wikipedia.org/wiki/Normal_distribution#/media/File:Normal_Distribution_PDF.svg)" lightbox="true" >}}
+      [[file:images/normal_dist.png]]
+
+Now that we can see how the parameters govern the distribution, let's return to our probabilistic prediction.
+The mean corresponds to the point prediction achieved in the deterministic example i.e. what would be output by a neural network.
+We now also have the variance of the Gaussian distribution which provides us with a notion of uncertainty; lower variances correspond to being more certain.
+This extra value is extrememly useful, it can be used for decision making, intelligent data collection and much much more.
+# In settings like helthcare we now know if we can trust our model or if we should ask a human expert.
+
+> I mentioned this example to justify why we may want to model uncertainty in our ML models.
+  This example is noise free Gaussian process regression and if you are interested in how we can do this in neural networks check out the field of Bayesian neural networks.
+  # It is worth noting here that this is only one type of superviesed learning (regression) and in other settings we do not necessarily care about probabilistic predicitions (but we do care about modelling uncertainty).
+  # For example, we can treat unsupervised learning (e.g. clustering, dimensionality reduction) and reinforcement learning (check out [PILCO](http://mlg.eng.cam.ac.uk/pilco/)) probabilisticly so that we can model our uncerainty.
+
+We've spoken about what uncertainties we would like to model but how do we construct models capable of handling these uncertainties?
+Probability theory is a field of mathematics designed to handle and harness uncertainty.
+In probabilistic modelling the model describes data that can be observed from the system.
+If we use probability theory to express all forms of uncertainty in our model, then we can use Baye's rule to infer unknown quantities, adapt our models, make predictions and learn from data.
+Bayesian inference provides a principled framework for modelling uncertainty through the use of probability theory.
+
+Before introducing Bayesian inference it is important to first understand Baye's rule.
+
+*** Baye's Theorem
+I have to say, Baye's theorem is pretty cool!
+It allows us to use any knowledge or belief that we already have about a system to help us calculate the probability of an event.
+For example, if we wanted to find the probability of a coin toss being heads, Baye's rule gives us the tools to use our prior knowledge of the likelihood of the coin toss being heads.
+All you need to know is that Baye's theorem allows us to update the probability of a hypothesis as we receive more evidence or information.
+Mathematically Baye's theorem is defined as,
+
+$$
+P(hypothesis | data)=\frac{P(data |hypothesis) P(hypothesis)}{P(data)}.
+$$
+Mathematical definitions can often be hard to understand so let's get stuck into a machine learning example.
+
+*** A Bayesian Coin Toss
+Let's assume that we have observed a system with a binary outcome (e.g. a coin toss).
+We denote a single observation from the system as $x \in \\{0, 1\\}$, that is, $x$ can either take the value $0$ (heads) or the value $1$ (tails).
+Being Bayesian we would like to model observations from this system using probability distributions.
+**** The Likelihood
+
+The first thing we need to specify is our likelihood and it should tell us how likely an observation is given the parameterization of the system, i.e. $p(x | \theta)$.
+Here $\theta$ represents our model parameters.
+For a binary system such as this, it makes sense to use a Bernoulli distribution as the likelihood,
+$$
+p(x | \theta) = p(x | \mu) = \text{Bern}(x | \mu) = \mu^{x} (1 - \mu)^{1-x}.
+$$
+The Bernoulli ditribution is parameterised by a single parameter $\mu$.
+The reason we have picked this distribution is because it makes sense to parameterize the system using a single parameter $\mu$ that conatins information regarding how often we observe each outcome
+i.e. how biased is the coin.
+$\mu$ is the probability of getting a tails and $1-\mu$ is the probability of getting a heads.
+If we think the coin is fair then we would initially guess $\mu=0.5$ and if we thought it was biased towards heads then maybe $\mu=0.3$.
+
+Let's now look at the value of our likelihood for each of our possible observations to get some intuition for what is going on,
+$$
+p(x=0 | \mu) = \mu^{0} (1 - \mu)^{1-0} = 1 - \mu
+$$
+$$
+p(x=1 | \mu) = \mu^{1} (1 - \mu)^{1-1} = \mu
+$$
+So what is this telling us?
+Well, if we think the coin is biased towards heads then we might set $\mu=0.3$.
+Remember our likelihood should return a probability value between $0$ and $1$, where $1$ means the observation was very likely and $0$ means very unlikely.
+If we observe a heads $x=0$ then our likelihood $p(x=0 | \mu)$ should return a value $>0.5$.
+Let's calculate the likelihood of each possible observation given the parameter settting $\mu=0.3$,
+$$
+p(x=0 | \mu=0.3) = 0.3^{0} (1 - 0.3)^{1-0} = 1 \times (1 - 0.3) = 0.7
+$$
+$$
+p(x=1 | \mu=0.3) = 0.3^{1} (1 - 0.3)^{1-1} = 0.3 \times 1 = 0.3
+$$
+The results are as expected so our choice of likelihood is good!
+We can extend our likelihood for $N$ observations (coin tosses) $\mathbf{x} = \\{ x_n \\}_{n=1}^N$,
+
+$$
+p(\\mathbf{x} | \\mu) = \\prod_{n=1}^N \\mu^{x}_n (1 - \mu)^{1-x_n}
+$$
+where we have made the assumption that each coin toss is independent.
+This is why we have multiplied the likelihood for each individual coin toss.
+For a given parameter setting we now have a method for caclulating how likely our dataset is given our model.
+
+If we know the parameters of our system, in this case $\mu$, then we can generate output that is similar to the actual system using the likelihood.
+That is, we can make predictions!
+What we would like to do then, is learn the value of $\mu$ from observations of the actual system.
+
+One obvious way to do this is to perform maximum likelihood estimation.
+That is, set the parameter $\mu$ to the value that maximizes the likelihood,
+$$
+  \mu = \underset{\mu}{\text{argmax}}\ p(\mathbf{x} | \mu).
+$$
+Hopefully you can see how this is quite an intuitive thing to do.
+However, we want to model our uncerainty in $\mu$ by performing Bayesian inference.
+We therefore need to specify a prior distribution on $\mu$ and use Baye's rule to obtain the posterior $p(\mu | \mathbf{x})$.
+
+**** The Prior Distribution
+What prior knowledge do we have about our system?
+Well, most coins that one comes across are not biased and the value of $\mu$ is $0.5$.
+Now we just need to incorporate this knowledge to specify a prior distribution over $\mu$.
+Then we can just use Baye's rule to reach the posterior of the parameters given the data,
+
+$$
+p(\mu | \mathbf{x}) = \frac{p(\mathbf{x}|\mu) p(\mu)}{p(\mathbf{x})}.
+$$
+
+How then, does one pick the distribution for the prior?
+If we specify either our prior or likelihood wrong then this computation may not even be analytically tractable.
+Because of the integral in the denominator $p(\mathbf{x}) = \int p(\mathbf{x}| \mu) p(\mu) \text{d}\mu$.
+When this is the case we resort to approximations, with the main methods being Markov Chain Monte Carlo and variational inference.
+
+Luckily, we can exploit something known as conjugacy.
+In Bayes rule, if the posterior distribution $p(\mathbf{x} | \mu)$ is in the same probability distribution family as the prior distribution $p(\mu)$, then they are called conjugate distributions.
+The prior is also called the conjugate prior to the likelihood function.
+
+> It is important to note that the form of the conjugate prior depends on what parameter from the likelihood distribution is unknown and thus being learned.
+For example, if we have a Gaussian likelihood where we know the mean and want to infer the variance from data, then the conjugate prior distribution is inverse gamma.
+However, if the variance was known and we wanted to infer the mean, then the conjugate prior distribution would be Gaussian.
+
+Why do we care about this?
+Well, if both the prior and the posterior are from the same probability distribution family, then we don't need to calculate the denominator of Baye's rule (the evidence).
+We can simply multiply the prior and the likelihood and identify the parameters of the posterior (as we know its form).
+It's not important to know how to determine conjugate priors as mathematicians do it for us (and put them on [Wikipedia](https://en.wikipedia.org/wiki/Conjugate_prior) :laughing:).
+
+The conjugate prior to the only parameter $\mu$ in our Bernoulli likelihood is the Beta distribution.
+        The Beta distribution is defined on the interval $[0, 1]$ and is goverend by two shape parameters ($\alpha$ and $\beta$).
+        See the figure below for how they influence the distribution.
+
+[[file:images/beta-distribution.png]]
+
+$$
+        \text{Beta}(\mu | \alpha, \beta)=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha) \Gamma(\beta)} \mu^{\alpha-1}(1-\mu)^{\beta-1}
+        $$
+
+
+*** Bayesian Inference
+
+Inference refers to the process of learning the parameters of a model.
+It is important to remember that a model is seperate to how you train it.
+If we consider deep learning, you usually train the network weights (parameters) using an optimizer such as Adam or RMSProp or any other optimizer (usually being a variant of stochastic grdient descent).
+
+Bayesian methods of inference consist of both deterministic and stochastic approaches.
+The most important methods being Monte Carlo (sampling) methods and variational inference.
+
+# <!-- In machine learning, inference is the task of combining our assumptions with the observed data in order to update our belief in the parameters. -->
+In machine learning, our goal is to infer $\theta$ from the data and then make predicitions using our learned model.
+The predicition will vary depending on the type of task (classification, regression, clustering, etc) but understanding how we make predicitions is key to understanding why we care about modelling a distribution over the model parameters.
+If we have a set of observed data $\mathcal{D} = \\{\mathbf{x}, \mathbf{y}\\}$ (supervised learning) and have parameterized a model with parameters $\pmb\theta$, then we wish to obtain the posterior over the parameters,
+# <!-- $$ -->
+# <!-- p(\pmb\theta \mid \mathbf{Y}) = \frac{p(\mathbf{Y} \mid \pmb\theta) p(\pmb\theta)}{p(\mathbf{Y})}. -->
+# <!-- $$ -->
+$$p(\mathbf{\theta}|\mathcal{D}) = \frac{p(\mathcal{D}|\mathbf{\theta})p(\mathbf{\theta})}{p(\mathcal{D})},$$
+so that we can make predicitions,
+$$
+p(\mathbf{y}\_\*| \mathbf{x}\_\*, \mathcal{D}) = \int p(\mathbf{y}\_\* | \mathbf{x}\_\*, \theta, \mathcal{D}) p(\theta | \mathcal{D}) \text{d} \theta,
+$$
+where $\mathbf{x}\_\*$ is a previously unseen test input and $\mathbf{y}\_\*$ is its corresponding output value.
+# <!-- Hopefully from this equation it is clear that the reason we seek a posterior over the parameters is because we would like to make probabilistic predictions that capture how certain we are in our prediction.  -->
+Hopefully from this equation it is clear why we seek a posterior distribution over the parameters.
+It is because we would like to make probabilistic predictions that capture how certain we are in our prediction.
+We have modelled our uncertainty by representing our parameters as probability distributions as opposed to single values.
+In this equation we are essentially calculating the expectation of the prediction function $p(\mathbf{y}\_\* | \mathbf{x}\_\*, \theta, \mathcal{D})$ under the posterior distribution of the parameters $p(\theta | \mathcal{D})$,
+i.e. we are calculating the prediction for different parameter settings and weighting them according to how likely we think each particular parameter setting is.
+
+This is very cool when you think about it!
+# <!-- We are essentially calculating the expected predictive distribution under the posterior over parameters. -->
+
+
+<!-- In Bayesian inference we seek to update a statistical hypothesis (our prior distribution $p(\mathbf{\Theta})$) when we observe data $\mathcal{D}$. Bayesian inference derives the posterior probability $p(\mathbf{\Theta}|\mathcal{D})$ from the prior probability $p(\mathbf{\Theta})$ and the likelihood function $p(\mathcal{D}|\mathbf{\Theta})$ (a statistical model for the observed data) using Bayes rule, -->
+
+
+Both learning and predicition can be seen as forms of inference
+
+
+*** Evidence
+
+In maximum likelihood estimation we seek to find the best model parameters by maximising the likelihood $p(\mathbf{Y} | \mathbf{\Theta})$.
+We obtain a point estimate for the "best" parameters $\mathbf{\Theta}$.
+The likelihood function is higher for more complex model structures which leads to overfitting.
+
+Bayesian methods overcome overfitting by treating the model parameters as random variables (as we have shown previosly) and maximising the logarithm of the marginal likelihood (or evidence) $p(\mathbf{Y})$,
+\begin{align}
+	\text{log}\ p(\mathbf{Y}) &= \text{log} \int p(\mathbf{Y}, \mathbf{\Theta}) \text{d}\mathbf{\Theta} = \text{log} \int p(\mathbf{Y} | \mathbf{\Theta}) p(\mathbf{\Theta}) \text{d}\mathbf{\Theta}.
+\end{align}
+This is advantageous as we now consider all parameter $\mathbf{\Theta}$ settings and we obtain the posterior $p(\mathbf{\Theta} | \mathbf{Y})$ for the unknown parameters, as opposed to just a point estimate as in maximum likelihood estimation. This provides automatic Occam's razor, penalising complex models and preventing overfitting.
+
+Often the posterior is not analytically tractable due to the integral,
+
+$$p(\mathcal{D}) = \int p(\mathcal{D}|\mathbf{\Theta})p(\mathbf{\Theta}) d\mathbf{\Theta},$$
+
+however, in the case of a Gaussian likelihood and a Gaussian process prior, the posterior takes the form of a Gaussian process over functions and is analytically tractable (hurray!).
+
+The denominator is known as the marginal likelihood (or evidence) and represents the probability of the observed data when all of the assumptions have been propagated through and integrated out,
+
+$$
+p(\mathbf{Y}) = \int p(\mathbf{Y}, \pmb\theta) d\theta.
+$$
+Sometimes this integral is intractable (computationally or analytically) so we cannot exploit conjugacy to avoid it's calculation. For this reason we have to make approximations to this integral.
+
+MacKay plot
+# {{< figure src="images/mckay.png" lightbox="true" >}}
+[[file:images/mckay.png]]
+
+*** Regression Example
+Let's assume that we have observed some inputs $\mathbf{X}$ and targets $\mathbf{Y}$ and collected them into a data set $\mathcal{D} = \\{\mathbf{X}, \mathbf{Y}\\}$. In regression we seek to learn the mapping $f$ from our observed data. We do this by constructing a model of the mapping that contains parameters (or hyper-parameters in the non-parametric case) $\mathbf{\Theta}$ that we want to learn from our data. As we wish to take uncertainty into account we are interested in obtaining the posterior over these parameters (representing the mapping) given the observations $p(\mathbf{\Theta}|\mathcal{D})$.
+
+In the Bayesian regression setting we are seeking to make predictions $p(\mathbf{y}|\mathbf{x}\_\*)$. That is, not only do we want the value of $\mathbf{y}\_{\*}$ corresponding to a previously unseen input but we also want to know how certain we are in our predicition.
+
+If you are interested in
+
+WE can
+
+
+# <!-- We are often interested in the log marginal likelihood $\text{log} p(\mathcal{D})$ and use it (or approximations) as an objective function in our learning algorithms. -->
+# <!-- ## Approximate Inference  -->
+
+
+# <!-- \begin{align} -->
+# <!-- 	\text{KL}(q(\pmb{\Theta}) || p(\pmb{\Theta} | \mathbf{Y})) &= \int q(\pmb{\Theta}) \text{log} \frac{q(\pmb{\Theta})}{p(\pmb{\Theta} | \mathbf{Y})} d\pmb{\Theta} \newline -->
+# <!-- 	&= \int q(\pmb{\Theta}) \text{log} \frac{q(\pmb{\Theta})}{p(\pmb{\Theta}, \mathbf{Y})} d\pmb{\Theta} + \text{log} p(\mathbf{Y})  \newline -->
+# <!-- 	&= \mathcal{H}(q(\pmb{\Theta})) - \mathbb{E}\_{q(\pmb{\Theta})} \bigg[ \text{log} p(\pmb{\Theta}, \mathbf{Y}) \bigg] + \text{log} p(\mathbf{Y}) -->
+# <!-- \end{align} -->
+
+# <!-- ## Jensen’s Inequality -->
+
+# <!-- In order to to understand variational inference we must first introduce __Jensen's inequality__, which relates the value of a convex function of an integral to the integral of the convex function. -->
+
+# <!-- **What's a convex function?** -->
+
+# <!-- Lets assume that $\mathbf{X}$ represents a convex set in the real vector space and $f$ be a function $f : \mathbf{X} \rightarrow \mathbf{R}$. A convex set is a set where the line joining any two points belonging to the set, also lies entirely in the set. This is illustrated in the figures below. -->
+
+# <!-- **Convex Set** -->
+# <!-- <img src="convex.svg" alt="convex" title="Convex Set" width="150" height="100" /> -->
+# <!-- **Non Convex Set** -->
+# <!-- <img src="nonconvex.png" alt="nonconvex" title="Non Convex Set" width="150" height="100" /> -->
+
+# <!-- With this definition of a convex set we can now define a convex function. The function $f$ is called convex if, -->
+# <!-- $$ -->
+# <!-- \forall x_1, x_2 \in \mathbf{X}, \forall t \in [0,1] : f(t x_1 + (1-t) x_2) \geq t f(x_1) + (1-t) f(x_2). -->
+# <!-- $$ -->
+# <!-- <img src="ConvexFunction.png" alt="convexfunction" title="Convex Function" width="100%" /> -->
+
+# <!-- The logarithm function is concave.   -->
+# <!-- $$ -->
+# <!-- \mathbb{E} [ f(x) ] \geq f(\mathbb{E} [ x ]) -->
+# <!-- $$ -->
+# <!-- ## Lower Bounding the Marginal Likelihood -->
+
+# <!-- Let $y$ denote the observed variables, $x$ denote the latent variables and $\theta$ denote the parameters.  -->
+
+# <!-- Lower bound $\text{log}p(\mathbf{Y})$ using a functional that depends on a variational distribution $q(\pmb{\Theta})$, -->
+# <!-- \begin{align} -->
+# <!-- 	\text{log}\ p(\mathbf{Y}) &= \text{log} \int p(\pmb{\Theta} | \mathbf{Y}) p(\mathbf{Y}) d\pmb{\Theta} -->
+# <!-- 	\newline -->
+# <!-- % 	&= \text{log} \int \frac{q(\pmb{\Theta})}{q(\pmb{\Theta})} p(\mathbf{Y}, \pmb{\Theta}) \text{d}\pmb{\Theta} -->
+# <!-- % 	\newline -->
+# <!-- % 	&= \text{log} \int q(\pmb{\Theta}) \frac{p(\mathbf{Y} | \pmb{\Theta}) p(\pmb{\Theta})}{q(\pmb{\Theta})} \text{d}\pmb{\Theta} -->
+# <!-- % 	\newline -->
+# <!-- 	&= \text{log} \int q(\pmb{\Theta}) \frac{p(\pmb{\Theta} | \mathbf{Y}) p(\mathbf{Y})}{q(\pmb{\Theta})} d\pmb{\Theta} -->
+# <!-- 	\newline -->
+# <!-- 	&\geq \int q(\pmb{\Theta}) \text{log} \frac{p(\pmb{\Theta} | \mathbf{Y})}{q(\pmb{\Theta})} d\pmb{\Theta} + \int q(\pmb{\Theta}) d\pmb{\Theta} \text{log} p(\mathbf{Y})  -->
+# <!-- 	\newline -->
+# <!-- 	&\geq - \text{KL}(q(\pmb{\Theta}) || p(\pmb{\Theta} | \mathbf{Y})) + \text{log}p(\mathbf{Y}) -->
+# <!-- \end{align} -->
+
+# <!-- Equal when $q(\pmb{\Theta}) = p(\pmb{\Theta} | \mathbf{Y})$.  -->
+
+# <!-- \begin{equation} -->
+# <!--     \text{argmin}\_{\pmb\Theta} \text{KL} ( q(\pmb\Theta) || p(\pmb\Theta | \mathbf{Y}) ) -->
+# <!-- \end{equation} -->
+
+# <!-- \begin{align} -->
+# <!-- 	\text{KL}(q(\pmb{\Theta}) || p(\pmb{\Theta} | \mathbf{Y})) &= \int q(\pmb{\Theta}) \text{log} \frac{q(\pmb{\Theta})}{p(\pmb{\Theta} | \mathbf{Y})} d\pmb{\Theta} \newline -->
+# <!-- 	&= \int q(\pmb{\Theta}) \text{log} \frac{q(\pmb{\Theta})}{p(\pmb{\Theta}, \mathbf{Y})} d\pmb{\Theta} + \text{log} p(\mathbf{Y})  \newline -->
+# <!-- 	&= \mathcal{H}(q(\pmb{\Theta})) - \mathbb{E}\_{q(\pmb{\Theta})} \bigg[ \text{log} p(\pmb{\Theta}, \mathbf{Y}) \bigg] + \text{log} p(\mathbf{Y}) -->
+# <!-- \end{align} -->
+
+# <!-- Bound equal when $q(\pmb{\Theta}) = p(\pmb{\Theta} | \mathbf{Y})$.  -->
+
+
+# <!-- \begin{align} -->
+# <!-- 	\text{log}p(\mathbf{Y}) &= \text{KL}(q(\pmb\Theta) || p(\mathbf{Y})) + \underbrace{\mathbb{E}\_{q(\pmb\Theta)} \bigg[ \text{log} p(\pmb{\Theta}, \mathbf{Y}) \bigg] - \mathcal{H}(q(\pmb\Theta))}\_{\text{ELBO}} \newline -->
+# <!-- 	&\geq \mathbb{E}\_{q(\pmb\Theta)} \bigg[ \text{log} p(\pmb{\Theta}, \mathbf{Y}) \bigg] - \mathcal{H}(q(\pmb\Theta)) = \mathcal{L}(q(\pmb{\Theta})) -->
+# <!-- \end{align} -->
+
+# <!-- Maximise ELBO to get:  -->
+
+# <!-- 1. Approximate posterior $q(\pmb\Theta)$, -->
+# <!-- 2. Approximation of marginal likelihood $p(\mathbf{Y})$. -->
+
+# <!-- Maximising $p(\mathbf{Y})$ is learning. -->
+** TODO The Editor That Took Over My Life aka My Spacemacs Config    :emacs:spacemacs:
+:PROPERTIES:
+:EXPORT_FILE_NAME: index.md
+:EXPORT_HUGO_BUNDLE: the-editor-that-took-over-my-life-aka-my-spacemacs-config
+:EXPORT_AUTHOR: Aidan Scannell
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :markup blackfriday
+:END:
+
+# {{% toc %}}
+I can't decide if this post has been a long time coming or is still premature.
+# I am not married but I imagine a programmers journey with their text editor is like marriage.
+Nevertheless,
+
+I started writing my full spacemacs config in literate form because I kept forgetting how functionality (that I implemented) worked! I wanted minimal documentation that I could easily refer to so that I could see keybindings and how to use certain functionality. Or if I needed to change any configuration, how I could go about that.
+
+In the end I decided that I wanted to easily access and edit an emacs-lisp config file with SPC f e d as opposed to an org file with lots of fancy tangling and detangling. As a compromise, I am just dumping info into this org file, which conveniently, I can easily export to markdown and display on my Hugo website using ox-hugo This file is my Spacemacs configuration in literate form
+
+**** Install (with homebrew)
+Some Emacs installs do not work with yabai tiling window manager or support retina pdf quality in PDFView.
+[[https://github.com/railwaycat/homebrew-emacsmacport][Emacs-mac]] does, so let's install it,
+- =brew install emacs-mac --with-no-title-bars=
+Link emacs-mac to =/usr/local/bin/emacs=.
+- =brew link emacs-mac=
+[[https://ylluminarious.github.io/2019/05/23/emacs-mac-port-introduction/][This is a good blog post detailing the perks of using Emacs Mac Port.]]
+
+**** pdf quality
+Emacs/Emacs-plus install and pdf-tools renders low quality pdfs.
+Use emacs-mac and put this in user-config to fix,
+#+begin_src emacs-lisp :tangle yes
+  ;; default page width behavior
+  (setq-default pdf-view-display-size 'fit-page)
+  ;; combined with emacs-mac this gives good odf quality for retina display
+  (setq pdf-view-use-scaling t)
+#+end_src
+**** Chemacs
+[[https://github.com/plexus/chemacs][Chemacs]] is an Emacs profile switcher that makes it easy to run multiple Emacs configs side by side.
+I am currently running five Emacs configurations,
+1. Vanilla Emacs - Although I love spacemacs I am eager to build a full config from scratch,
+2. Spacemacs Old - This is my old spacemacs config
+
+This also makes it super easy to version control all of your emacs configuration files
+
+- =~/.emacs-profile= sets the default config to use,
+- =~/.emacs-profiles.el= sets the all of the configs with the path to their directory and config file,
+#+begin_src
+  (("vanilla" . ((user-emacs-directory . "~/.dotfiles/vanilla-emacs")))
+
+  ("spacemacs-old-m" . ((user-emacs-directory . "~/spacemacs")
+                   (env . (("SPACEMACSDIR" . "~/.dotfiles/spacemacs-old")))))
+
+  ("spacemacs-old-d" . ((user-emacs-directory . "~/spacemacs/develop")
+                   (env . (("SPACEMACSDIR" . "~/.dotfiles/spacemacs-old")))))
+
+  ("spacemacs-master" . ((user-emacs-directory . "~/spacemacs")
+                   (env . (("SPACEMACSDIR" . "~/.dotfiles/spacemacs-base-new")))))
+
+   ("new-config" . ((user-emacs-directory . "~/spacemacs/develop")
+                    (env . (("SPACEMACSDIR" . "~/.dotfiles/spacemacs-base-new"))))))
+#+end_src
+
+**** Emacs Server/Client
+
+# #!/bin/bash
+Use =C-c C-v t= on this src block to "tangle" i.e. create file =~/.emacs.d/emacs-client-server.sh=,
+#+begin_src bash :tangle ~/.emacs.d/emacs-client-server.sh
+  #!/usr/bin/env zsh
+
+  BG_RED=`tput setaf 1`
+  BG_GREEN=`tput setaf 2`
+  BOLD=`tput bold`
+  RESET=`tput sgr0`
+
+  # EMACS_CLIENT='/usr/local/opt/emacs-mac/bin/emacsclient'
+  # EMACS='/usr/local/opt/emacs-mac/Emacs.app/Contents/MacOS/Emacs.sh'
+  # EMACS='/usr/local/opt/emacs-mac/Emacs.app'
+  # EMACS_CLIENT='/usr/local/opt/emacs-mac/bin/emacsclient -s '$HOME'/.emacs.d/server'
+  # EMACS_CLIENT='/usr/local/opt/emacs-mac/bin/emacsclient -s '$HOME'/.emacs.d/server/server '
+  # EMACS_CLIENT='/usr/local/opt/emacs-mac/bin/emacsclient'
+  # EMACS_CLIENT='/usr/local/opt/emacs-mac/Emacs.app/Contents/MacOS/bin/emacsclient'
+  # EMACS='/usr/local/opt/emacs-mac/Emacs.app/Contents/MacOS/bin/Emacs'
+
+  EMACS='/usr/local/opt/emacs-mac/Emacs.app/Contents/MacOS/Emacs.sh'
+  EMACS_CLIENT='/usr/local/opt/emacs-mac/Emacs.app/Contents/MacOS/bin/emacsclient'
+
+  DEFAULT_EVAL='(switch-to-buffer "*scratch*")'
+  # DEFAULT_ARGS="-e"
+  DEFAULT_ARGS=""
+  # DEFAULT_SERVER='-s '$HOME'/.emacs.d/server/server'
+  NO_WAIT='-nw'
+  # NO_WAIT='-n'
+
+
+  # Checks if there's a frame open
+  if pgrep Emacs &> /dev/null; then
+  echo "trying emacsclient"
+  /usr/local/opt/emacs-mac/Emacs.app/Contents/MacOS/bin/emacsclient -nw "$@"
+  else
+  echo "trying emacs"
+  /usr/local/opt/emacs-mac/Emacs.app/Contents/MacOS/Emacs.sh
+  fi
+
+  # function run_client(){
+  #     ${EMACS_CLIENT} ${NO_WAIT} ${DEFAULT_ARGS} $@
+  #     # if [ $# -ne 0 ]
+  #     # then
+  #     #     echo "running basic emacsclient"
+  #     #     ${EMACS_CLIENT} ${NO_WAIT} $@
+  #     # else
+  #     #     # ${EMACS_CLIENT} ${NO_WAIT} ${DEFAULT_ARGS} &> /dev/null
+  #     #     echo "Running full emacsclient"
+  #     #     ${EMACS_CLIENT} ${NO_WAIT} ${DEFAULT_ARGS} "${DEFAULT_EVAL}" &> /dev/null
+  #     # fi
+  # }
+
+  # echo -e "Checking Emacs server status...\c"
+  # if pgrep Emacs &> /dev/null
+  # then
+  #     echo "${BOLD}${BG_GREEN}Active${RESET}"
+  #     echo -e "Connecting...\c"
+  #     # run_client $*
+  #     # run_client
+  #     /usr/local/opt/emacs-mac/Emacs.app/Contents/MacOS/bin/emacsclient -nw "$@"
+  #     echo "${BOLD}${BG_GREEN}DONE${RESET}"
+  # else
+  #     echo "${BOLD}${BG_RED}Inactive${RESET}"
+  #     echo -e "Emacs server is starting...\c"
+  #     ${EMACS}
+  #     # open -a ${EMACS}
+  #     echo "${BOLD}${BG_GREEN}DONE${RESET}"
+
+  #     # echo -e "Trying connecting...\c"
+  #     # until run_client $* &> /dev/null;[ $? -eq 0 ]
+  #     # do
+  #     #     sleep 1
+  #     # done
+  #     # echo "${BOLD}${BG_GREEN}DONE${RESET}"
+  # fi
+
+  # function run_client(){
+  #     if [ $# -ne 0 ]
+  #     then
+  #         ${EMACS_CLIENT} ${DEFAULT_SERVER} ${NO_WAIT} $@
+  #     else
+  #         ${EMACS_CLIENT} ${DEFAULT_SERVER} ${NO_WAIT} ${DEFAULT_ARGS} &> /dev/null
+  #         # ${EMACS_CLIENT} ${DEFAULT_SERVER} ${NO_WAIT} ${DEFAULT_ARGS} "${DEFAULT_EVAL}" &> /dev/null
+  #     fi
+  # }
+
+  # echo -e "Checking Emacs server status...\c"
+  # # if pgrep Emacs &> /dev/null
+  # if [ -e ~/.emacs.d/server/server ]
+  # then
+  #     echo "${BOLD}${BG_GREEN}Active${RESET}"
+  #     echo -e "Connecting...\c"
+  #     run_client $*
+  #     echo "${BOLD}${BG_GREEN}DONE${RESET}"
+  # else
+  #     echo "${BOLD}${BG_RED}Inactive${RESET}"
+  #     echo -e "Emacs server is starting...\c"
+  #     open -a ${EMACS}
+  #     echo "${BOLD}${BG_GREEN}DONE${RESET}"
+
+  #     echo -e "Trying connecting...\c"
+  #     until run_client $* &> /dev/null;[ $? -eq 0 ]
+  #     do
+  #         sleep 1
+  #     done
+  #     echo "${BOLD}${BG_GREEN}DONE${RESET}"
+  # fi
+#+end_src
+
+Let's give it permissions,
+#+begin_src bash :results none
+  chmod +x ~/.emacs.d/emacs-client-server.sh
+#+end_src
+and set an alias =te= "terminal emacs" for emacsclient,
+#+begin_src bash :results none
+  echo "alias te=\"~/.emacs.d/emacs-client-server.sh\"" >> ~/.zshrc
+#+end_src
+
+
+#+begin_src bash :tangle ~/.emacs.d/skhd-emacs-client-server.sh
+  #!/usr/bin/env zsh
+
+  # Checks if there's a frame open
+  if pgrep Emacs &> /dev/null; then
+  echo "Opening emacsclient..."
+  /usr/local/opt/emacs-mac/Emacs.app/Contents/MacOS/bin/emacsclient -nqc
+  else
+  echo "Opening Emacs..."
+  /usr/local/opt/emacs-mac/Emacs.app/Contents/MacOS/Emacs.sh
+  fi
+#+end_src
+#+begin_src bash :results none
+  chmod +x /.emacs.d/skhd-emacs-client-server.sh
+#+end_src
+
+**** yasnippet
+[[https://github.com/joaotavora/yasnippet][yasnippet]] is configured through the [[https://www.spacemacs.org/layers/+completion/auto-completion/README.html][auto-completion]] layer in spacemacs.
+[[https://jaketrent.com/post/code-snippets-spacemacs/][Here's]] a good blog post on yasnippets in spacemacs.
+I setup a private snippets directory that I can version control easily and enabled snippets in my completion popup,
+#+begin_src
+  (auto-completion :variables
+        auto-completion-private-snippets-directory "~/.dotfiles/spacemacs-base-new/private/snippets"
+        auto-completion-enable-snippets-in-popup t)
+#+end_src
+
+***** Create new snippets
+1. To run a command in spacemacs =SPC :=,
+2. Create a new snippet =yas-new-snippet=,
+   1. Tab-stops are defined by the $, followed by their tab index.
+   2. $1 will be the first tab-stop, allowing for dynamic value insertion.
+   3. Specifying the same tab-stop multiple times means that when inserting your dynamic value, it will appear in each place but only needing to be typed out once.
+   4. $0 is always where the cursor ends, with no opportunity for value insertion.
+
+****** helm-yas-create-snippet-on-region
+Run =helm-yas-create-snippet-on-region= when a bit of source code is selected in a source file to create a new snippet.
+
+***** Reload snippets
+Run =yas-reload-all= to load new snippets into memory.
+
+***** Insert snippet
+Use =SPC i s= to insert a snippet ("insert snippet").
+
+**** Themes
+- Change themes using helm-themes =SPC T s=.
+- I added doom-themes and switch between them regularly.
+#+begin_src emacs-lisp
+  dotspacemacs-additional-packages '(doom-themes)
+#+end_src
+
+**** Useful Emacs Commands
+***** Describe Functions
+=Describe functions= are powerful Emacs introspection commands to get information
+about functions, variables, modes etc. These commands are bound thusly:
+
+| Key binding | Description       |
+|-------------+-------------------|
+| ~SPC h d f~ | describe-function |
+| ~SPC h d k~ | describe-key      |
+| ~SPC h d m~ | describe-mode     |
+| ~SPC h d v~ | describe-variable |
+
+Copied from [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/QUICK_START.org][documentation quick start quide]].
+
+**** Org Mode
+I have put my org configuration into a layer called =org-config=.
+In the =layers.el= file I include the org layer and setup reveal, projectile and hugo,
+- reveal.js
+
+  Create reveal.js presentations in org mode.
+  I currently add the following line to each =.org= file,
+  #+begin_src emacs-lisp :tangle yes
+    ,#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js@3.8.0
+  #+end_src
+  because I haven't been able to successfully set the =org-re-reveal-root= variable to =(sqetq org-re-reveal-root ~/reveal.js/)=.
+
+- org projectile
+
+  I chose to use per-project TODO files (called =TODOs.org=) and I added the below code to add them to the agenda,
+  #+begin_src emacs-lisp
+    (with-eval-after-load 'org-agenda
+      (require 'org-projectile)
+      (mapcar '(lambda (file)
+                    (when (file-exists-p file)
+                      (push file org-agenda-files)))
+              (org-projectile-todo-files)))
+  #+end_src
+
+- hugo -
+  #+begin_src emacs-lisp
+    (configuration-layer/declare-layers '(
+                                          (org :variables org-enable-reveal-js-support t
+                                                          org-enable-hugo-support t
+                                                          org-projectile-file "TODOs.org")
+                                          ))
+  #+end_src
+
+  #+begin_src emacs-lisp :tangle yes
+    (setq org-directory "/Users/aidanscannell/Dropbox/org/"
+          org-default-notes-file "~/Dropbox/org/notes.org"
+          org-contacts-files '("~/Dropbox/org/contacts.org")
+          org-todo-keywords '((sequence "SOMEDAY" "TODO" "PROGRESS" "|"
+                      "DONE" "DELEGATED" "CANCELLED"))
+          ;; org-bullets-bullet-list '("■" "◆" "▲" "▶")
+          org-startup-indented t ;; Keep the indentation well structured
+          org-agenda-files '("/Users/aidanscannell/Dropbox/org/agenda") ;; set the agenda files.
+          org-agenda-files '("/Users/aidanscannell/Dropbox/org/"))
+  #+end_src
+***** Writing in Org  Mode
+
+| Key binding | Description                |
+|-------------+----------------------------|
+| ~SPC m x b~ | make region bold           |
+| ~SPC m x c~ | make region code           |
+| ~SPC m x i~ | make region italic         |
+| ~SPC m x r~ | clear region emphasis      |
+| ~SPC m x s~ | make region strike-through |
+| ~SPC m x u~ | make region underline      |
+| ~SPC m x v~ | make region verbatim       |
+
+***** Org with evil-org-mode
+
+| Key binding   | Description                     |
+|---------------+---------------------------------|
+| ~gj~ / ~gk~   | Next/previous element (heading) |
+| ~gh~ / ~gl~   | Parent/child element (heading)  |
+| ~gH~          | Root heading                    |
+| ~ae~          | Element text object             |
+| ~ar~          | Subtree text object             |
+| ~M-j~ / ~M-k~ | Move heading                    |
+| ~M-h~ / ~M-l~ | Promote or demote heading       |
+| ~M-J~ / ~M-K~ | Move subtree                    |
+| ~M-H~ / ~M-L~ | Promote or demote subtree       |
+| ~>>~ / ~<<~   | Promote or demote heading       |
+
+***** Babel / Source Blocks
+
+| Key binding | Description                              |
+|-------------+------------------------------------------|
+| ~SPC m b .~ | Enter Babel Transient State              |
+| ~SPC m b a~ | org-babel-sha1-hash                      |
+| ~SPC m b b~ | org-babel-execute-buffer                 |
+| ~SPC m b c~ | org-babel-check-src-block                |
+| ~SPC m b d~ | org-babel-demarcate-block                |
+| ~SPC m b e~ | org-babel-execute-maybe                  |
+| ~SPC m b f~ | org-babel-tangle-file                    |
+| ~SPC m b g~ | org-babel-goto-named-src-block           |
+| ~SPC m b i~ | org-babel-lob-ingest                     |
+| ~SPC m b I~ | org-babel-view-src-block-info            |
+| ~SPC m b j~ | org-babel-insert-header-arg              |
+| ~SPC m b l~ | org-babel-load-in-session                |
+| ~SPC m b n~ | org-babel-next-src-block                 |
+| ~SPC m b o~ | org-babel-open-src-block-result          |
+| ~SPC m b p~ | org-babel-previous-src-block             |
+| ~SPC m b r~ | org-babel-goto-named-result              |
+| ~SPC m b s~ | org-babel-execute-subtree                |
+| ~SPC m b t~ | org-babel-tangle                         |
+| ~SPC m b u~ | org-babel-goto-src-block-head            |
+| ~SPC m b v~ | org-babel-expand-src-block               |
+| ~SPC m b x~ | org-babel-do-key-sequence-in-edit-buffer |
+| ~SPC m b z~ | org-babel-switch-to-session              |
+| ~SPC m b Z~ | org-babel-switch-to-session-with-code    |
+***** Projectile
+| Key binding       | Description                                             |
+|-------------------+---------------------------------------------------------|
+| ~SPC a o p~       | Capture a TODO for the current project                  |
+| ~SPC u SPC a o p~ | Capture a TODO for any given project (choose from list) |
+| ~SPC p o~         | Go to the TODOs for the current project                 |
+
+***** Capture buffers and src blocks
+=org-capture-mode= and =org-src-mode= both support the confirm and abort
+conventions.
+
+| Key binding                                  | Description                            |
+|----------------------------------------------+----------------------------------------|
+| ~SPC m <dotspacemacs-major-mode-leader-key>~ | confirm in =org-capture-mode=          |
+| ~SPC m '​~                                    | confirm in =org-src-mode=              |
+| ~SPC m c~                                    | confirm                                |
+| ~SPC m a~                                    | abort                                  |
+| ~SPC m k~                                    | abort                                  |
+| ~SPC m r~                                    | org-capture-refile in org-capture-mode |
+
+***** reveal.js
+
+***** Capture
+****** Templates
+
+***** Org-ref
+The BibTeX layer includes the following packages,
+- auctex
+- org
+- org-ref
+- markdown-mode
+- (helm-bibtex :requires helm)
+- biblio
+- biblio-core
+I configured org-ref to use my mendeley .bib file at =~/Dropbox/org/ref/mendeley/library.bib=
+#+begin_src emacs-lisp :tangle yes
+  (setq org-ref-bibliography-notes "~/Dropbox/org/ref/notes.org"
+        org-ref-default-bibliography '("~/Dropbox/org/ref/mendeley/library.bib") ;; mendeley bibfile
+        ;; TODO org-ref-default-bibliography is where org-ref looks for citations (mendeley bibfile) AND
+        ;; where it writes bib information to e.g. using org-ref-pdf
+        org-ref-pdf-directory "~/Dropbox/org/ref/org-ref-pdfs/") ;; where org-ref saves papers
+#+end_src
+Org-ref provides a convenient function for opening pdfs belonging to mendeley bibtex items.
+Mendely adds the pdf file path to a =file= property in the bibtex entry and org-ref uses this.
+#+begin_src emacs-lisp :tangle yes
+  (setq org-ref-get-pdf-filename-function 'org-ref-get-mendeley-filename)
+#+end_src
+I want to open these pdfs using pdf-tools so that I can view them inside emacs in pdf-view-mode.
+#+begin_src emacs-lisp :tangle yes
+  (defun my/org-ref-open-pdf-at-point ()
+    "Open the pdf for bibtex key under point if it exists."
+    (interactive)
+    (let* ((results (org-ref-get-bibtex-key-and-file))
+           (key (car results))
+           (pdf-file (funcall org-ref-get-pdf-filename-function key)))
+      (if (file-exists-p pdf-file)
+          (find-file pdf-file)
+        (message "No PDF found for %s" key))))
+
+  (setq org-ref-open-pdf-function 'my/org-ref-open-pdf-at-point)
+#+end_src
+This function makes =SPC m a= (TEX-run-all-command) open the pdf in pdf-view-mode in emacs.
+# This function also sets the org export to LaTeX command =C-c C-e l o= to open in pdf-view-mode.
+
+
+In order to make sure that the bibliography is made when exporting org to latex-pdf,
+#+begin_src emacs-lisp :tangle yes
+  (setq org-latex-pdf-process
+        '("pdflatex -interaction nonstopmode -output-directory %o %f"
+          "bibtex %b"
+          "pdflatex -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -interaction nonstopmode -output-directory %o %f"))
+#+end_src
+
+I chose to use BibLaTeX over BibTeX,
+#+begin_src emacs-lisp :tangle yes
+  (setq bibtex-dialect 'biblatex)
+#+end_src
+which requires the following at the top of the org file,
+#+begin_src org
+  ,#+LATEX_HEADER: \usepackage[citestyle=authoryear-icomp,bibstyle=authoryear, hyperref=true,backref=false,maxcitenames=1,url=false,backend=bibtex,natbib=true] {biblatex}
+  ,#+LATEX_HEADER: \addbibresource{~/Dropbox/org/ref/mendeley/library.bib}
+#+end_src
+and uses,
+#+begin_src org
+  \printbibliography
+#+end_src
+to generate the bibliography.
+
+***** LaTeX
+This section is for creating LaTeX docs outside of org-mode using auctex and reftex, which are built into the spacemacs LaTeX layer.
+
+We want to use pdf-tools to open pdf files from tex,
+#+begin_src emacs-lisp :tangle yes
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+        TeX-source-correlate-start-server t)
+#+end_src
+
+#+begin_src emacs-lisp :tangle yes
+  (setq reftex-default-bibliography '("~/Dropbox/org/ref/mendeley/library.bib"))
+#+end_src
+
+Mention snippets.
+***** Agenda
+#+begin_src emacs-lisp :tangle yes
+  ;; Org mode settings
+  (setq org-directory "~/Dropbox/org/"
+        org-default-notes-file "~/Dropbox/org/notes.org"
+        org-contacts-files '("~/Dropbox/org/contacts.org")
+        org-todo-keywords '((sequence "TODO" "SOMEDAY" "PROGRESS" "|"
+                                      "DONE" "DELEGATED" "CANCELLED"))
+        org-startup-indented t ;; Keep the indentation well structured
+        org-agenda-files '("~/Dropbox/org/agenda/routine.org"
+                           "~/Dropbox/org/1.todo.org"
+                           "~/Dropbox/org/agenda/calendar.org"
+                           "~/Dropbox/org/agenda/uni.org")) ;; set the agenda files.
+  ;; Ignore scheduled tasks in task list view (SPC m t)
+  (setq org-agenda-todo-ignore-scheduled t)
+  (setq org-agenda-todo-ignore-deadlines t)
+  ;; Skip finished items
+  (setq org-agenda-skip-deadline-if-done t)
+  (setq org-agenda-skip-scheduled-if-done t)
+  ;; start agenda view from today
+  (setq org-agenda-start-on-weekday nil)
+
+  (setq org-agenda-span 10
+        org-agenda-start-on-weekday nil
+        org-agenda-start-day "-3d")
+
+  ;; add the per project todo.org files to the agenda
+  (with-eval-after-load 'org-agenda
+    (require 'org-projectile)
+    (mapcar (lambda (file)
+              (when (file-exists-p file)
+                (push file org-agenda-files)))
+            (org-projectile-todo-files)))
+#+end_src
+- "~/Dropbox/org/agenda/routine.org" contains my daily/weekly/monthly routines e.g. coffee, lunch, supervisor meeting.
+- "~/Dropbox/org/1.todo.org" contains all of my non project TODOs that I want to add to my agenda.
+- "~/Dropbox/org/agenda/calendar.org" contains events/deadlines/meetings that are not uni related.
+- "~/Dropbox/org/agenda/uni.org" contains event/deadlines/meetings that are uni related.
+#+begin_src emacs-lisp :tangle yes
+  (setq org-agenda-files '("~/Dropbox/org/agenda/routine.org"
+                           "~/Dropbox/org/1.todo.org"
+                           "~/Dropbox/org/agenda/calendar.org"
+                           "~/Dropbox/org/agenda/uni.org")) ;; set the agenda files.
+  ;; Ignore scheduled tasks in task list view (SPC m t)
+  (setq org-agenda-todo-ignore-scheduled t)
+  (setq org-agenda-todo-ignore-deadlines t)
+  ;; Skip finished items
+  (setq org-agenda-skip-deadline-if-done t)
+  (setq org-agenda-skip-scheduled-if-done t)
+  ;; start agenda view from today
+  (setq org-agenda-start-on-weekday nil)
+
+  (setq org-agenda-span 10
+        org-agenda-start-on-weekday nil
+        org-agenda-start-day "-3d")
+
+  ;; add the per project todo.org files to the agenda
+  (with-eval-after-load 'org-agenda
+    (require 'org-projectile)
+    (mapcar (lambda (file)
+              (when (file-exists-p file)
+                (push file org-agenda-files)))
+            (org-projectile-todo-files)))
+#+end_src
+#+begin_src emacs-lisp :tangle yes
+  ;; Ignore scheduled tasks in task list view (SPC m t)
+  (setq org-agenda-todo-ignore-scheduled t)
+  (setq org-agenda-todo-ignore-deadlines t)
+  ;; Skip finished items
+  (setq org-agenda-skip-deadline-if-done t)
+  (setq org-agenda-skip-scheduled-if-done t)
+#+end_src
+I set the default agenda to
+1. show 10 days (instead of 7),
+2. start 3 days before the current day,
+#+begin_src emacs-lisp :tangle yes
+  (setq org-agenda-span 10
+        org-agenda-start-on-weekday nil
+        org-agenda-start-day "-3d")
+#+end_src
+If I want to see more days (e.g. 15) I can use =15 SPC a o a=.
+
+****** Project TODOs
+I add all of the project TODO.org files with,
+#+begin_src emacs-lisp :tangle yes
+  (with-eval-after-load 'org-agenda
+    (require 'org-projectile)
+    (mapcar (lambda (file)
+              (when (file-exists-p file)
+                (push file org-agenda-files)))
+            (org-projectile-todo-files)))
+#+end_src
+**** Git
+Emacs/spacemacs provides great git functionality by simply adding the git layer.
+#+begin_src emacs-lisp :tangle yes
+  git
+#+end_src
+***** Magit-status =SPC g s=
+Magit status is incredible and I recommend everyone to check it out.
+I particularly like how easy it is to
+- stage and unstage files,
+- commit specific lines of a file,
+- manage my branches and remotes,
+- use git diff, rebase, cherry pick and log.
+***** Time Machine
+The git time machine is super useful =SPC g t=. You can skip through previous commits and copy commit hashes which can be used with other magit functionality.
+**** Extra
+
+In =~/.config/skhd/skhdrc= create a keyboard shortcut for GUI Emacs,
+#+begin_src
+  cmd - m : /usr/local/bin/emacs
+  cmd - m : ~/.emacs.d/emacs-client-server.sh
+#+end_src
+this will create a new server if non exist or connect to the one that is running.
+This dramatically improves startup time for subsequent Emacs instances.
+
+**** Superseded
+I edited the spacemacs "~/.emacs.d/core/core-spacemacs.el"
+#+begin_src
+  (setq inhibit-startup-screen t)
+  (spacemacs-buffer/goto-buffer)
+
+  to
+
+  (setq inhibit-startup-screen nil)
+  ;; (setq inhibit-startup-screen t)
+  ;;  (spacemacs-buffer/goto-buffer)
+#+end_src
+** TODO Writing LaTeX Documents with Spacemacs and org-mode
+:PROPERTIES:
+:EXPORT_FILE_NAME: index.md
+:EXPORT_HUGO_BUNDLE: writing-latex-documents-with-spacemacs-and-org-mode
+:EXPORT_AUTHOR: Aidan Scannell
+:END:
+
+I have just written my first ever academic conference paper using Spacemacs and org-mode.
+What a beautiful experience!
+I am sure I still have a lot to learn.
+
+I see two workflows for writing LaTeX documents in Emacs.
+
+1. AUCTeX/RefTeX
+2. org-mode/org-ref
+3.
+
+
+Down the org-mode rabbit hole we go...
+
+Writing in
+AUCTeX is a writing environment for TeX/LaTeX files using Emacs.
+Reftex
+
+Spacemacs LaTex layer
+
+Build command
+
+Yasnippets
+
+org-ref
+
+Emacs h
+
+** TODO The Editor That Took Over My Life aka My Spacemacs Config    :emacs:spacemacs:
+:PROPERTIES:
+:EXPORT_FILE_NAME: index.md
+:EXPORT_HUGO_BUNDLE: org-mode-resume
+:EXPORT_AUTHOR: Aidan Scannell
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :markup blackfriday
+:END:
+** DONE Creating a CV/Resume in Org-Mode using LaTeX Templates :emacs:org_mode:cv:resume:doom_emacs:
+:PROPERTIES:
+:EXPORT_FILE_NAME: index.md
+:EXPORT_HUGO_BUNDLE: org-mode-resume
+:EXPORT_AUTHOR: Aidan Scannell
+:EXPORT_DATE: 2020-12-01
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :url_pdf post/org-mode-resume/resume.pdf :url_code https://github.com/aidanscannell/my-org-resume
+:END:
+# #+OPTIONS: toc:t
+Over the last few years I have been trying to find the best tools for managing my CV/resume.
+Previously I was maintaining a JSON file that I could export to pdf/html using [[https://jsonresume.org/][JSON Resume]] and [[https://github.com/hacksalot/HackMyResume][HackMyResume]].
+They provide a well structured format (JSON Schema) for storing your CV data
+and there are a range of [[https://jsonresume.org/themes/][themes]] that you can use to style your CV when exporting to pdf/html.
+I personally think it's a great idea and I have been using it for the last couple of years.
+However, when exporting to pdf/html I found that my CV data was being used slightly differently by each theme,
+and I ended up managing multiple JSON files; one for each theme I wanted to use!
+I also struggled exporting to a nicely formatted compact CV, and to be honest,
+JSON is just a horrible format for humans to work with; you can't even comment out lines!
+I would much prefer to manage a YAML or TOML file. I know you can export YAML/TOML to JSON
+so you could probably quite easily work this into your CV workflow.
+
+However, now that I have a personal website, I do not really need a html version of my CV;
+I would much prefer a nicely formatted pdf.
+Ideally, I would like to, 
+1. have all of my CV data in a single file e.g. experience, education, achievements, etc,
+2. easily export the data to a nicely formatted CV (pdf),
+3. easily manage what content is exported,
+   - i.e. only export content relevant to a specific job.
+
+I thought about making a theme for JSON Resume but now that I use Org-mode for writing all of my LaTeX documents,
+writing my CV in Org-mode was all to appealing.
+There are loads of great LaTeX CV templates out there which I want to be able use, for example,
+[[https://www.overleaf.com/latex/templates/altacv-template/trgqjpwnmtgv][this AltaCV template]].
+I have managed a LaTeX CV in the past and it ended up very messy.
+Luckily, writing LaTeX documents in Org-mode is much easier and also provides all the extra features of Org-mode,
+e.g. code folding, TODOs, running source code, tagging sections and much, much more!
+In this post I want to show how any LaTeX CV template can easily be set up in org-mode and I will achieve this
+via an example, [[https://www.overleaf.com/latex/templates/altacv-template/trgqjpwnmtgv][this AltaCV template]].
+
+{{% toc %}}
+
+*** Structuring the Org Document
+Before we dive into the details of configuring and writing our Org-mode CV, I want to
+show how the org-mode document can be structured to make it easy to manage content.
+
+The =:noexport:= tag allows trees and/or sub-trees to not be exported into the pdf.
+I tag all of my configuration subtrees with =:noexport:= and all of the content
+that I do not want to export for a particular job. For example, I might not want to
+export a particular project or I might not want to export the publications section.
+
+The =:ignore:= tag allows the contents of a tree or sub-tree to be exported without
+exporting the heading. This is useful for giving the org-mode document good structure so
+that it is easy to work with the file.
+For example, I have a tree with the heading =Backmatter= and all that it contains is the
+end column and end document commands (=\end{paracol}= and =\end{document}=). I do not like it when
+the end document tag comes under the previous heading; what if I decide I do not want to export that section
+or I delete it!
+The =:ignore:= tag functionality is provided by the =ignore-headlines= function in the
+=ox-extra= package. In [[https://github.com/hlissner/doom-emacs][Doom Emacs]] I import the function and activate it with:
+#+begin_src lisp
+(after! org
+  (use-package! ox-extra
+    :config
+    (ox-extras-activate '(latex-header-blocks ignore-headlines))))
+#+end_src
+Lovely stuff! Using these tags I structure my org mode document with
+the following headings, subheadings and tags.
+
+- Config =:noexport:=
+  + LaTeX Config
+  + Exporter Settings
+  + Macros
+- CV Header =:ignore:=
+  - Photo & Tagline =:ignore:=
+  - Personal Info =:ignore:=
+- CV Column one =:ignore:=
+  + Experience
+    - PhD Researcher =:ignore:=
+    - Teaching Assistant =:ignore:=
+  + Projects
+    - Project 1 =:ignore:=
+    - Project 2 =:ignore:=
+    - Do not export this project =:noexport:=
+  + A day of my life =:noexport:=
+  + Publications =:noexport:=
+  + Volunteering
+    - FARSCOPE Course Rep =:ignore:=
+    - Code Club =:ignore:=
+    - Drivetrain =:ignore:=
+    - Snowboard Captain =:ignore:=
+- CV Column two =:ignore:=
+  + Skills
+  + Education
+  + My Life Philosophy =:noexport:=
+  + Achievements 
+  + Languages =:noexport:=
+  + Referees
+- Backmatter =:ignore:=
+
+I am using [[https://www.overleaf.com/latex/templates/altacv-template/trgqjpwnmtgv][this AltaCV LaTeX template]] which utilises columns to fit more content onto a single.
+I separate the columns into their own trees which makes working with columns easy!
+At the start of the =column one= tree I add the following LaTeX export block to configure two columns:
+#+begin_src lisp
+#+begin_export latex
+\begin{paracol}{2}
+#+end_export
+#+end_src
+At the start of the =column two= tree I switch to the right column by adding the following:
+#+begin_src lisp
+#+begin_export latex
+\switchcolumn
+#+end_export
+#+end_src
+And in the =Backmatter= tree I end the paracol and document environments.
+#+begin_src lisp
+#+begin_export latex
+\end{paracol}
+\end{document}
+#+end_export
+#+end_src
+Easy!
+
+*** Global Configuration for Org-Mode's LaTeX Exporter
+In order to export to pdf via LaTeX you need to configure org-mode's LaTeX exporter.
+Here is the part of my Doom Emacs config relevant to the org-mode LaTeX exporter.
+#+begin_src lisp
+(after! org
+  ;; Import ox-latex to get org-latex-classes and other funcitonality
+  ;; for exporting to LaTeX from org
+  (use-package! ox-latex
+    :init
+    ;; code here will run immediately
+    :config
+    ;; code here will run after the package is loaded
+    (setq org-latex-pdf-process
+          '("pdflatex -interaction nonstopmode -output-directory %o %f"
+            "bibtex %b"
+            "pdflatex -interaction nonstopmode -output-directory %o %f"
+            "pdflatex -interaction nonstopmode -output-directory %o %f"))
+    (setq org-latex-with-hyperref nil) ;; stop org adding hypersetup{author..} to latex export
+    ;; (setq org-latex-prefer-user-labels t)
+    
+    ;; deleted unwanted file extensions after latexMK
+    (setq org-latex-logfiles-extensions
+          (quote ("lof" "lot" "tex~" "aux" "idx" "log" "out" "toc" "nav" "snm" "vrb" "dvi" "fdb_latexmk" "blg" "brf" "fls" "entoc" "ps" "spl" "bbl" "xmpi" "run.xml" "bcf" "acn" "acr" "alg" "glg" "gls" "ist")))
+
+    (unless (boundp 'org-latex-classes)
+      (setq org-latex-classes nil)))
+#+end_src
+
+*** Local Configuration for Org-Mode CV File
+Exporting an org file to LaTeX requires a LaTeX class to be defined in you Emacs config.
+In particular, you need to append a template to =org-latex-classes=.
+I copied the LaTeX preamble (everything before =\begin{document}=) from
+[[https://www.overleaf.com/latex/templates/altacv-template/trgqjpwnmtgv][this AltaCV template]] and removed all of the package imports (=\usepackage{}=).
+I do no want this LaTeX class to always be globally available through my Emacs config
+as I will only be using it in this org file. So
+instead of adding it in my Emacs config, I add it inside a source block in my resume file (=resume.org=),
+under the =Config= heading;
+as source blocks allows us to run =emacs-lisp= code inside the org file.
+I use the following source block inside my =resume.org= file
+to append the LaTeX class to the =org-latex-classes= variable:
+#+BEGIN_SRC lisp
+;; #+BEGIN_SRC emacs-lisp :exports none  :results none :eval always
+(add-to-list 'org-latex-classes
+             '("altacv" "\\documentclass[10pt,a4paper,ragged2e,withhyper]{altacv}
+
+% Change the page layout if you need to
+\\geometry{left=1.25cm,right=1.25cm,top=1.5cm,bottom=1.5cm,columnsep=1.2cm}
+
+% Use roboto and lato for fonts
+\\renewcommand{\\familydefault}{\\sfdefault}
+
+% Change the colours if you want to
+\\definecolor{SlateGrey}{HTML}{2E2E2E}
+\\definecolor{LightGrey}{HTML}{666666}
+\\definecolor{DarkPastelRed}{HTML}{450808}
+\\definecolor{PastelRed}{HTML}{8F0D0D}
+\\definecolor{GoldenEarth}{HTML}{E7D192}
+\\colorlet{name}{black}
+\\colorlet{tagline}{PastelRed}
+\\colorlet{heading}{DarkPastelRed}
+\\colorlet{headingrule}{GoldenEarth}
+\\colorlet{subheading}{PastelRed}
+\\colorlet{accent}{PastelRed}
+\\colorlet{emphasis}{SlateGrey}
+\\colorlet{body}{LightGrey}
+
+% Change some fonts, if necessary
+\\renewcommand{\\namefont}{\\Huge\\rmfamily\\bfseries}
+\\renewcommand{\\personalinfofont}{\\footnotesize}
+\\renewcommand{\\cvsectionfont}{\\LARGE\\rmfamily\\bfseries}
+\\renewcommand{\\cvsubsectionfont}{\\large\\bfseries}
+
+% Change the bullets for itemize and rating marker
+% for \cvskill if you want to
+\\renewcommand{\\itemmarker}{{\\small\\textbullet}}
+\\renewcommand{\\ratingmarker}{\\faCircle}
+"
+
+               ("\\cvsection{%s}" . "\\cvsection*{%s}")))
+;; #+END_SRC
+#+END_SRC
+#+begin_quote
+I have had to comment the begin/end source blocks so remember to uncomment them!
+I run the source block with =Ctrl-c Ctrl-c= when I want to work on my CV.
+It only needs to be done once for each Emacs session.
+#+end_quote
+The =altacv= LaTeX class is now added to the list of templates.
+I've named the class =altacv= so the LaTeX class is used by adding the following line to the org file:
+#+begin_src lisp
+#+LATEX_HEADER: altacv
+#+end_src
+**** Export Org-Mode Headings as Macros
+The [[https://www.overleaf.com/latex/templates/altacv-template/trgqjpwnmtgv][AltaCV LaTeX template]] defines a macro for a cv section so I set org headings to be exported as
+a =cvsection= (in the previous source block) with the following,
+#+begin_src lisp
+ ("\\cvsection{%s}" . "\\cvsection*{%s}")))
+#+end_src
+Now any =org-mode= heading, e.g.
+#+begin_src lisp
+*Experience
+#+end_src
+will be exported to LaTeX as:
+#+begin_src lisp
+\cvsection{Experience}
+#+end_src
+**** LaTeX Packages
+Whilst I was on a roll with emacs-lisp source blocks I decided to
+import the LaTeX packages via the exporter. I did this by setting them in the latex exporter's
+=org-latex-default-packages-alist= variable with:
+#+BEGIN_SRC lisp
+;; #+BEGIN_SRC emacs-lisp :exports none  :results none :eval always
+(setq org-latex-packages-alist 'nil)
+(setq org-latex-default-packages-alist
+      '(("rm" "roboto"  t)
+        ("defaultsans" "lato" t)
+        ("" "paracol" t)
+        ))
+;; #+END_SRC
+#+END_SRC
+#+begin_quote
+Again, I had to comment the begin/end source blocks so remember to uncomment them!
+I run the source block with =Ctrl-c Ctrl-c= when I want to work on my CV.
+It only needs to be done once for each Emacs session.
+#+end_quote
+The packages we need will now be added by the latex exporter.
+
+**** Org Export Settings
+I configure my name and the export file name by adding the following lines to the =Config=
+tree:
+#+begin_src lisp
+#+AUTHOR: Aidan Scannell
+#+EXPORT_FILE_NAME: ./resume.pdf
+#+end_src
+I also ensure the exporter does not generate a table of contents (toc), doesn't export a title and sets
+the number of headline levels to export to 1:
+#+begin_src lisp
+#+OPTIONS: toc:nil title:nil H:1
+#+end_src
+
+**** LaTeX Preamble
+I add the bibliography file containing my publications with the following
+#+begin_src lisp
+#+LATEX_HEADER: \addbibresource{aidan.bib}
+#+end_src
+[[https://www.overleaf.com/latex/templates/altacv-template/trgqjpwnmtgv][The AltaCV LaTeX template]] splits the content into two columns using =\columnratio=
+so I also add the following latex header:
+#+begin_src lisp
+#+LATEX_HEADER: \columnratio{0.6} % Set the left/right column width ratio to 6:4.
+#+end_src
+I put all of this configuration in the =Config= tree in my Org file.
+
+**** Macros
+The [[https://www.overleaf.com/latex/templates/altacv-template/trgqjpwnmtgv][AltaCV LaTeX template]] defines four macros that I wanted to use.
+These are for formatting the =cvevent=, =cvachievement=, =cvtag= and =divider= (horizontal dashed line).
+I convert the LaTeX macros to [[https://orgmode.org/manual/Macro-Replacement.html][org-mode macros]] by adding the following lines:
+#+begin_src lisp
+#+MACRO: cvevent \cvevent{$1}{$2}{$3}{$4}
+#+MACRO: cvachievement \cvachievement{$1}{$2}{$3}{$4}
+#+MACRO: cvtag \cvtag{$1}
+#+MACRO: divider \par\divider
+#+end_src
+An org-mode macro can be used with three curly braces, the macro name and comma separated arguments, e.g:
+#+begin_src lisp
+{{{cvevent(PhD Researcher, University of Bristol,Sept 2018 -- Ongoing, Bristol\, UK)}}}
+#+end_src
+This macro has 4 arguments and the comma in the location =Bristol, UK= has been escaped using a backslash.
+
+***** cvevent
+I use the =cvevent= macro to format the title/organisation/date/location of
+each entry of my work experience, projects, volunteering and education.
+For example:
+#+begin_src lisp
+{{{cvevent(PhD Researcher, University of Bristol,Sept 2018 -- Ongoing, Bristol\, UK)}}}
+#+end_src
+
+***** cvtag
+I use the =cvtag= macro to add nicely formatted tags at the bottom of each experience/project etc.
+For example:
+#+begin_src lisp
+{{{cvtag(Probabilistic modelling)}}}
+{{{cvtag(Gaussian processes)}}}
+{{{cvtag(Variational inference)}}}
+#+end_src
+
+***** cvachievement
+I use the =cvachievement= macro to add each achievement, for example:
+#+begin_src lisp
+{{{cvachievement(\faTrophy, Full Sporting Colours, Awarded full colours for outstanding achievements in snowboarding.)}}}
+#+end_src
+
+***** divider
+I use the =divider= macro to insert a horizontal dashed line between separate entries, for example:
+#+begin_src lisp
+{{{cvachievement(\faTrophy, Full Sporting Colours, Awarded full colours for outstanding achievements in snowboarding.)}}}
+
+{{{divider}}}
+
+{{{cvachievement(\faCertificate, Starting To Teach, Acquired the knowledge and skills to establish myself as a confident\, enthusiastic and effective teacher who is able to engage\, encourage and develop students' learning.)}}}
+#+end_src
+
+
+Woop, that is all our configuring done!
+*** Content
+I use LaTeX export blocks to configure parts of the [[https://www.overleaf.com/latex/templates/altacv-template/trgqjpwnmtgv][AltaCV LaTeX template]] that I will only be using once,
+in particular, the CV header.
+**** Photo & Tagline 
+I set my name, tag line and photo with the following LaTeX export block.
+   #+begin_src lisp
+      #+begin_export latex
+      \name{Aidan Scannell}
+      \photoR{2.8cm}{aidan_portrait.jpeg}
+      \tagline{PhD Researcher}
+      #+end_export
+   #+end_src 
+  
+**** Personal Info
+I configure my personal info and links with the following LaTeX export block.
+   #+begin_src lisp
+      #+begin_export latex
+      \personalinfo{%
+          \homepage{www.aidanscannell.com}
+          \email{scannell.aidan@gmail.com}
+          \phone{+44 787 558 3912}
+          \location{Bristol, UK}
+          \github{aidanscannell}
+          \linkedin{aidan-scannell-82522789/}
+      }
+      \makecvheader
+      #+end_export
+   #+end_src 
+
+**** Publications
+In the publications section I use the following source block to format
+the publications in my bib file:
+#+begin_src lisp
+#+begin_export latex
+\nocite{*}
+\printbibliography[heading=pubtype,title={\printinfo{\faBook}{Books}},type=book]
+\divider
+\printbibliography[heading=pubtype,title={\printinfo{\faFile*[regular]}{Journal Articles}},type=article]
+\divider
+\printbibliography[heading=pubtype,title={\printinfo{\faUsers}{Conference Proceedings}},type=inproceedings]
+#+end_export
+#+end_src
+
+*** Conclusion
+I have tried to show how any LaTeX template can easily be set up in org-mode in order to reap the benefits of
+noexport/ignore tags, tree/sub-tree folding, running source code etc.
+I covered the majority of the configuration and showed how each part can be used to write content.
+Of particular importance are the LaTeX macros as they govern the majority of the pretty formatting.
+I showed how to convert LaTeX macros into org-mode macros and then how to use them.
+Check out my [[https://github.com/aidanscannell/my-org-resume][CV org file]] to see everything put together (and any topics I forgot to mention).
+
+I am really happy with how easy it was to take a LaTeX template and set it up in Org-mode.
+I already think that managing this Org-mode CV is going to be much easier than my previous
+JSON Resume/HackMyResume workflow.
+You can see my CV [[https://github.com/aidanscannell/my-org-resume][source files here]] and a pdf generated from the source files [[./resume.pdf][here]].
