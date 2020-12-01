@@ -2265,4 +2265,5 @@ Check out my [[https://github.com/aidanscannell/my-org-resume][CV org file]] to 
 I am really happy with how easy it was to take a LaTeX template and set it up in Org-mode.
 I already think that managing this Org-mode CV is going to be much easier than my previous
 JSON Resume/HackMyResume workflow.
-You can see my CV [[https://github.com/aidanscannell/my-org-resume][source files here]] and a pdf generated from the source files [[./resume.pdf][here]].
+You can see my CV [[https://github.com/aidanscannell/my-org-resume][source files here]] and a pdf generated from the source files
+[[./resume.pdf][here]].
