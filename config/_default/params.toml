@@ -54,7 +54,7 @@ description = "Aidan Scannell | Portfolio and Resume"
 # Enable source code highlighting? true/false
 # Documentation: https://sourcethemes.com/academic/docs/writing-markdown-latex/#highlighting-options
 highlight = true
-highlight_languages = ["lisp", "bash", "shell"]  # Add support for highlighting additional languages
+highlight_languages = ["lisp", "bash", "shell", "latex"]  # Add support for highlighting additional languages
 # highlight_style = "github"  # For supported styles, see https://cdnjs.com/libraries/highlight.js/
 # highlight_style = "solarized-dark"
 highlight_style = "monokai-sublime"
