@@ -7,7 +7,7 @@ authors: ["Aidan Scannell"]
 tags: ["gaussian-processes", "bayesian-inference", "machine-learning", "probabilistic-modelling", "variational-inference"]
 categories: []
 date: 2020-01-12T23:19:33Z
-draft: false
+draft: true
 
 markup: "blackfriday"
 
