@@ -5,6 +5,7 @@ title: "Separating Bimodal Noise Variances in Gaussian Process Transition Dynami
 authors: ["Aidan Scannell", "Carl Henrik Ek", "Arthur Richards"]
 date: 2020-01-13T00:06:23Z
 doi: ""
+draft: true
 
 # Schedule page publish date (NOT publication's date).
 publishDate: 2020-01-13T00:06:23Z
