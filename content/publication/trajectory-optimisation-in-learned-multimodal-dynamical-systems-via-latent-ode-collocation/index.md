@@ -19,10 +19,10 @@ publication_types: ["1"]
 publication: "IEEE International Conference on Robotics and Automation"
 publication_short: "ICRA"
 
-abstract: "This paper presents a two-stage method to perform trajectory optimisation in multimodal dynamical systems with unknown nonlinear stochastic transition dynamics. The method finds trajectories that remain in a preferred dynamics mode where possible and in regions of the transition dynamics model that have been observed and can be predicted confidently. The first stage leverages a Mixture of Gaussian Process Experts method to learn a predictive dynamics model from historical data. Importantly, this model learns a gating function that indicates the probability of being in a particular dynamics mode at a given state location. In the second stage, this gating function acts as a coordinate map for a latent Riemannian manifold on which geodesics are solutions to our trajectory optimisation problem. Geodesics on this manifold satisfy a continuous-time second-order ODE. A set of collocation constraints are derived that ensure trajectories are solutions to this ODE, implicitly solving the trajectory optimisation problem."
+abstract: "This paper presents a two-stage method to perform trajectory optimisation in multimodal dynamical systems with unknown nonlinear stochastic transition dynamics. The method finds trajectories that remain in a preferred dynamics mode where possible and in regions of the transition dynamics model that have been observed and can be predicted confidently. The first stage leverages a Mixture of Gaussian Process Experts method to learn a predictive dynamics model from historical data. Importantly, this model learns a gating function that indicates the probability of being in a particular dynamics mode at a given state location. This gating function acts as a coordinate map for a latent Riemannian manifold on which shortest trajectories are solutions to our trajectory optimisation problem. Based on this intuition, the second stage formulates a geometric cost function, which it then implicitly minimises by projecting the trajectory optimisation onto the second-order geodesic ODE; a classic result of Riemannian geometry. A set of collocation constraints are derived that ensure trajectories are solutions to this ODE, implicitly solving the trajectory optimisation problem."
 
 # Summary. An optional shortened abstract.
-summary: ""
+summary: "Synergising Bayesian inference and Riemannian geometry for control in multimodal dynamical systems."
 
 tags: ["control", "geometry", "machine-learning", "python", "JAX", "gaussian-processes", "probabilistic-modelling"]
 categories: []
@@ -36,14 +36,14 @@ featured: false
 #   icon_pack: fab
 #   icon: twitter
 
-url_pdf:
-url_code:
+url_pdf: "/publication/trajectory-optimisation-in-learned-multimodal-dynamical-systems-via-latent-ode-collocation/paper.pdf"
+url_code: "https://github.com/aidanscannell/trajectory-optimisation-in-learned-multimodal-dynamical-systems"
 url_dataset:
 url_poster:
 url_project:
 url_slides:
 url_source:
-url_video:
+url_video: "/publication/trajectory-optimisation-in-learned-multimodal-dynamical-systems-via-latent-ode-collocation/icra-2021-traj-opt.mp4"
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder. 
