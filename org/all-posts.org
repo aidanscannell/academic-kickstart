@@ -2268,7 +2268,7 @@ JSON Resume/HackMyResume workflow.
 You can see my CV [[https://github.com/aidanscannell/my-org-resume][source files here]] and a pdf generated from the source files
 [[./resume.pdf][here]].
 
-** TODO One Keyboard to Rule Them All - I Built a Dactyl Manuform :keyboards:ergonomics:
+** DONE One Keyboard to Rule Them All - I Built a Dactyl Manuform :keyboards:ergonomics:
 :PROPERTIES:
 :EXPORT_FILE_NAME: index.md
 :EXPORT_HUGO_BUNDLE: one-keyboard-to-rule-them-all
