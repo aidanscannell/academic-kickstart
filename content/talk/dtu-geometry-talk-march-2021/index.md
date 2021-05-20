@@ -1,7 +1,7 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Geometry Talk - Synergising Bayesian Inference and Probabilistic Geometries for Robotic Control"
+title: "Synergising Bayesian Inference and Probabilistic Geometries for Robotic Control"
 event: "Invited Talk (Geometry)"
 event_url:
 location: "Cognitive Systems - Technical University of Denmark (DTU)"
@@ -12,7 +12,7 @@ address:
   postcode:
   country: 
 summary:
-abstract: "This talk presented recent work synergising Bayesian inference and probabilistic Riemannian geometries to control multimodal dynamical systems (quadcopters). The work combines theory from probabilistic Riemannian geometry, that addressed issues of calculating lengths on stochastic manifolds, with trajectory optimisation techniques in learned multimodal dynamics models. The resulting trajectory optimisation technique finds trajectories that remain in a desired dynamics mode whilst avoiding regions of the learned dynamics with high epistemic uncertainty (see my recent [[https://www.aidanscannell.com/publication/trajectory-optimisation-in-learned-multimodal-dynamical-systems-via-latent-ode-collocation/paper.pdf][ICRA publication]])."
+abstract: "This talk presented recent work synergising Bayesian inference and probabilistic Riemannian geometries to control multimodal dynamical systems (quadcopters). The work combines theory from probabilistic Riemannian geometry, that addressed issues of calculating lengths on stochastic manifolds, with trajectory optimisation techniques in learned multimodal dynamics models. The resulting trajectory optimisation technique finds trajectories that remain in a desired dynamics mode whilst avoiding regions of the learned dynamics with high epistemic uncertainty (see my recent [ICRA publication](https://www.aidanscannell.com/publication/trajectory-optimisation-in-learned-multimodal-dynamical-systems-via-latent-ode-collocation/paper.pdf))."
 
 
 # Talk start and end times.
