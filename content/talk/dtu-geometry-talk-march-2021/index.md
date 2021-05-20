@@ -1,10 +1,10 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Geometry Talk - Trajectory Optimisation in Learned Multimodal Dynamical Systems via Latent-ODE Collocation"
-event: Invited Talk (Geometry)
+title: "Geometry Talk - Synergising Bayesian Inference and Probabilistic Geometries for Robotic Control"
+event: "Invited Talk (Geometry)"
 event_url:
-location: "Technical University of Denmark - DTU"
+location: "Cognitive Systems - Technical University of Denmark (DTU)"
 address:
   street:
   city: 
@@ -12,7 +12,8 @@ address:
   postcode:
   country: 
 summary:
-abstract: "This talk presented recent work synergising Bayesian inference and Riemannian geometry to control multimodal dynamical systems subject to undesireable (unsafe/unoperatable etc) dynamics modes."
+abstract: "This talk presented recent work synergising Bayesian inference and probabilistic Riemannian geometries to control multimodal dynamical systems (quadcopters). The work combines theory from probabilistic Riemannian geometry, that addressed issues of calculating lengths on stochastic manifolds, with trajectory optimisation techniques in learned multimodal dynamics models. The resulting trajectory optimisation technique finds trajectories that remain in a desired dynamics mode whilst avoiding regions of the learned dynamics with high epistemic uncertainty (see my recent [[https://www.aidanscannell.com/publication/trajectory-optimisation-in-learned-multimodal-dynamical-systems-via-latent-ode-collocation/paper.pdf][ICRA publication]])."
+
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.
