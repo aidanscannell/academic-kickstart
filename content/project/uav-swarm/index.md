@@ -27,7 +27,7 @@ image:
 #   icon_pack: fab
 #   icon: twitter
 
-url_pdf: "UAV-Swarm-Simulation.pdf"
+url_pdf: "project/uav-swarm/UAV-Swarm-Simulation.pdf"
 url_code: "https://github.com/aidanscannell/uav-swarm"
 url_video: "UAV_Software_Simulation2.mp4"
 url_slides: ""

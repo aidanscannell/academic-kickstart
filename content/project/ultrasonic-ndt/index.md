@@ -27,7 +27,7 @@ image:
 #   icon_pack: fab
 #   icon: twitter
 
-url_pdf: "Ultrasonic-NDT.pdf"
+url_pdf: "project/ultrasonic-ndt/Ultrasnic-NDT.pdf"
 url_code: "https://github.com/aidanscannell/ultrasonic-non-destructive-testing-array-design"
 url_video: "NDT.mp4"
 url_slides: ""
