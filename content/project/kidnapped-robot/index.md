@@ -27,7 +27,7 @@ image:
 #   icon_pack: fab
 #   icon: twitter
 
-url_pdf: "Kidnapped-Robot.pdf"
+url_pdf: "project/kidnapped-robot/Kidnapped-Robot.pdf"
 url_code: "https://github.com/aidanscannell/kidnapped-robot"
 url_slides: ""
 url_video: "kidnapped_robot2.mp4"

@@ -27,7 +27,7 @@ image:
 #   icon_pack: fab
 #   icon: twitter
 
-url_pdf: "masters_dissertation_BDI-updated.pdf"
+url_pdf: "project/uncertain-agentspeak/masters_dissertation_BDI-updated.pdf"
 url_code: "https://github.com/aidanscannell/uncertain-agentspeak"
 url_slides: ""
 url_video: ""
