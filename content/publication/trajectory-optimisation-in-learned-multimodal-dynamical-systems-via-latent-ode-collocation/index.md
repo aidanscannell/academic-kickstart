@@ -43,7 +43,7 @@ url_poster:
 url_project:
 url_slides:
 url_source:
-url_video: "/publication/trajectory-optimisation-in-learned-multimodal-dynamical-systems-via-latent-ode-collocation/icra-2021-traj-opt.mp4"
+url_video: "https://www.youtube.com/watch?v=VqjkbfIsghM&ab_channel=AidanScannell"
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder. 
