@@ -51,7 +51,7 @@ url_slides:
 
 url_code: "https://github.com/aidanscannell/trajectory-optimisation-in-learned-multimodal-dynamical-systems.git"
 url_pdf:
-url_video: "/talk/trajectory-optimisation-in-learned-multimodal-dynamical-systems-icra-2021/video-presentation.mp4"
+url_video: "https://www.youtube.com/watch?v=VqjkbfIsghM&ab_channel=AidanScannell"
 
 # Markdown Slides (optional).
 #   Associate this talk with Markdown slides.
