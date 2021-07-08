@@ -22,15 +22,15 @@ organizations:
   url: "https://www.uwe.ac.uk/"
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include probabilistic modelling, gaussian processes, variational inference, reinforcement learning and optimal control.
+bio: My research interests include probabilistic modelling, gaussian processes, variational inference, learning-based control and optimal control.
 
 interests:
   - Probabilistic modelling
   - Gaussian processes
   - Variational inference
-  - Model-based reinforcement learning
+  - Learning-based control
   - Optimal control
-  - Robotics
+  - Robotics and autonomous systems
 
 education:
   courses:
@@ -67,7 +67,7 @@ social:
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
 - icon: cv
   icon_pack: ai
-  link: /resume.pdf
+  link: /curriculum-vitae.pdf
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
 email: "scannell.aidan@gmail.com"
@@ -84,10 +84,16 @@ email: "scannell.aidan@gmail.com"
 <!-- I grew up in North Yorkshire and graduated from the University of Bristol in 2016 with an MEng in Mechanical Engineering. -->
 
 Hello, my name is Aidan Scannell and I am an aspiring researcher
-with interests at the intersection of robotics and machine learning.
+with interests at the intersection of probabilistic machine learning and control theory.
 I grew up in North Yorkshire and graduated from the University of Bristol in 2016.
 I am now a PhD researcher under the supervision of Professor Arthur Richards and Dr Carl Henrik Ek focusing on data-efficient learning for the control of robotic systems (quadcopters).
-I am particularly interested in uncertainty quantification in model-based reinforcement learning and as a result a lot of my work focuses on Bayesian non-parametric methods, specifically Gaussian processes and variational inference.
+I am particularly interested in uncertainty quantification for learning-based control and as a result a lot of my work focuses on Bayesian non-parametric methods, specifically Gaussian processes and variational inference.
+
+<!-- Hello, my name is Aidan Scannell and I am an aspiring researcher -->
+<!-- with interests at the intersection of robotics and machine learning. -->
+<!-- I grew up in North Yorkshire and graduated from the University of Bristol in 2016. -->
+<!-- I am now a PhD researcher under the supervision of Professor Arthur Richards and Dr Carl Henrik Ek focusing on data-efficient learning for the control of robotic systems (quadcopters). -->
+<!-- I am particularly interested in uncertainty quantification in model-based reinforcement learning and as a result a lot of my work focuses on Bayesian non-parametric methods, specifically Gaussian processes and variational inference. -->
 
 I am a real programmer that [uses the butterfly effect](https://xkcd.com/378/) to program.
 <!-- Joking aside, my favourite time is that dedicated to tinkering with my [dotfiles](https://github.com/aidanscannell/.dotfiles) -->
