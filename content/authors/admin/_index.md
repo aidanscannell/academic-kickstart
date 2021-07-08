@@ -22,15 +22,15 @@ organizations:
   url: "https://www.uwe.ac.uk/"
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include probabilistic modelling, gaussian processes, variational inference, reinforcement learning and optimal control.
+bio: My research interests include probabilistic modelling, gaussian processes, variational inference, learning-based control and optimal control.
 
 interests:
   - Probabilistic modelling
   - Gaussian processes
   - Variational inference
-  - Model-based reinforcement learning
+  - Learning-based control
   - Optimal control
-  - Robotics
+  - Robotics and autonomous systems
 
 education:
   courses:
